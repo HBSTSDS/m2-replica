@@ -1,0 +1,192 @@
+:root{
+  --m2-pink:#E5258C; 
+  --m2-ink:#1C1C1C; 
+  --m2-yellow:#FFD400;
+}
+
+/* ========== BASE ========== */
+html,body{background:#fff}
+.section{position:relative;width:100%;background:#fff}
+.container{max-width:1320px;margin:0 auto;padding:clamp(48px,5vw,72px) clamp(16px,3vw,24px)}
+.h1,.h2,.h3{color:var(--m2-ink);margin:0}
+.h1{font-size:clamp(42px,6.8vw,88px);line-height:1.04;font-weight:900}
+.h2{font-size:clamp(24px,4.2vw,40px);line-height:1.12;font-weight:900}
+.h3{font-size:clamp(18px,2.4vw,24px);line-height:1.18;font-weight:800}
+.p{font-size:clamp(14px,1.6vw,16px);line-height:1.55;color:#3a3a38}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:10px;border:0;cursor:pointer;text-decoration:none;
+  padding:16px 28px;border-radius:18px;font-weight:800;
+  text-transform:uppercase;background:var(--m2-pink);color:#fff;
+  box-shadow:0 14px 32px rgba(229,37,140,.28);
+  transition:transform .15s, box-shadow .15s
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(229,37,140,.36)}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.2px;padding:6px 10px;border-radius:999px;background:#F6F7FA;color:#5b5b58}
+
+/* ========== HERO ========== */
+.revendedor-hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;background:#fff;
+}
+.hero-bg{position:absolute;inset:0;}
+.hero-bg::after{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  z-index:1;
+  background:var(--hero-bg-url) no-repeat center / cover;
+  opacity:var(--hero-bg-opacity,1);
+}
+.revendedor-header{
+  position:absolute;left:0;right:0;top:clamp(22px,3vw,40px);
+  z-index:5;display:flex;justify-content:space-between;align-items:center;
+  max-width:1320px;margin:0 auto;padding:0 clamp(16px,3vw,24px);
+}
+.revendedor-logo{height:clamp(30px,5vw,50px);width:auto}
+.revendedor-social{height:clamp(28px,2.2vw,34px);width:auto}
+.revendedor-container{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:clamp(20px,6vw,80px);align-items:center;
+  padding:clamp(120px,12vw,160px) clamp(16px,3vw,24px) clamp(48px,4vw,72px);
+  max-width:1320px;margin:0 auto;
+}
+.hero-title-strong{display:block;font-weight:900;font-size:clamp(48px,7.4vw,88px);line-height:1.04}
+.hero-title-rest{display:block;font-weight:600;font-size:clamp(30px,5vw,48px);line-height:1.08}
+.revendedor-phone{width:clamp(220px,26vw,340px);height:clamp(300px,35vw,460px);border-radius:28px;background:#0b0b0b;box-shadow:0 20px 50px rgba(0,0,0,.28);position:relative}
+.play{position:absolute;inset:0;margin:auto;width:94px;height:94px;border-radius:50%;background:#fff;border:0}
+.play::after{content:"";position:absolute;left:39px;top:31px;border-left:28px solid #000;border-top:17px solid transparent;border-bottom:17px solid transparent}
+@media(max-width:1024px){.revendedor-container{grid-template-columns:1fr;text-align:center}}
+
+/* ========== DESTAQUES ========== */
+.destaques .destaques-grid{display:grid;gap:16px;grid-template-columns:2fr 1fr}
+.dstk-card{position:relative;border-radius:18px;min-height:160px;background:#fff;border:1px solid #ECEFF5;overflow:hidden}
+.dstk-card::before{content:"";position:absolute;inset:0;background:var(--bg-url) center/cover no-repeat;opacity:.9}
+.dstk-card--lg{grid-row:span 2;min-height:340px}
+.dstk-content{position:relative;z-index:1;padding:16px}
+@media(max-width:900px){.destaques .destaques-grid{grid-template-columns:1fr}.dstk-card--lg{min-height:220px}}
+
+/* ========== FAIXA ROSA ========== */
+/* ===== FAIXA ROSA: mostrar o SVG INTEIRO e encostar nas laterais ===== */
+.faixa-rosa{
+  position: relative;
+  background: #fff;
+
+  /* use os números reais do seu SVG */
+  --rosa-w: 1400;            /* largura do SVG */
+  --rosa-h: 1745;            /* altura do SVG   */
+  --rosa-aspect: calc(var(--rosa-h) / var(--rosa-w));
+
+  /* altura mínima para caber a imagem inteira quando a largura = viewport */
+  min-height: calc(100vw * var(--rosa-aspect));
+
+  /* respiro entre sessões (ajuste à vontade) */
+  --faixa-margin-top: 24px;
+  --faixa-margin-bottom: 56px;
+  margin-top: var(--faixa-margin-top);
+  margin-bottom: var(--faixa-margin-bottom);
+}
+
+/* SVG como fundo — inteiro, encostando nos lados */
+.faixa-rosa::before{
+  content:"";
+  position:absolute; inset:0; z-index:0;
+  background-image: var(--faixa-bg-url);
+  background-repeat: no-repeat;
+
+  /* encosta nas paredes: largura = 100% do viewport */
+  background-size: 100% auto;         /* usa toda a largura, sem cortar */
+  background-position: right top;     /* ancora no topo-direita */
+
+  opacity: var(--faixa-bg-opacity,1);
+  pointer-events:none;
+}
+
+/* conteúdo por cima do SVG (mantém seu grid) */
+.faixa-rosa__wrap{
+  position: relative; z-index: 2;
+  max-width: 1320px; margin: 0 auto;
+  padding: clamp(24px,4vw,40px) clamp(16px,3vw,24px) clamp(80px,8vw,120px);
+  display: grid;
+  grid-template-columns: minmax(520px, 1fr) minmax(520px, 1fr);
+  column-gap: clamp(16px, 4vw, 48px);
+  align-items: start;
+}
+
+/* Heading no topo direito, visível dentro do rosa */
+.faixa-rosa__heading{
+  grid-column: 2; align-self: start; justify-self: end;
+  max-width: 580px; text-align: right; color: #fff;
+  transform: translateY(-12%);               /* mergulha um pouco no rosa */
+  margin-right: clamp(8px, 5vw, 80px);
+}
+.faixa-rosa__tag{
+  display:inline-block; font-weight:800; font-size:12px;
+  padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.18);
+  margin-bottom:8px;
+}
+.faixa-rosa__title{ font-weight:900; font-size:clamp(28px,4.6vw,44px); line-height:1.08; margin:0 0 8px }
+.faixa-rosa__desc{ font-size:clamp(14px,1.6vw,16px); line-height:1.45; margin:0 }
+
+/* Grade 2×3 (igual você já tem) */
+.prod-grid{
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 2vw, 18px);
+  margin-top: clamp(24px, 6vw, 64px);
+}
+.col{ display:flex; flex-direction:column; gap: clamp(12px,1.8vw,16px); }
+.col--left{ align-items: flex-start; }
+.col--right{ align-items: flex-end; }
+
+.prod-card{
+  display:grid; grid-template-columns:120px 1fr; gap:12px;
+  width:min(560px,100%); background:#fff; border:1px solid #ECEFF5;
+  border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(14,19,43,.06);
+}
+.prod-media{ background:#EDEFF5; min-height:120px }
+.prod-body{ display:flex; flex-direction:column; gap:6px; padding:14px 16px }
+.prod-title{ font-size:16px; font-weight:900; color:#1b1b1b; margin:0 }
+.prod-desc{ font-size:13px; color:#61615f; margin:0 }
+.prod-btn{ margin-top:auto; align-self:flex-start; border:0; padding:10px 14px; border-radius:999px; background:#FF2E7D; color:#fff; font-weight:800; cursor:pointer }
+.card--right .prod-body{ text-align:right; align-items:flex-end }
+.card--right .prod-btn{ align-self:flex-end }
+
+/* Responsivo: se a tela for estreita, não deixe a min-height “prender” demais */
+@media (max-width: 1120px){
+  .faixa-rosa{ min-height: auto }          /* deixa o conteúdo ditar a altura */
+  .faixa-rosa__wrap{ grid-template-columns:1fr; justify-items:center }
+  .faixa-rosa__heading{ grid-column:1; text-align:center; transform:none; margin-right:0 }
+  .prod-grid{ grid-template-columns:1fr }
+  .col{ align-items:center }
+  .card--right .prod-body{ text-align:left; align-items:flex-start }
+  .card--right .prod-btn{ align-self:flex-start }
+}
+
+
+
+/* ========== SELO VERDE ========== */
+.selo-verde{background:#F0F9F1}
+.selo-box{
+  display:grid;align-items:center;gap:16px;
+  grid-template-columns:70px 1fr 70px;
+  border:1px dashed #BFE3C2;background:#fff;
+  border-radius:16px;padding:18px;
+}
+.selo-icon,.qr{width:70px;height:70px;border-radius:12px;background:#CDEFD1}
+@media(max-width:700px){.selo-box{grid-template-columns:1fr}}
+
+/* ========== WHATS CTA ========== */
+.whats-grid{display:grid;gap:24px;grid-template-columns:1fr .7fr;align-items:center}
+.pessoa{width:100%;height:240px;border-radius:18px;background:#FFE3A8}
+@media(max-width:900px){.whats-grid{grid-template-columns:1fr}}
+
+/* ========== FOOTER BANNER ========== */
+.footer-banner{padding:0}
+.footer-video{height:320px;background:#1B1B1B}
+.footer-overlay{position:relative}
+.footer-content{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:16px;color:#fff}
+.logo{width:90px;height:26px;background:#fff;border-radius:6px}
+.social{width:120px;height:24px;background:#fff;border-radius:6px}
