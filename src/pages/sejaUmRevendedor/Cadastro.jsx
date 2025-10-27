@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Cadastro(){
   return (
-    <section className="section cadastro">
+    <section className="section cadastro" style={{ backgroundColor: "white" }}>
       <div className="container cadastro-grid">
         <div>
           <span className="tag">SEJA REVENDEDOR</span>

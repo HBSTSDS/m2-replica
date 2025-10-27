@@ -24,7 +24,7 @@ export default function Hero(){
 
       <div className="revendedor-container">
         <div>
-          <h1 className="h1" style={{marginBottom:16}}>
+          <h1 className="h1" style={{marginBottom:16, color: "black"}}>
             <span className="hero-title-strong">A MAIOR</span>
             <span className="hero-title-rest">REVENDA UV <br/> DA AMÉRICA <br/> LATINA.</span>
           </h1>

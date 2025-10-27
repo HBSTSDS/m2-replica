@@ -1,136 +1,169 @@
+/* ===================== BASE / TOKENS ===================== */
+
+/* zoom visual “150%” (equivalente ao navegador em 150%) */
+html { zoom: 1.5; }
+
 :root{
-  --m2-pink:#E5258C; 
-  --m2-ink:#1C1C1C; 
+  /* tipografia base */
+  font-size: 16px;
+
+  /* cores */
+  --m2-pink:#E5258C;
+  --m2-ink:#1C1C1C;
   --m2-yellow:#FFD400;
+
+  /* proporções do HERO (figma) */
+  --design-w: 1440;
+  --design-h: 900;
+
+  /* ajustes finos entre seções */
+  --cadastro-lift: -120px;             /* quanto o card sobe sobre a faixa */
+  --faixa-rosa-bottom-h: 260;          /* altura (px) da continuação rosa */
 }
 
-/* ========== BASE ========== */
-html,body{background:#fff}
-.section{position:relative;width:100%;background:#fff}
-.container{max-width:1320px;margin:0 auto;padding:clamp(48px,5vw,72px) clamp(16px,3vw,24px)}
-.h1,.h2,.h3{color:var(--m2-ink);margin:0}
-.h1{font-size:clamp(42px,6.8vw,88px);line-height:1.04;font-weight:900}
-.h2{font-size:clamp(24px,4.2vw,40px);line-height:1.12;font-weight:900}
-.h3{font-size:clamp(18px,2.4vw,24px);line-height:1.18;font-weight:800}
-.p{font-size:clamp(14px,1.6vw,16px);line-height:1.55;color:#3a3a38}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  gap:10px;border:0;cursor:pointer;text-decoration:none;
-  padding:16px 28px;border-radius:18px;font-weight:800;
-  text-transform:uppercase;background:var(--m2-pink);color:#fff;
-  box-shadow:0 14px 32px rgba(229,37,140,.28);
-  transition:transform .15s, box-shadow .15s
-}
-.btn:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(229,37,140,.36)}
-.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.2px;padding:6px 10px;border-radius:999px;background:#F6F7FA;color:#5b5b58}
-
-/* ========== HERO ========== */
-.revendedor-hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  overflow:hidden;background:#fff;
-}
-.hero-bg{position:absolute;inset:0;}
-.hero-bg::after{
-  content:"";
-  position:absolute;inset:0;
-  pointer-events:none;
-  z-index:1;
-  background:var(--hero-bg-url) no-repeat center / cover;
-  opacity:var(--hero-bg-opacity,1);
-}
-.revendedor-header{
-  position:absolute;left:0;right:0;top:clamp(22px,3vw,40px);
-  z-index:5;display:flex;justify-content:space-between;align-items:center;
-  max-width:1320px;margin:0 auto;padding:0 clamp(16px,3vw,24px);
-}
-.revendedor-logo{height:clamp(30px,5vw,50px);width:auto}
-.revendedor-social{height:clamp(28px,2.2vw,34px);width:auto}
-.revendedor-container{
-  position:relative;z-index:2;
-  display:grid;grid-template-columns:1.05fr .95fr;
-  gap:clamp(20px,6vw,80px);align-items:center;
-  padding:clamp(120px,12vw,160px) clamp(16px,3vw,24px) clamp(48px,4vw,72px);
-  max-width:1320px;margin:0 auto;
-}
-.hero-title-strong{display:block;font-weight:900;font-size:clamp(48px,7.4vw,88px);line-height:1.04}
-.hero-title-rest{display:block;font-weight:600;font-size:clamp(30px,5vw,48px);line-height:1.08}
-.revendedor-phone{width:clamp(220px,26vw,340px);height:clamp(300px,35vw,460px);border-radius:28px;background:#0b0b0b;box-shadow:0 20px 50px rgba(0,0,0,.28);position:relative}
-.play{position:absolute;inset:0;margin:auto;width:94px;height:94px;border-radius:50%;background:#fff;border:0}
-.play::after{content:"";position:absolute;left:39px;top:31px;border-left:28px solid #000;border-top:17px solid transparent;border-bottom:17px solid transparent}
-@media(max-width:1024px){.revendedor-container{grid-template-columns:1fr;text-align:center}}
-
-/* ========== DESTAQUES ========== */
-.destaques .destaques-grid{display:grid;gap:16px;grid-template-columns:2fr 1fr}
-.dstk-card{position:relative;border-radius:18px;min-height:160px;background:#fff;border:1px solid #ECEFF5;overflow:hidden}
-.dstk-card::before{content:"";position:absolute;inset:0;background:var(--bg-url) center/cover no-repeat;opacity:.9}
-.dstk-card--lg{grid-row:span 2;min-height:340px}
-.dstk-content{position:relative;z-index:1;padding:16px}
-@media(max-width:900px){.destaques .destaques-grid{grid-template-columns:1fr}.dstk-card--lg{min-height:220px}}
-
-/* ========== FAIXA ROSA ========== */
-/* ===== FAIXA ROSA: mostrar o SVG INTEIRO e encostar nas laterais ===== */
-.faixa-rosa{
+/* fundo branco universal */
+html, body{ background:#fff; }
+.section{
   position: relative;
-  background: #fff;
-
-  /* use os números reais do seu SVG */
-  --rosa-w: 1400;            /* largura do SVG */
-  --rosa-h: 1745;            /* altura do SVG   */
-  --rosa-aspect: calc(var(--rosa-h) / var(--rosa-w));
-
-  /* altura mínima para caber a imagem inteira quando a largura = viewport */
-  min-height: calc(100vw * var(--rosa-aspect));
-
-  /* respiro entre sessões (ajuste à vontade) */
-  --faixa-margin-top: 24px;
-  --faixa-margin-bottom: 56px;
-  margin-top: var(--faixa-margin-top);
-  margin-bottom: var(--faixa-margin-bottom);
+  width: 100%;
+  background: #fff !important;
+}
+.container{
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(48px,5vw,72px) clamp(16px,3vw,24px);
+}
+.h1,.h2,.h3{ color: var(--m2-ink); margin: 0; }
+.h1{ font-size: clamp(42px,6.8vw,88px); line-height:1.04; font-weight:900; }
+.h2{ font-size: clamp(24px,4.2vw,40px); line-height:1.12; font-weight:900; }
+.h3{ font-size: clamp(18px,2.4vw,24px); line-height:1.18; font-weight:800; }
+.p { font-size: clamp(14px,1.6vw,16px); line-height: 1.55; color:#3a3a38; }
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  border:0; cursor:pointer; text-decoration:none;
+  padding:16px 28px; border-radius:18px; font-weight:800; text-transform:uppercase;
+  background:var(--m2-pink); color:#fff;
+  box-shadow:0 14px 32px rgba(229,37,140,.28);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn:hover{ transform: translateY(-2px); box-shadow:0 18px 42px rgba(229,37,140,.36); }
+.tag{
+  display:inline-block; font-size:12px; font-weight:800; letter-spacing:.2px;
+  padding:6px 10px; border-radius:999px; background:#F6F7FA; color:#5b5b58;
 }
 
-/* SVG como fundo — inteiro, encostando nos lados */
+
+/* ===================== HERO (revendedor) ===================== */
+
+.revendedor-hero{
+  position: relative; width: 100%;
+  aspect-ratio: var(--design-w) / var(--design-h);
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: hidden; background: #fff;
+}
+
+/* background do hero via pseudo (opcionalmente setar --hero-bg-url no :root) */
+.hero-bg{ position:absolute; inset:0; }
+.hero-bg::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: var(--hero-bg-url) no-repeat top center;
+  background-size: 100% 100%;
+  opacity: var(--hero-bg-opacity, 1);
+}
+
+/* logos nos cantos, em coordenadas proporcionais */
+.revendedor-header{
+  position:absolute; inset:0; z-index:5;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding: calc(58 / var(--design-h) * 100%) calc(80 / var(--design-w) * 100%);
+}
+.revendedor-logo{ height: calc(50 / var(--design-h) * 100%); width:auto; }
+.revendedor-social{ height: calc(100 / var(--design-h) * 100%); width:auto; }
+
+/* grid interno do hero */
+.revendedor-container{
+  position:relative; z-index:2;
+  display:grid; grid-template-columns: 1.05fr .95fr; gap:clamp(20px,6vw,80px); align-items:center;
+  padding:
+    calc(180 / var(--design-h) * 100%)  /* top   */
+    calc(40  / var(--design-w) * 100%)  /* right */
+    calc(48  / var(--design-h) * 100%)  /* bottom*/
+    calc(40  / var(--design-w) * 100%); /* left  */
+  max-width:1320px; margin:0 auto;
+}
+.hero-title-strong{ display:block; font-weight:900; font-size:clamp(48px,7.4vw,88px); line-height:1.04; }
+.hero-title-rest  { display:block; font-weight:600; font-size:clamp(30px,5vw,48px); line-height:1.08; }
+.revendedor-phone{
+  width:clamp(220px,26vw,340px); height:clamp(300px,35vw,460px);
+  border-radius:28px; background:#0b0b0b; box-shadow:0 20px 50px rgba(0,0,0,.28); position:relative;
+}
+.play{ position:absolute; inset:0; margin:auto; width:94px; height:94px; border-radius:50%; background:#fff; border:0; }
+.play::after{ content:""; position:absolute; left:39px; top:31px;
+  border-left:28px solid #000; border-top:17px solid transparent; border-bottom:17px solid transparent; }
+
+@media (max-width:1024px){
+  .revendedor-container{ grid-template-columns:1fr; text-align:center; }
+}
+
+
+/* ===================== DESTAQUES (banner único bento.png) ===================== */
+
+.destaques{
+  --dstk-radius: 28px;
+  --dstk-ratio: 16 / 6.8;               /* ajuste principal de altura */
+}
+.destaques .destaques-banner{
+  position: relative; z-index: 3;
+  width: min(1180px, 88%);
+  margin: 0 auto;
+  aspect-ratio: var(--dstk-ratio);
+  border-radius: var(--dstk-radius);
+  overflow: hidden;
+  box-shadow: 0 16px 34px rgba(14,19,43,.10);
+  background: var(--dstk-img) center / cover no-repeat;
+}
+@media (max-width:1200px){ .destaques{ --dstk-ratio: 16 / 7.6; } }
+@media (max-width:900px) { .destaques{ --dstk-ratio: 16 / 9; } }
+@media (max-width:600px) { .destaques{ --dstk-ratio: 16 / 10.5; } }
+
+
+/* ===================== FAIXA ROSA (cards 2x3) ===================== */
+
+/* use a altura visível do seu SVG rosa para compor a proporção */
+.faixa-rosa{
+  position: relative; z-index: 1; background:#fff;
+  --rosa-w: 1400; --rosa-h: 650;
+  --rosa-aspect: calc(var(--rosa-h) / var(--rosa-w));
+  min-height: calc(100vw * var(--rosa-aspect));
+}
 .faixa-rosa::before{
-  content:"";
-  position:absolute; inset:0; z-index:0;
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
   background-image: var(--faixa-bg-url);
   background-repeat: no-repeat;
-
-  /* encosta nas paredes: largura = 100% do viewport */
-  background-size: 100% auto;         /* usa toda a largura, sem cortar */
-  background-position: right top;     /* ancora no topo-direita */
-
-  opacity: var(--faixa-bg-opacity,1);
-  pointer-events:none;
+  background-size: 100% auto;
+  background-position: right top;
+  opacity: var(--faixa-bg-opacity, 1);
 }
 
-/* conteúdo por cima do SVG (mantém seu grid) */
+/* conteúdo por cima do rosa */
 .faixa-rosa__wrap{
   position: relative; z-index: 2;
   max-width: 1320px; margin: 0 auto;
   padding: clamp(24px,4vw,40px) clamp(16px,3vw,24px) clamp(80px,8vw,120px);
-  display: grid;
-  grid-template-columns: minmax(520px, 1fr) minmax(520px, 1fr);
+  display: grid; grid-template-columns: minmax(520px,1fr) minmax(520px,1fr);
   column-gap: clamp(16px, 4vw, 48px);
   align-items: start;
 }
-
-/* Heading no topo direito, visível dentro do rosa */
 .faixa-rosa__heading{
-  grid-column: 2; align-self: start; justify-self: end;
-  max-width: 580px; text-align: right; color: #fff;
-  transform: translateY(-12%);               /* mergulha um pouco no rosa */
+  grid-column:2; align-self:start; justify-self:end; max-width:580px;
+  text-align:right; color:#fff; transform: translateY(-12%);
   margin-right: clamp(8px, 5vw, 80px);
 }
-.faixa-rosa__tag{
-  display:inline-block; font-weight:800; font-size:12px;
-  padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.18);
-  margin-bottom:8px;
-}
-.faixa-rosa__title{ font-weight:900; font-size:clamp(28px,4.6vw,44px); line-height:1.08; margin:0 0 8px }
-.faixa-rosa__desc{ font-size:clamp(14px,1.6vw,16px); line-height:1.45; margin:0 }
+.faixa-rosa__tag{ display:inline-block; font-weight:800; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.18); margin-bottom:8px; }
+.faixa-rosa__title{ font-weight:900; font-size:clamp(28px,4.6vw,44px); line-height:1.08; margin:0 0 8px; }
+.faixa-rosa__desc { font-size:clamp(14px,1.6vw,16px); line-height:1.45; margin:0; }
 
-/* Grade 2×3 (igual você já tem) */
+/* grade 2 colunas */
 .prod-grid{
   grid-column: 1 / -1;
   display: grid; grid-template-columns: 1fr 1fr;
@@ -138,55 +171,319 @@ html,body{background:#fff}
   margin-top: clamp(24px, 6vw, 64px);
 }
 .col{ display:flex; flex-direction:column; gap: clamp(12px,1.8vw,16px); }
-.col--left{ align-items: flex-start; }
-.col--right{ align-items: flex-end; }
+.col--left{ align-items:flex-start; }
+.col--right{ align-items:flex-end; }
 
+/* card tamanho Figma 584x300, imagem à direita */
 .prod-card{
-  display:grid; grid-template-columns:120px 1fr; gap:12px;
-  width:min(560px,100%); background:#fff; border:1px solid #ECEFF5;
-  border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(14,19,43,.06);
+  width: min(584px,100%);
+  aspect-ratio: 584 / 300;
+  border: 1px solid #ECEFF5; border-radius: 0; overflow: hidden;
+  display: grid; grid-template-columns: 56% 44%;
+  background:#fff; box-shadow:0 10px 24px rgba(14,19,43,.06);
 }
-.prod-media{ background:#EDEFF5; min-height:120px }
-.prod-body{ display:flex; flex-direction:column; gap:6px; padding:14px 16px }
-.prod-title{ font-size:16px; font-weight:900; color:#1b1b1b; margin:0 }
-.prod-desc{ font-size:13px; color:#61615f; margin:0 }
-.prod-btn{ margin-top:auto; align-self:flex-start; border:0; padding:10px 14px; border-radius:999px; background:#FF2E7D; color:#fff; font-weight:800; cursor:pointer }
-.card--right .prod-body{ text-align:right; align-items:flex-end }
-.card--right .prod-btn{ align-self:flex-end }
+.prod-media{ background:#EDEFF5; width:100%; height:100%; order:2; }
+.prod-body{
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+  text-align:left; padding: clamp(20px, 2vw, 30px); gap:12px;
+}
+.prod-title{
+  width:215px; height:40px; flex-shrink:0;
+  color:#000; font-family:"Bricolage Grotesque", sans-serif;
+  font-size:26px; font-weight:700; line-height:1.07; text-transform:uppercase; margin:0;
+}
+.prod-desc{ font-size:14px; line-height:1.45; color:#61615f; margin:0; max-width:40ch; }
+.prod-btn{ margin-top:10px; align-self:flex-start; padding:10px 16px; border:0; border-radius:999px; background:#FF2E7D; color:#fff; font-weight:800; cursor:pointer; }
 
-/* Responsivo: se a tela for estreita, não deixe a min-height “prender” demais */
-@media (max-width: 1120px){
-  .faixa-rosa{ min-height: auto }          /* deixa o conteúdo ditar a altura */
-  .faixa-rosa__wrap{ grid-template-columns:1fr; justify-items:center }
-  .faixa-rosa__heading{ grid-column:1; text-align:center; transform:none; margin-right:0 }
-  .prod-grid{ grid-template-columns:1fr }
-  .col{ align-items:center }
-  .card--right .prod-body{ text-align:left; align-items:flex-start }
-  .card--right .prod-btn{ align-self:flex-start }
+@media (max-width:1120px){
+  .prod-grid{ grid-template-columns:1fr; }
+  .prod-card{ grid-template-columns:1fr; aspect-ratio:auto; }
+  .prod-media{ order:0; height:220px; }
+  .prod-body{ align-items:center; text-align:center; }
+}
+
+
+/* ===================== CONTINUAÇÃO ROSA (abaixo) ===================== */
+
+.faixa-rosa-bottom{
+  position: relative; z-index: 2;
+  width: 100%;
+  aspect-ratio: 1400 / var(--faixa-rosa-bottom-h);
+  background: url("/SejaUmRevendedor/rodape-rosa.png") no-repeat center top / cover;
+  margin-top: -6px;           /* une com a faixa acima */
+  margin-bottom: -140px;      /* puxa o Cadastro para cima */
+}
+
+
+/* ===================== CADASTRO (card sobre a faixa) ===================== */
+
+/* deixa ver a faixa por trás dessa section específica */
+.section.cadastro{ background: transparent !important; padding-top: 0; }
+
+.cadastro{
+  position: relative; z-index: 3;
+  margin-top: 0;              /* não usa margin-top negativa aqui */
+  transform: translateY(var(--cadastro-lift)); /* sobe de forma fixa */
+  padding: 60px 16px;         /* respiro do bloco */
+}
+
+.cadastro-grid{
+  position: relative; z-index: 4;
+  width: min(1200px, 100%); min-height: 520px;
+  border-radius: 20px; border: 1px solid #E5E7EB;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,.08);
+  padding: clamp(24px, 4vw, 40px);
+}
+
+/* tipografia do cadastro */
+.cadastro-grid .tag{
+  display:inline-block; font-size:13px; font-weight:800; letter-spacing:.2px;
+  padding:6px 10px; border-radius:999px; background:#f6f7fa; color:#5b5b58;
+}
+.cadastro-grid .h2{
+  color:#000; font-family:"Bricolage Grotesque", sans-serif;
+  font-size:36px; font-weight:700; line-height:1.1; text-transform:uppercase;
+  max-width:460px;
+}
+.cadastro-grid .p{ color:#1c1c1c; font-size:16px; line-height:1.5; margin-top:8px; }
+.cadastro .btn{
+  margin-top:16px; background:#E5258C; color:#fff;
+  padding:14px 32px; border-radius:999px; font-weight:800; font-size:15px;
+  box-shadow:0 12px 28px rgba(229,37,140,.28);
+  text-transform:uppercase; transition:transform .2s, box-shadow .2s;
+}
+.cadastro .btn:hover{ transform:translateY(-2px); box-shadow:0 16px 36px rgba(229,37,140,.35); }
+
+/* mock cinza do lado direito dentro do card */
+.video-mock{
+  background:#EDEFF5; border-radius:16px;
+  width: 100%; max-width: 100%; height: auto;
+  aspect-ratio: 16 / 9; max-height: 260px;
+  justify-self:center; align-self:center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+
+@media (max-width:950px){
+  .cadastro-grid{ grid-template-columns:1fr; text-align:center; padding:32px 24px; }
+  .cadastro-grid .h2{ font-size:28px; text-align:center; max-width:none; }
+  .video-mock{ height:260px; margin-top:24px; }
+}
+
+
+/* ===================== SELO VERDE ===================== */
+
+.selo-verde {
+  background: #F0F9F1;
+  position: relative;
+  z-index: 2;
+
+  /* 🔹 centraliza e controla altura */
+  display: flex;
+  justify-content: center;
+
+  /* 🔹 sobe o bloco */
+  margin-top: -80px; /* ajuste fino: -60px a -120px */
+  padding: 0;        /* remove respiro extra */
+}
+
+.selo-box {
+  display: grid;
+  align-items: center;
+  gap: 16px;
+  grid-template-columns: 70px 1fr 70px;
+
+  /* 🔹 centraliza e limita largura */
+  max-width: 1147px; /* mesmo tamanho da sua imagem eco */
+  width: 100%;
+  margin: 0 auto;
+
+  border: 1px dashed #BFE3C2;
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.selo-icon,
+.qr {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: #CDEFD1;
+}
+
+@media (max-width: 700px) {
+  .selo-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
 
 
-/* ========== SELO VERDE ========== */
-.selo-verde{background:#F0F9F1}
-.selo-box{
-  display:grid;align-items:center;gap:16px;
-  grid-template-columns:70px 1fr 70px;
-  border:1px dashed #BFE3C2;background:#fff;
-  border-radius:16px;padding:18px;
+/* ===================== WHATS CTA ===================== */
+
+.whats-grid{ display:grid; gap:24px; grid-template-columns:1fr .7fr; align-items:center; }
+.pessoa{ width:100%; height:240px; border-radius:18px; background:#FFE3A8; }
+@media (max-width:900px){ .whats-grid{ grid-template-columns:1fr; } }
+
+
+/* ===================== FOOTER BANNER (placeholder) ===================== */
+
+.footer-banner{ padding:0; }
+.footer-video{ height:320px; background:#1B1B1B; }
+.footer-overlay{ position:relative; }
+.footer-content{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:space-between; padding:16px; color:#fff; }
+.logo{ width:90px; height:26px; background:#fff; border-radius:6px; }
+.social{ width:120px; height:24px; background:#fff; border-radius:6px; }
+
+
+/* ================== AJUSTE CADASTRO + SELO VERDE ================== */
+/* 1) O cadastro estava “soltando” um espaço embaixo: zera o padding-bottom */
+.section.cadastro {
+  padding-bottom: 0 !important;
 }
-.selo-icon,.qr{width:70px;height:70px;border-radius:12px;background:#CDEFD1}
-@media(max-width:700px){.selo-box{grid-template-columns:1fr}}
 
-/* ========== WHATS CTA ========== */
-.whats-grid{display:grid;gap:24px;grid-template-columns:1fr .7fr;align-items:center}
-.pessoa{width:100%;height:240px;border-radius:18px;background:#FFE3A8}
-@media(max-width:900px){.whats-grid{grid-template-columns:1fr}}
+/* 2) Puxa a seção do selo pra cima e centraliza o conteúdo */
+.section.selo-verde {
+  /* se quiser manter o verdinho, troque para #F0F9F1; */
+  background: #fff;
+  /* sobe a seção inteira (ajuste o valor) */
+  margin-top: -80px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 
-/* ========== FOOTER BANNER ========== */
-.footer-banner{padding:0}
-.footer-video{height:320px;background:#1B1B1B}
-.footer-overlay{position:relative}
-.footer-content{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:16px;color:#fff}
-.logo{width:90px;height:26px;background:#fff;border-radius:6px}
-.social{width:120px;height:24px;background:#fff;border-radius:6px}
+  /* garante centralização do conteúdo interno em qualquer marcação */
+  display: block;
+}
+
+/* 3) Centraliza e limita largura do bloco interno (funciona com .selo-box ou imagem) */
+.section.selo-verde .selo-box,
+.section.selo-verde .eco-wrap,
+.section.selo-verde .eco-img {
+  max-width: 1147px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Caso use <img class="eco-img"> dentro da seção */
+.section.selo-verde .eco-img {
+  display: block;
+  height: auto;
+}
+
+/* Caso o componente use a caixinha de texto (selo-box) */
+.section.selo-verde .selo-box {
+  display: grid;
+  align-items: center;
+  gap: 16px;
+  grid-template-columns: 70px 1fr 70px;
+  border: 1px dashed #BFE3C2;
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+}
+
+/* Responsivo do selo, se houver texto */
+@media (max-width: 700px){
+  .section.selo-verde .selo-box { grid-template-columns: 1fr; text-align: center; }
+}
+/* ===== SEL0 VERDE — aproxima do cadastro e centraliza (fallback amplo) ===== */
+
+/* Sobe a seção do selo, independente do nome da classe que você usou */
+section.selo-verde,
+section#selo-verde,
+section[class*="selo-verde"],
+section[class*="eco-strip"],
+section[class*="eco"] {
+  margin-top: -120px !important;  /* ajuste fino: -80 / -120 / -160 */
+  padding-top: 0 !important;
+  background: #fff !important;    /* remove qualquer “cinza” residual */
+}
+
+/* Centraliza e limita a largura do conteúdo (funciona com <img> ou box) */
+section.selo-verde .selo-box,
+section.selo-verde .eco-wrap,
+section.selo-verde .eco-img,
+section[class*="eco-strip"] .eco-wrap,
+section[class*="eco-strip"] .eco-img,
+section[class*="eco"] .eco-img,
+section[class*="selo"] .selo-box {
+  max-width: 1147px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Se for imagem direta, garante centralização e responsividade */
+section.selo-verde img,
+section[class*="eco-strip"] img,
+section[class*="eco"] img {
+  display: block !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Se você estiver usando a caixa de texto (selo-box), mantém o layout */
+section.selo-verde .selo-box,
+section[class*="selo"] .selo-box {
+  display: grid !important;
+  align-items: center !important;
+  gap: 16px !important;
+  grid-template-columns: 70px 1fr 70px !important;
+  border: 1px dashed #BFE3C2 !important;
+  background: #fff !important;
+  border-radius: 16px !important;
+  padding: 18px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.05) !important;
+}
+
+@media (max-width: 700px){
+  section.selo-verde .selo-box,
+  section[class*="selo"] .selo-box {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+  }
+}
+/* ===== Espaçamento entre o Cadastro e o Selo Verde ===== */
+.section.selo-verde,
+section.selo-verde,
+section[class*="eco-strip"],
+section[class*="eco"] {
+  margin-top: 5px !important; /* 🔹 cria o gap entre o card branco e o selo */
+}
+
+.whats-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.whats-img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.footer-section {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: none; /* remove o fundo preto */
+}
+
+.footer-img {
+  width: 100vw; /* ocupa toda a largura da tela */
+  height: auto;
+  display: block;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+

@@ -1,5 +1,5 @@
 import Hero from "./hero";
-import Destaques from "./Destaques";
+import Destaques from "./destaques";
 import FaixaRosa from "./FaixaRosa";
 import Cadastro from "./Cadastro";
 import SeloVerde from "./SeloVerde";
@@ -12,7 +12,7 @@ export default function SejaUmRevendedorPage(){
       <Hero/>
       <Destaques/>
       <FaixaRosa/>
-      <Cadastro/>
+      <Cadastro/> 
       <SeloVerde/>
       <WhatsCTA/>
       <FooterBanner/>

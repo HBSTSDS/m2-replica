@@ -1,14 +1,15 @@
 import "./revendedor.css";
-export default function SeloVerde(){
+const asset = (p) => `${import.meta.env.BASE_URL}${String(p).replace(/^\/+/, "")}`;
+
+export default function SeloVerde() {
   return (
-    <section className="section selo-verde">
-      <div className="container selo-box">
-        <div className="selo-icon" />
-        <p className="p">
-          Produção certificada, sustentabilidade e logística nacional.
-          Atendimento especializado para o seu negócio.
-        </p>
-        <div className="qr" />
+    <section className="section eco-strip">
+      <div className="eco-wrap">
+        <img
+          src={asset("SejaUmRevendedor/eco.png")}
+          alt="Produção certificada, sustentabilidade e logística nacional. Atendimento especializado para o seu negócio."
+          className="eco-img"
+        />
       </div>
     </section>
   );
