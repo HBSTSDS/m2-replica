@@ -134,14 +134,23 @@ html, body{ background:#fff; }
   position: relative; z-index: 1; background:#fff;
   --rosa-w: 1400; --rosa-h: 650;
   --rosa-aspect: calc(var(--rosa-h) / var(--rosa-w));
+
+  /* controla o espaço “seguro” acima do texto para ele cair dentro do rosa */
+  --faixa-safe-top: clamp(160px, 9vw, 220px);
+  --faixa-safe-bottom: clamp(100px, 8vw, 140px);
+
   min-height: calc(100vw * var(--rosa-aspect));
+  padding-top: var(--faixa-safe-top);
+  padding-bottom: var(--faixa-safe-bottom);
+  overflow: hidden;
 }
+
 .faixa-rosa::before{
   content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
   background-image: var(--faixa-bg-url);
   background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: right top;
+  background-size: 100% auto;        /* rosa ocupa a largura toda */
+  background-position: right top;    /* mantém o shape alinhado à direita */
   opacity: var(--faixa-bg-opacity, 1);
 }
 
@@ -149,19 +158,42 @@ html, body{ background:#fff; }
 .faixa-rosa__wrap{
   position: relative; z-index: 2;
   max-width: 1320px; margin: 0 auto;
-  padding: clamp(24px,4vw,40px) clamp(16px,3vw,24px) clamp(80px,8vw,120px);
+  padding: 0 clamp(16px,3vw,24px);   /* padding vertical agora é do .faixa-rosa */
   display: grid; grid-template-columns: minmax(520px,1fr) minmax(520px,1fr);
   column-gap: clamp(16px, 4vw, 48px);
   align-items: start;
 }
+
 .faixa-rosa__heading{
   grid-column:2; align-self:start; justify-self:end; max-width:580px;
-  text-align:right; color:#fff; transform: translateY(-12%);
+  text-align:right; color:#fff;
   margin-right: clamp(8px, 5vw, 80px);
+  /* REMOVIDO: transform que empurrava o texto para fora do rosa */
+  /* transform: translateY(-12%); */
 }
-.faixa-rosa__tag{ display:inline-block; font-weight:800; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.18); margin-bottom:8px; }
-.faixa-rosa__title{ font-weight:900; font-size:clamp(28px,4.6vw,44px); line-height:1.08; margin:0 0 8px; }
-.faixa-rosa__desc { font-size:clamp(14px,1.6vw,16px); line-height:1.45; margin:0; }
+
+.faixa-rosa__tag {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+ /* amarelo sólido */
+  color: #E5258C;      /* texto rosa */
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.faixa-rosa__title{
+  font-weight:900; font-size:clamp(28px,4.6vw,44px);
+  line-height:1.08; margin:0 0 8px;
+}
+
+.faixa-rosa__desc{
+  font-size:clamp(14px,1.6vw,16px); line-height:1.45; margin:0;
+}
 
 /* grade 2 colunas */
 .prod-grid{
@@ -196,6 +228,10 @@ html, body{ background:#fff; }
 .prod-btn{ margin-top:10px; align-self:flex-start; padding:10px 16px; border:0; border-radius:999px; background:#FF2E7D; color:#fff; font-weight:800; cursor:pointer; }
 
 @media (max-width:1120px){
+  .faixa-rosa{
+    --faixa-safe-top: clamp(120px, 14vw, 180px);
+    --faixa-safe-bottom: clamp(80px, 10vw, 120px);
+  }
   .prod-grid{ grid-template-columns:1fr; }
   .prod-card{ grid-template-columns:1fr; aspect-ratio:auto; }
   .prod-media{ order:0; height:220px; }
