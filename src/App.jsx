@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // COMPONENTES GLOBAIS
 import NavBar from "./components/NavBar";
@@ -42,8 +42,8 @@ import Eventos from "./pages/solucoes/Eventos.jsx";
 // BLOG
 import Blog from "./pages/blog/Blog.jsx";
 
-// PÁGINA DO REVENDEDOR (AGORA UM DIRETÓRIO COM index.jsx)
-import SejaUmRevendedorPage from "./pages/sejaUmRevendedor"; // <- importa o index.jsx
+// PÁGINA DO REVENDEDOR
+import SejaUmRevendedorPage from "./pages/sejaUmRevendedor";
 
 function Home() {
   return (
@@ -59,17 +59,14 @@ function Home() {
   );
 }
 
-// SHELL: controla quando mostrar ou não Navbar/Footer
 function Shell() {
   const location = useLocation();
   const isRevendedorLP = location.pathname === "/seja-um-revendedor";
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F7FB]">
-      {/* Navbar e Footer SOMEM na página do revendedor */}
       {!isRevendedorLP && <NavBar />}
 
-      {/* conteúdo */}
       <main className={!isRevendedorLP ? "flex-1 pt-0" : "flex-1"}>
         <Routes>
           {/* HOME */}
@@ -107,7 +104,6 @@ function Shell() {
         </Routes>
       </main>
 
-      {/* Footer e botão WPP somem na LP */}
       {!isRevendedorLP && (
         <>
           <Footer />
@@ -118,11 +114,6 @@ function Shell() {
   );
 }
 
-// APP PRINCIPAL
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Shell />
-    </BrowserRouter>
-  );
+  return <Shell />;
 }
