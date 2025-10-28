@@ -59,7 +59,8 @@ jobs:
 
           # sua conta FTP já entra em /HB, então "/" publica dentro de HB
           local-dir: dist/
-          server-dir: /
+          # depois (forçando a pasta do subdomínio)
+          server-dir: /poster.flaviobrick.com.br/HB/
 
           dangerous-clean-slate: true
           log-level: verbose
