@@ -24,7 +24,7 @@ import Sustentabilidade from "./pages/m2/sustentabilidade.jsx";
 // PÁGINAS CONTATO
 import FaleConosco from "./pages/contato/FaleConosco.jsx";
 import TrabalheComAgente from "./pages/contato/TrabalheComAgente.jsx";
-import AvalieM2 from "./pages/contato/avalieM2.jsx";
+import AvalieM2 from "./pages/contato/AvalieM2.jsx";
 
 // PÁGINAS SERVIÇOS
 import ComunicacaoVisual from "./pages/servicos/ComunicacaoVisual.jsx";
