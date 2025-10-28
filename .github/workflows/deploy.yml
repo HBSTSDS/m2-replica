@@ -32,23 +32,39 @@ jobs:
         run: npm run build
 
       - name: List dist
-        run: ls -la dist
+        run: |
+          echo "----- DIST ROOT -----"
+          ls -la dist
+          echo
+          echo "----- DIST/ASSETS -----"
+          ls -la dist/assets || echo "dist/assets NÃO ENCONTRADO"
+          echo
+          echo "----- FIND (.js/.css/.html) -----"
+          find dist -maxdepth 2 -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -print
+
+      - name: Upload dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: dist
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-            server: ${{ secrets.FTP_SERVER }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            protocol: ftps
-            port: 21
-        
-            local-dir: dist/
-            server-dir: /
-        
-            dangerous-clean-slate: true
-            exclude: |
-              **/.git*
-              **/.git*/**
-              **/node_modules/**
-              **/*.map
+          server: ${{ secrets.FTP_SERVER }}       # br362.hostgator.com.br
+          username: ${{ secrets.FTP_USERNAME }}   # HB@poster.flaviobrick.com.br
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+
+          # sua conta FTP já entra em /HB, então "/" publica dentro de HB
+          local-dir: dist/
+          server-dir: /
+
+          dangerous-clean-slate: true
+          log-level: verbose
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/*.map
