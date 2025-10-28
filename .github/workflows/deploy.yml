@@ -37,19 +37,18 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-
-          # 👇 precisam terminar com /
-          local-dir: dist/
-          server-dir: /poster.flaviobrick.com.br/
-
-          dangerous-clean-slate: true
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/*.map
+            server: ${{ secrets.FTP_SERVER }}
+            username: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            protocol: ftps
+            port: 21
+        
+            local-dir: dist/
+            server-dir: /
+        
+            dangerous-clean-slate: true
+            exclude: |
+              **/.git*
+              **/.git*/**
+              **/node_modules/**
+              **/*.map
