@@ -1,35 +1,18 @@
-name: Build & Deploy to HostGator
+- name: Deploy via FTP
+  uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+  with:
+    server: ${{ secrets.FTP_SERVER }}
+    username: ${{ secrets.FTP_USERNAME }}
+    password: ${{ secrets.FTP_PASSWORD }}
+    protocol: ftp
+    port: 21
 
-on:
-  push:
-    branches: [ main ]
+    local-dir: dist/
+    server-dir: /poster.flaviobrick.com.br/
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - run: npm ci --prefer-offline --no-audit
-      - run: npm run build
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: dist
-          server-dir: ${{ secrets.FTP_DIR }}
-          dangerous-clean-slate: true
-          exclude: |
-            **/*.map
-            **/node_modules/**
-            **/.git/**
+    dangerous-clean-slate: true
+    exclude: |
+      **/.git*
+      **/.git*/**
+      **/node_modules/**
+      **/*.map
