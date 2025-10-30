@@ -1,12 +1,12 @@
 import "./revendedor.css";
-const asset = (p) => `${import.meta.env.BASE_URL}${String(p).replace(/^\/+/, "")}`;
+import bento from "../../assets/SejaUmRevendedor/bento.png";
 
 export default function Destaques() {
   return (
     <section className="section destaques">
       <div
         className="destaques-banner"
-        style={{ "--dstk-img": `url(${asset("SejaUmRevendedor/bento.png")})` }}
+        style={{ "--dstk-img": `url(${bento})` }}
       />
     </section>
   );

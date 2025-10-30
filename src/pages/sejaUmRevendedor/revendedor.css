@@ -22,7 +22,9 @@ html { zoom: 1.5; }
 }
 
 /* fundo branco universal */
-html, body{ background:#fff; }
+html, body {
+  background-color: #ff004c!important; /* rosa bem claro */
+}
 .section{
   position: relative;
   width: 100%;
@@ -55,23 +57,35 @@ html, body{ background:#fff; }
 
 /* ===================== HERO (revendedor) ===================== */
 
+/* se existir .section { background:#fff !important; } no seu global,
+   garanta que APENAS o hero fique transparente para o fundo aparecer */
+.section.revendedor-hero{
+  background:#fff !important;   /* antes estava transparente */
+}
+
 .revendedor-hero{
   position: relative; width: 100%;
   aspect-ratio: var(--design-w) / var(--design-h);
   display: flex; flex-direction: column; justify-content: center;
-  overflow: hidden; background: #fff;
+  overflow: hidden;
 }
 
-/* background do hero via pseudo (opcionalmente setar --hero-bg-url no :root) */
-.hero-bg{ position:absolute; inset:0; }
+/* ===== FUNDO AMARELO =====
+   -> trocamos o shorthand por propriedades explícitas
+   -> z-index 0 para ficar atrás do conteúdo
+*/
+.hero-bg{ position:absolute; inset:0; z-index:1; }        /* was 0 */
 .hero-bg::after{
-  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background: var(--hero-bg-url) no-repeat top center;
-  background-size: 100% 100%;
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image: var(--hero-bg-url);
+  background-repeat:no-repeat;
+  background-position: top center;
+  background-size: cover;
   opacity: var(--hero-bg-opacity, 1);
+  z-index:1;                                              /* was 0 */
 }
 
-/* logos nos cantos, em coordenadas proporcionais */
+/* ===== CAMADAS ACIMA DO FUNDO ===== */
 .revendedor-header{
   position:absolute; inset:0; z-index:5;
   display:flex; justify-content:space-between; align-items:flex-start;
@@ -80,9 +94,8 @@ html, body{ background:#fff; }
 .revendedor-logo{ height: calc(50 / var(--design-h) * 100%); width:auto; }
 .revendedor-social{ height: calc(100 / var(--design-h) * 100%); width:auto; }
 
-/* grid interno do hero */
 .revendedor-container{
-  position:relative; z-index:2;
+  position:relative; z-index:2; /* garante acima do fundo */
   display:grid; grid-template-columns: 1.05fr .95fr; gap:clamp(20px,6vw,80px); align-items:center;
   padding:
     calc(180 / var(--design-h) * 100%)  /* top   */
@@ -91,8 +104,10 @@ html, body{ background:#fff; }
     calc(40  / var(--design-w) * 100%); /* left  */
   max-width:1320px; margin:0 auto;
 }
+
 .hero-title-strong{ display:block; font-weight:900; font-size:clamp(48px,7.4vw,88px); line-height:1.04; }
 .hero-title-rest  { display:block; font-weight:600; font-size:clamp(30px,5vw,48px); line-height:1.08; }
+
 .revendedor-phone{
   width:clamp(220px,26vw,340px); height:clamp(300px,35vw,460px);
   border-radius:28px; background:#0b0b0b; box-shadow:0 20px 50px rgba(0,0,0,.28); position:relative;
@@ -104,6 +119,7 @@ html, body{ background:#fff; }
 @media (max-width:1024px){
   .revendedor-container{ grid-template-columns:1fr; text-align:center; }
 }
+
 
 
 /* ===================== DESTAQUES (banner único bento.png) ===================== */

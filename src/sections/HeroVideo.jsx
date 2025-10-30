@@ -1,23 +1,20 @@
+// src/sections/HeroVideo.jsx
+import React from "react";
+
 export default function HeroVideo() {
   return (
-    // define a altura do hero usando a variável da navbar
-    <section className="relative w-full h-[calc(100vh-var(--nav-h,80px))] overflow-hidden">
-      {/* VÍDEO ou PÔSTER cobrindo tudo */}
-      {/* Se ainda não tiver o MP4, deixe só o poster por enquanto */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/videos/hero.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/comunicacaoVisual/header.png"
-      />
+    <section className="relative w-full h-[calc(100vh-var(--nav-h,80px))] overflow-hidden bg-gray-200 flex items-center justify-center">
+      {/* Placeholder do vídeo */}
+      <div className="absolute inset-0 flex items-center justify-center bg-[#E5E5E5]">
+        <span className="text-[#1C1C1C] text-lg font-medium">
+          
+        </span>
+      </div>
 
-      {/* OVERLAY suave (opcional) */}
-      <div className="absolute inset-0 bg-black/20" />
+      {/* Overlay de leve para simular o vídeo */}
+      <div className="absolute inset-0 bg-black/10" />
 
-      {/* CONTEÚDO/PLAY (opcional) */}
+      {/* Botão play centralizado */}
       <button
         aria-label="play"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white/90 backdrop-blur hover:bg-white transition"

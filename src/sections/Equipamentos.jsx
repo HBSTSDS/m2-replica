@@ -1,55 +1,57 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+// src/sections/Equipamentos.jsx
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
-/* Miniatura circular com fallback */
-function Thumb({ src, alt = "", active = false, onClick, size = 96 }) {
-  const [currentSrc, setCurrentSrc] = useState(src);
+/* === IMPORTS das imagens (ajuste nomes se diferirem no seu /assets/Equipamentos) === */
+import VUTEK_Q5R  from "../assets/Equipamentos/VUTEK_Q5R.png";
+import MAQUINA_2  from "../assets/Equipamentos/MAQUINA-2.png";
+import MAQUINA_3  from "../assets/Equipamentos/MAQUINA-3.jpg";
+import MAQUINA_4  from "../assets/Equipamentos/MAQUINA-4.jpg";
+import MAQUINA_5  from "../assets/Equipamentos/MAQUINA-5.jpg";
+import MAQUINA_6  from "../assets/Equipamentos/MAQUINA-6.png";
+import MAQUINA_7  from "../assets/Equipamentos/MAQUINA-7.jpg";
+import MAQUINA_8  from "../assets/Equipamentos/MAQUINA-8.jpg";
+import MAQUINA_9  from "../assets/Equipamentos/MAQUINA-9.jpg";
+import MAQUINA_10 from "../assets/Equipamentos/MAQUINA-10.jpg";
+import MAQUINA_11 from "../assets/Equipamentos/MAQUINA-11.png";
 
-  const handleError = () => {
-    const order = [".png", ".jpg", ".jpeg", ".webp"];
-    const cur = currentSrc.toLowerCase();
-    const idx = order.findIndex((e) => cur.endsWith(e));
-    if (idx >= 0 && idx < order.length - 1) {
-      setCurrentSrc(currentSrc.replace(order[idx], order[idx + 1]));
-    } else {
-      console.warn("Thumb não encontrada:", currentSrc);
-    }
-  };
-
+/* Miniatura circular */
+function Thumb({ src, alt = "", active = false, onClick, size = 92 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`relative shrink-0 rounded-full overflow-hidden bg-white
                   transition-transform duration-200
-                  ${active ? "ring-2 ring-gray-800 scale-[1.04]" : "hover:scale-105"}`}
+                  ${active ? "ring-2 ring-gray-900 scale-[1.04]" : "hover:scale-105"}`}
       style={{ width: size, height: size }}
       aria-label={`Ver ${alt}`}
     >
       <img
-        src={currentSrc}
+        src={src}
         alt={alt}
-        onError={handleError}
         className="w-full h-full object-cover block select-none"
         draggable="false"
+        loading="lazy"
       />
     </button>
   );
 }
 
 export default function Equipamentos() {
+  /* Dados do carrossel */
   const items = useMemo(
     () => [
-      { src: "/Equipamentos/VUTEK_Q5R.png", title: "VUTEK Q5R" },
-      { src: "/Equipamentos/MAQUINA-2.png", title: "MAQUINA 2" },
-      { src: "/Equipamentos/MAQUINA-3.png", title: "MAQUINA 3" },
-      { src: "/Equipamentos/MAQUINA-4.png", title: "MAQUINA 4" },
-      { src: "/Equipamentos/MAQUINA-5.png", title: "MAQUINA 5" },
-      { src: "/Equipamentos/MAQUINA-6.png", title: "MAQUINA 6" },
-      { src: "/Equipamentos/MAQUINA-7.png", title: "MAQUINA 7" },
-      { src: "/Equipamentos/MAQUINA-8.png", title: "MAQUINA 8" },
-      { src: "/Equipamentos/MAQUINA-9.png", title: "MAQUINA 9" },
-      { src: "/Equipamentos/MAQUINA-10.png", title: "MAQUINA 10" },
-      { src: "/Equipamentos/MAQUINA-11.png", title: "MAQUINA 11" },
+      { title: "VUTEK Q5R",      src: VUTEK_Q5R },
+      { title: "MAQUINA 2",      src: MAQUINA_2 },
+      { title: "MAQUINA 3",      src: MAQUINA_3 },
+      { title: "MAQUINA 4",      src: MAQUINA_4 },
+      { title: "MAQUINA 5",      src: MAQUINA_5 },
+      { title: "MAQUINA 6",      src: MAQUINA_6 },
+      { title: "MAQUINA 7",      src: MAQUINA_7 },
+      { title: "MAQUINA 8",      src: MAQUINA_8 },
+      { title: "MAQUINA 9",      src: MAQUINA_9 },
+      { title: "MAQUINA 10",     src: MAQUINA_10 },
+      { title: "MAQUINA 11",     src: MAQUINA_11 },
     ],
     []
   );
@@ -57,15 +59,29 @@ export default function Equipamentos() {
   const [active, setActive] = useState(0);
   const timer = useRef(null);
 
-  useEffect(() => {
-    timer.current = setInterval(() => setActive((i) => (i + 1) % items.length), 5000);
-    return () => clearInterval(timer.current);
+  const startAuto = useCallback(() => {
+    clearInterval(timer.current);
+    timer.current = setInterval(
+      () => setActive((i) => (i + 1) % items.length),
+      5000
+    );
   }, [items.length]);
+
+  useEffect(() => {
+    startAuto();
+    return () => clearInterval(timer.current);
+  }, [startAuto]);
 
   const select = (idx) => {
     clearInterval(timer.current);
     setActive(idx);
-    timer.current = setInterval(() => setActive((i) => (i + 1) % items.length), 5000);
+    startAuto();
+  };
+
+  const go = (dir) => {
+    clearInterval(timer.current);
+    setActive((i) => (i + dir + items.length) % items.length);
+    startAuto();
   };
 
   return (
@@ -75,35 +91,43 @@ export default function Equipamentos() {
         .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
       `}</style>
 
-      {/* Container centralizado */}
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-2xl tracking-wide text-gray-700 mb-6">EQUIPAMENTOS</h2>
+      {/* Cabeçalho */}
+      <div className="max-w-7xl mx-auto px-4 text-[#1C1C1C]">
+        <h2 className="text-2xl md:text-[28px] tracking-wide mb-6">EQUIPAMENTOS</h2>
       </div>
 
-      {/* IMAGEM FULL-BLEED */}
+      {/* IMAGEM FULL-BLEED (ocupa toda a largura da janela) */}
       <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-        <img
-          src={items[active].src}
-          alt={items[active].title}
-          onError={(e) => {
-            const order = [".png", ".jpg", ".jpeg", ".webp"];
-            const cur = e.currentTarget.src.toLowerCase();
-            const idx = order.findIndex((x) => cur.endsWith(x));
-            if (idx >= 0 && idx < order.length - 1) {
-              e.currentTarget.src = e.currentTarget.src.replace(order[idx], order[idx + 1]);
-            }
-          }}
-          className="block w-full h-[55vh] min-h-[360px] object-cover select-none"
-          draggable="false"
-        />
+        <div className="relative">
+          <img
+            src={items[active].src}
+            alt={items[active].title}
+            className="block w-full h-[55vh] min-h-[360px] object-cover select-none"
+            draggable="false"
+          />
+
+          {/* Botões navegação */}
+          <button
+            onClick={() => go(-1)}
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 shadow flex items-center justify-center"
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => go(1)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 shadow flex items-center justify-center"
+            aria-label="Próximo"
+          >
+            ›
+          </button>
+        </div>
       </div>
 
-      {/* Texto e thumbs (dentro do container normal) */}
-      <div className="max-w-7xl mx-auto px-4 mt-6">
+      {/* Texto + thumbs */}
+      <div className="max-w-7xl mx-auto px-4 mt-6 text-[#1C1C1C]">
         <div className="text-center md:text-left">
-          <h3 className="text-xl font-medium text-gray-900">
-            {items[active].title}
-          </h3>
+          <h3 className="text-xl font-medium">{items[active].title}</h3>
           <p className="mt-2 max-w-3xl mx-auto md:mx-0 text-gray-600">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus
             pulvinar ut commodo amet. Imperdiet purus volutpat pharetra. Quis viverra leo.
@@ -117,7 +141,7 @@ export default function Equipamentos() {
           </a>
         </div>
 
-        {/* Miniaturas */}
+        {/* Miniaturas roláveis */}
         <div className="mt-8 overflow-x-auto no-scrollbar">
           <div className="w-max mx-auto flex flex-nowrap gap-4 md:gap-5 pb-1">
             {items.map((it, i) => (
@@ -127,7 +151,7 @@ export default function Equipamentos() {
                 alt={it.title}
                 active={i === active}
                 onClick={() => select(i)}
-                size={84}
+                size={86}
               />
             ))}
           </div>

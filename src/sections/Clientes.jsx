@@ -1,29 +1,31 @@
+// src/sections/Clientes.jsx
 import React from "react";
+import be180 from "../assets/clientes/be180.svg";
+import betano from "../assets/clientes/betano.svg";
+import disney from "../assets/clientes/disney.svg";
+import gp from "../assets/clientes/GP.svg";
+import hortifruti from "../assets/clientes/hortifruti.svg";
+import jcdecaux from "../assets/clientes/jcdecaux.svg";
+import lolla from "../assets/clientes/lolla.svg";
+import netflix from "../assets/clientes/NETFLIX.svg";
+import prime from "../assets/clientes/prime.svg";
+import rir from "../assets/clientes/RIR.svg";
+import samsung from "../assets/clientes/samsung.svg";
+import sesc from "../assets/clientes/sesc.svg";
+import shell from "../assets/clientes/SHELL.svg";
+import thetown from "../assets/clientes/the_town.svg";
+import tim from "../assets/clientes/tim.svg";
 
 export default function Clients() {
   const logos = [
-    "/Clientes/be180.svg",
-    "/Clientes/betano.svg",
-    "/Clientes/disney.svg",
-    "/Clientes/GP.svg",
-    "/Clientes/hortifruti.svg",
-    "/Clientes/jcdecaux.svg",
-    "/Clientes/lolla.svg",
-    "/Clientes/NETFLIX.svg",
-    "/Clientes/prime.svg",
-    "/Clientes/RIR.svg",
-    "/Clientes/samsung.svg",
-    "/Clientes/sesc.svg",
-    "/Clientes/SHELL.svg",
-    "/Clientes/the town.svg",
-    "/Clientes/tim.svg",
+    be180, betano, disney, gp, hortifruti, jcdecaux, lolla,
+    netflix, prime, rir, samsung, sesc, shell, thetown, tim
   ];
 
   const loop = [...logos, ...logos];
 
   return (
     <section className="w-full bg-[#EEF0F6] py-14">
-      {/* animação local */}
       <style>{`
         @keyframes clients-marquee {
           0% { transform: translateX(0); }

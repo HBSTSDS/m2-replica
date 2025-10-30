@@ -1,22 +1,21 @@
 import "./revendedor.css";
-const asset = (p) => `${import.meta.env.BASE_URL}${String(p).replace(/^\/+/, "")}`;
+import rosaBg from "../../assets/SejaUmRevendedor/Subtract-rosa.svg";
+
 
 export default function FaixaRosa() {
   return (
     <section
       className="section faixa-rosa"
       style={{
-        ["--faixa-bg-url"]: `url(${asset("SejaUmRevendedor/Subtract-rosa.svg")})`,
+        ["--faixa-bg-url"]: `url(${rosaBg})`,
         ["--faixa-bg-opacity"]: 1,
         ["--rosa-bg-size"]: "contain",
         ["--rosa-bg-pos-x"]: "right",
         ["--rosa-bg-pos-y"]: "top",
-        ["--faixa-min-h"]: "860px", // altura mínima para o SVG caber inteiro
+        ["--faixa-min-h"]: "860px",
       }}
     >
-      {/* ===== CONTEÚDO PRINCIPAL DA FAIXA ROSA ===== */}
       <div className="faixa-rosa__wrap">
-        {/* Título e descrição */}
         <header className="faixa-rosa__heading">
           <span className="faixa-rosa__tag" style={{ color: "yellow" }}>
             NOSSOS PRODUTOS
@@ -31,9 +30,7 @@ export default function FaixaRosa() {
           </p>
         </header>
 
-        {/* ===== GRADE DE PRODUTOS (2 colunas) ===== */}
         <div className="prod-grid">
-          {/* Coluna esquerda */}
           <div className="col col--left">
             {[
               ["COMUNICAÇÃO VISUAL", "Adesivos, Banners, Lona, Canvas"],
@@ -57,7 +54,6 @@ export default function FaixaRosa() {
             ))}
           </div>
 
-          {/* Coluna direita */}
           <div className="col col--right">
             {[
               ["IMPRESSÃO DTF", "DTF Têxtil e DTF UV"],
@@ -79,13 +75,7 @@ export default function FaixaRosa() {
         </div>
       </div>
 
-      {/* ===== IMAGEM DE CONTINUAÇÃO ABAIXO DA FAIXA ROSA ===== */}
-      <div
-        className="faixa-rosa-bottom"
-        style={{
-          backgroundImage: `url(${asset("SejaUmRevendedor/rodape-rosa.png")})`,
-        }}
-      />
+      
     </section>
   );
 }

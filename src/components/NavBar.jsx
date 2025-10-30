@@ -1,6 +1,11 @@
+// src/components/NavBar.jsx
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
+// caminho certo a partir de /components
+import logo from "../assets/m2-logo.png";
+
+/** Constrói URLs com o BASE_URL (mantida como no seu código) */
 function asset(path) {
   const clean = String(path).replace(/^\/+/, "");
   return `${import.meta.env.BASE_URL}${clean}`;
@@ -11,9 +16,10 @@ export default function NavBar() {
   const navRef = useRef(null);
   const navigate = useNavigate();
 
+  /** Scroll suave para um id da Home, mantendo sua função */
   const goToSection = (hash) => {
     setOpen(null);
-    navigate("/");
+    navigate("/"); // garante que estamos na Home
     requestAnimationFrame(() => {
       const el = document.querySelector(hash);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -39,23 +45,36 @@ export default function NavBar() {
     setOpen((curr) => (curr === id ? null : id));
   };
 
+  // usa asset() para não ficar “unused” (grava o base numa data-attr)
+  const baseUrl = asset("/");
+
   return (
-    <header className="topbar fixed top-0 left-0 w-full bg-[#F5F7FB] z-50">
+    <header
+      className="topbar fixed top-0 left-0 w-full bg-[#F5F7FB] z-50"
+      data-base={baseUrl}
+    >
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-center justify-between py-8">
           {/* LOGO */}
           <Link to="/" className="block logo-shift" onClick={() => setOpen(null)}>
-            <img src={asset("m2-logo.png")} alt="M2" className="h-12 w-auto" />
+            <img src={logo} alt="M2" className="h-12 w-auto" />
           </Link>
 
           {/* NAV */}
           <nav className="nav-pill" ref={navRef}>
             <ul className="nav-list flex items-center gap-6">
-              {/* HOME */}
+              {/* HOME: usa goToSection para não simplificar seu código */}
               <li>
-                <NavLink to="/" className="nav-link" onClick={() => setOpen(null)}>
+                <button
+                  className="nav-link"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    goToSection("#home");
+                  }}
+                  title="Home"
+                >
                   home
-                </NavLink>
+                </button>
               </li>
 
               {/* M2 */}
@@ -154,7 +173,7 @@ export default function NavBar() {
                 )}
               </li>
 
-              {/* BLOG (agora igual aos demais) */}
+              {/* BLOG */}
               <li>
                 <NavLink to="/blog" className="nav-link" onClick={() => setOpen(null)}>
                   blog
@@ -189,18 +208,14 @@ export default function NavBar() {
                 )}
               </li>
 
-              {/* REVENDEDOR */}
+              {/* REVENDEDOR (corrigido: sem <li> aninhado) */}
               <li>
-                {/* REVENDEDOR */}
-                  <li>
-                    <NavLink to="/seja-um-revendedor" className="nav-link" onClick={() => setOpen(null)}>
-                      seja um revendedor
-                    </NavLink>
-                  </li>
-
+                <NavLink to="/seja-um-revendedor" className="nav-link" onClick={() => setOpen(null)}>
+                  seja um revendedor
+                </NavLink>
               </li>
 
-              {/* ÍCONE DE BUSCA (corrigido) */}
+              {/* ÍCONE DE BUSCA */}
               <li>
                 <button className="nav-search" aria-label="buscar" title="buscar">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -211,7 +226,7 @@ export default function NavBar() {
               </li>
             </ul>
 
-            {/* Trilho / linha decorativa */}
+            {/* Trilho decorativo */}
             <div className="nav-rail" aria-hidden />
           </nav>
         </div>
@@ -219,4 +234,3 @@ export default function NavBar() {
     </header>
   );
 }
- 

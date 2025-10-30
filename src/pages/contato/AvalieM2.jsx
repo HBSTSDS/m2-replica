@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import WhatsAppButton from "../../components/WhatsAppButton";
 
+// importa imagem do assets
+import headerImg from "../../assets/avalieM2/header.png"; // ou .png, confirme o formato
+
 export default function AvalieM2() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const headerSrc = `${import.meta.env.BASE_URL}avalieM2/header.png`;
   const notas = useMemo(() => Array.from({ length: 11 }, (_, i) => i), []); // 0..10
 
   const onSubmit = async (e) => {
@@ -28,14 +30,12 @@ export default function AvalieM2() {
       {/* HEADER */}
       <div className="w-full h-[340px] overflow-hidden">
         <img
-          src={headerSrc}
+          src={headerImg}
           alt="Avalie a M2 - Header"
           className="w-full h-full object-cover object-right"
-          onError={(e) => (e.currentTarget.src = "/avalieM2/header.png")}
+          onError={(e) => (e.currentTarget.src = headerImg)}
         />
       </div>
-
-      
 
       {/* CONTEÚDO EMPILHADO */}
       <section className="py-10">
@@ -43,14 +43,15 @@ export default function AvalieM2() {
           {/* TEXTO INTRODUTÓRIO */}
           <div className="text-center md:text-left mb-10">
             {/* FAIXA COLORIDA */}
-      <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14">
-        <div className="flex w-full h-1.5 mb-5">
-          <div className="flex-1 bg-[#E5258C]" />
-          <div className="flex-1 bg-[#00B8F1]" />
-          <div className="flex-1 bg-[#FFD400]" />
-          <div className="flex-1 bg-[#1C1C1C]" />
-        </div>
-      </div>
+            <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14">
+              <div className="flex w-full h-1.5 mb-5">
+                <div className="flex-1 bg-[#E5258C]" />
+                <div className="flex-1 bg-[#00B8F1]" />
+                <div className="flex-1 bg-[#FFD400]" />
+                <div className="flex-1 bg-[#1C1C1C]" />
+              </div>
+            </div>
+
             <h1 className="text-4xl font-semibold tracking-tight text-[#1C1C1C]">
               AVALIE <span className="inline-block">A M2</span>
             </h1>
@@ -234,7 +235,6 @@ export default function AvalieM2() {
         </div>
       </section>
 
-      
       <WhatsAppButton />
     </main>
   );

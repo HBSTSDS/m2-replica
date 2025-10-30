@@ -1,11 +1,14 @@
-// pages/blog/Blog.jsx
+// src/pages/blog/Blog.jsx
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+// importa as imagens do assets
+import headerImg from "../../assets/blog/header.png";
+import img1 from "../../assets/blog/img-1.png";
+
 function Img({ src, alt, className = "" }) {
-  // Tenta várias extensões automaticamente
-  const order = [".jpg", ".png", ".jpeg", ".webp"];
   const [cur, setCur] = useState(src);
+  const order = [".jpg", ".png", ".jpeg", ".webp"];
 
   return (
     <img
@@ -29,14 +32,38 @@ const posts = [
     id: 1,
     slug: "stand-skeelo-bienal-2025",
     title: "STAND SKEELO BIENAL 2025",
-    img: "/blog/img-1.jpg",
+    img: img1,
     excerpt:
       "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
     date: "20/07/2025",
   },
-  { id: 2, slug: "stand-skeelo-bienal-2025-2", title: "STAND SKEELO BIENAL 2025", img: "/blog/img-1.jpg", excerpt: "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.", date: "20/07/2025" },
-  { id: 3, slug: "stand-skeelo-bienal-2025-3", title: "STAND SKEELO BIENAL 2025", img: "/blog/img-1.jpg", excerpt: "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.", date: "20/07/2025" },
-  { id: 4, slug: "stand-skeelo-bienal-2025-4", title: "STAND SKEELO BIENAL 2025", img: "/blog/img-1.jpg", excerpt: "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.", date: "20/07/2025" },
+  {
+    id: 2,
+    slug: "stand-skeelo-bienal-2025-2",
+    title: "STAND SKEELO BIENAL 2025",
+    img: img1,
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
+    date: "20/07/2025",
+  },
+  {
+    id: 3,
+    slug: "stand-skeelo-bienal-2025-3",
+    title: "STAND SKEELO BIENAL 2025",
+    img: img1,
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
+    date: "20/07/2025",
+  },
+  {
+    id: 4,
+    slug: "stand-skeelo-bienal-2025-4",
+    title: "STAND SKEELO BIENAL 2025",
+    img: img1,
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
+    date: "20/07/2025",
+  },
 ];
 
 export default function Blog() {
@@ -45,7 +72,7 @@ export default function Blog() {
       {/* Banner / Header */}
       <section className="relative">
         <Img
-          src="/blog/header.jpg"
+          src={headerImg}
           alt="Header Blog M2"
           className="w-full h-48 md:h-60 lg:h-64 object-cover"
         />
@@ -71,30 +98,26 @@ export default function Blog() {
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                    
+
                 <div className="p-4">
-                <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-4">
                     <span className="h-[6px] w-14 bg-[#E5258C] rounded-full" />
                     <span className="h-[6px] w-14 bg-[#00B8F1] rounded-full" />
                     <span className="h-[6px] w-14 bg-[#FFD400] rounded-full" />
-                    <span className="h-[6px] w-14 bg-[#1C1C1C] rounded-full" /> {/* branco/cinza final */}
-                </div>
+                    <span className="h-[6px] w-14 bg-[#1C1C1C] rounded-full" />
+                  </div>
                   <h2 className="text-[#1C1C1C] font-semibold text-base leading-tight">
                     {p.title}
                   </h2>
                   <p className="mt-2 text-sm text-[#4B4B48]/80 line-clamp-3">
                     {p.excerpt}
                   </p>
-
-                  {/* Faixinha colorida M2 */}
-                  
                 </div>
               </Link>
             </article>
           ))}
         </div>
 
-        {/* Linha fina entre cards e footer (igual ao Figma) */}
         <div className="mt-10 h-px bg-[#D8DDE8]" />
       </section>
     </main>

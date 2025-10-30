@@ -1,4 +1,9 @@
+// src/components/Footer.jsx
 import { useLocation } from "react-router-dom";
+
+// ✅ imports corretos a partir de src/assets
+import bannerRevendedor from "../assets/bannerRevendedor.png";
+import m2logo from "../assets/m2-logo.png"; // se o arquivo estiver .svg, troque a extensão aqui
 
 export default function Footer() {
   const location = useLocation();
@@ -9,10 +14,11 @@ export default function Footer() {
       {location.pathname === "/" && (
         <div className="w-full mb-10">
           <img
-            src="/bannerRevendedor.png"
+            src={bannerRevendedor}
             alt="A maior revenda UV da América Latina - Seja um revendedor!"
             className="w-full block object-cover"
             loading="lazy"
+            draggable={false}
           />
         </div>
       )}
@@ -30,7 +36,7 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-6 py-12">
           {/* Lado esquerdo */}
           <div>
-            <img src="/m2-logo.png" alt="M2 Flex" className="w-28 mb-4" />
+            <img src={m2logo} alt="M2 Flex" className="w-28 mb-4" loading="lazy" draggable={false} />
 
             <div className="flex items-center gap-3 mb-5">
               <a href="#" aria-label="Instagram">
@@ -78,44 +84,27 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Linha inferior – políticas ocupando toda a largura do container */}
+        {/* Linha inferior */}
         <div className="border-t border-[#cfcfcf]">
           <div className="max-w-6xl mx-auto px-6 py-8 text-[13px]">
-            {/* Políticas — alinhadas de ponta a ponta */}
             <nav className="footer-links flex flex-wrap justify-between gap-y-2 mb-6 leading-tight">
-              <a
-                href="#"
-                className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1"
-              >
+              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 POLÍTICA DE PRIVACIDADE
               </a>
-              <a
-                href="#"
-                className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1"
-              >
+              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 POLÍTICA AMBIENTAL
               </a>
-              <a
-                href="#"
-                className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1"
-              >
+              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 TERMOS DE GARANTIA
               </a>
-              <a
-                href="#"
-                className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1"
-              >
+              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 CÓDIGO DE ÉTICA
               </a>
-              <a
-                href="#"
-                className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1"
-              >
+              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 CANAL DE DENÚNCIAS
               </a>
             </nav>
 
-            {/* Copyright — centralizado e separado visualmente */}
             <p className="text-center leading-tight">
               © Copyright 2025 – M2 Flex · Todos os direitos reservados.<br />
               Desenvolvido por M2 Flex.

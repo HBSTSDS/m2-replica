@@ -1,62 +1,85 @@
+// src/sections/M2Leds.jsx
+import React from "react";
+import m2logo from "../assets/m2-leds-logo.svg";
+
 export default function M2Leds() {
   return (
-    <section className="bg-[#EEF0F6] py-16 md:py-20">
-      {/* 👇 mais espaço entre as colunas */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-y-10 md:gap-x-24 lg:gap-x-28 px-6">
-        
-        {/* Texto (esquerda) */}
-        <div className="text-[#4B4B48]">
-          <h2 className="text-3xl md:text-[32px] font-semibold tracking-tight mb-6">M2 LEDS</h2>
+    <section className="bg-[#F6F7FB] text-[#1C1C1C] py-16 md:py-24">
+      <div className="max-w-6xl mx-auto px-5 md:px-6">
+        {/* Título */}
+        <h2 className="text-[22px] md:text-3xl font-bold tracking-tight mb-4">
+          M2 LEDS
+        </h2>
 
-          <p className="mb-4 leading-relaxed">
-            A M2 Leds é o braço da M2 focado em comunicação visual de alta tecnologia, unindo
-            automação, engenharia e arquitetura.
-          </p>
+        {/* Grid principal */}
+        <div className="grid md:grid-cols-2 gap-16 md:gap-12 items-start">
+          {/* Coluna esquerda */}
+          <div className="text-sm md:text-[15px] leading-relaxed">
+            <p className="mb-4">
+              A M2 Leds é o braço tecnológico da M2 focado em comunicação
+              visual de alta tecnologia, onde design, engenharia e arquitetura
+              trabalham juntos para transformar espaços em experiência.
+            </p>
 
-          <p className="mb-6 leading-relaxed">
-            Nesse núcleo, desenvolvemos soluções visuais inovadoras com foco em impacto, design e
-            tecnologia de ponta, atendendo projetos personalizados e de grande escala.
-          </p>
+            <p className="mb-4">
+              Atuamos do conceito à instalação, integrando design, escolha de
+              materiais, testes e execução para entregar projetos personalizados
+              e escaláveis com alto desempenho visual e confiabilidade técnica.
+            </p>
 
-          <p className="font-semibold mb-2">Principais especialidades:</p>
-          <ul className="list-disc pl-5 space-y-2 mb-6">
-            <li>Tecnologia em LED para fachadas, totens e ambientes interativos</li>
-            <li>Impressão 3D de grandes formatos</li>
-            <li>Letras Caixa e fachadas especiais</li>
-            <li>Cenografia personalizada e estrutural</li>
-            <li>Projetos sob medida com automação e inteligência visual</li>
-          </ul>
-
-          <p className="leading-relaxed">
-            A M2 Leds transforma espaços em experiências visuais marcantes, integrando
-            estética, inovação e funcionalidade.
-          </p>
-
-          <div className="flex justify-center mt-8">
-            <img src="/m2-leds-logo.svg" alt="M2" className="w-24" />
+            <h3 className="font-semibold mt-5 mb-3">O que fazemos:</h3>
+            <ul className="space-y-2 list-disc pl-5">
+              <li>
+                Tecnologia em LED para fachadas, totens e ambientes imersivos;
+                desenvolvimento, controle e calibração de brilho/cor para
+                diferentes condições de luz.
+              </li>
+              <li>
+                Impressão 3D de grandes formatos; prototipagem funcional e
+                corte a laser de peças com precisão dimensional.
+              </li>
+              <li>
+                Letras caixa e fachadas especiais; engenharia de comunicação
+                personalizada com acabamento e durabilidade para aplicações
+                internas e externas.
+              </li>
+              <li>
+                Integração com sensores, controladores e softwares para
+                conteúdos dinâmicos e experiências interativas.
+              </li>
+              <li>
+                Estruturas sob medida com automação e segurança, pensando no
+                fluxo de pessoas e na operação do cliente.
+              </li>
+            </ul>
           </div>
 
-        </div>
-
-        {/* Vídeo (direita) — agora RETÂNGULO VERTICAL */}
-        <div className="flex items-center md:justify-end">
-          <a
-            href="#"
-            className="block w-full md:w-[420px] lg:w-[460px] aspect-[3/4] rounded-[32px] bg-[#3B3B3B]
-                       border border-black/10 shadow-md overflow-hidden relative group"
-          >
-            {/* botão play */}
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/0 border-2 border-white/80
-                              flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-                <svg viewBox="0 0 60 60" className="w-8 h-8">
-                  <path d="M22 18 L44 30 L22 42 Z" fill="none" stroke="white" strokeWidth="3" strokeLinejoin="round"/>
+          {/* Coluna direita */}
+          <div className="md:justify-self-end flex flex-col items-end gap-3">
+            {/* Vídeo mock com altura ajustada */}
+            <div className="relative w-[280px] sm:w-[340px] md:w-[380px] lg:w-[440px] aspect-[9/16] max-h-[580px] rounded-2xl bg-[#E5E5E5] shadow-lg overflow-hidden flex items-center justify-center">
+              <button
+                aria-label="Reproduzir vídeo"
+                className="z-10 w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/85 backdrop-blur-sm shadow flex items-center justify-center hover:scale-105 transition"
+              >
+                <svg width="36" height="36" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" fill="#9A9A9A" />
                 </svg>
-              </div>
-            </div>
-          </a>
-        </div>
+              </button>
 
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-black/5" />
+            </div>
+
+            {/* Logo abaixo da caixa */}
+            <img
+              src={m2logo}
+              alt="M2 Leds"
+              className="w-[90px] md:w-[110px] h-auto select-none mt-2"
+              draggable={false}
+              loading="lazy"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

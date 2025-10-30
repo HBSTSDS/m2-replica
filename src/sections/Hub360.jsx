@@ -7,13 +7,48 @@ const ICON_NAMES = [
   "garrafa", "Impresora", "lampada", "lapis", "medalha", "minion", "papel", "serra",
 ];
 
+/** === Carrega SVGs em src/assets/icons (Vite) ===
+ * Como este arquivo está em src/sections/Hub360.jsx,
+ * o caminho correto para src/assets/icons é ../assets/icons/*.svg
+ */
+const assetsGlob = import.meta.glob("../assets/icons/*.svg", {
+  eager: true,
+  as: "url",
+});
+
+// Mapa { base-lowercase -> url }
+const ICON_URL_MAP = Object.fromEntries(
+  Object.entries(assetsGlob).map(([path, url]) => {
+    const file = path.split("/").pop();              // "caixa.svg"
+    const base = file.replace(/\.svg$/i, "").toLowerCase(); // "caixa"
+    return [base, url];
+  })
+);
+
+// Resolve URL do ícone (assets -> public fallback)
+function resolveIconUrl(name) {
+  const key = String(name).toLowerCase();
+  const inAssets = ICON_URL_MAP[key];
+
+  if (!inAssets) {
+    console.warn(`[Hub360] Ícone não encontrado em src/assets/icons: "${name}". Tentando /icons/${key}.svg`);
+    return `/icons/${key}.svg`; // fallback para /public/icons
+  }
+  return inAssets;
+}
+
+// Constrói componentes <img/> para cada ícone
 const icons = ICON_NAMES.map((name) => (props) => (
   <img
-    src={`/icons/${name}.svg`}
+    src={resolveIconUrl(name)}
     alt={name}
     className="h-6 w-6"
     loading="lazy"
     draggable={false}
+    onError={(e) => {
+      const lowerFallback = `${window.location.origin}/icons/${String(name).toLowerCase()}.svg`;
+      if (e.currentTarget.src !== lowerFallback) e.currentTarget.src = lowerFallback;
+    }}
     {...props}
   />
 ));
@@ -55,7 +90,8 @@ export default function Hub360() {
 
   function onPointerDown(e) {
     e.preventDefault(); e.stopPropagation();
-    try { wheelRef.current.setPointerCapture?.(e.pointerId); } catch {}
+    // eslint-disable-next-line no-unused-vars
+    try { wheelRef.current.setPointerCapture?.(e.pointerId); } catch (err) { /* noop */ }
     drag.current.dragging = true;
     drag.current.startAngle = getAngleFromPointer(e.clientX, e.clientY);
     drag.current.startRotation = rotation;
@@ -75,7 +111,8 @@ export default function Hub360() {
 
   function onPointerUp(e) {
     drag.current.dragging = false;
-    try { wheelRef.current.releasePointerCapture?.(e.pointerId); } catch {}
+    // eslint-disable-next-line no-unused-vars
+    try { wheelRef.current.releasePointerCapture?.(e.pointerId); } catch (err) { /* noop */ }
     window.removeEventListener("pointermove", onPointerMove);
     window.removeEventListener("pointerup", onPointerUp);
   }
@@ -92,26 +129,34 @@ export default function Hub360() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           {/* ESQUERDA */}
-          <div>
+          <div className="relative md:pr-16 z-0">
             <h2 className="text-2xl md:text-3xl font-semibold text-slate-900">HUB 360º</h2>
             <p className="mt-2 max-w-xl text-slate-600 leading-relaxed">
               O centro onde ideias, design e produção se conectam para transformar comunicação em resultado.
             </p>
 
-            <div className="mt-6">
-              <InteractivePills
-                items={[
-                  "DISPLAYS","GIGANTOGRAFIA",
-                  "PRÉ IMPRESSÃO","MARKETING","TÊXTIL","CENOGRAFIA",
-                  "IMPRESSÃO UV","IMPRESSÃO OFFSET","GRÁFICA RÁPIDA","PDV",
-                  "MARCENARIA","SERRALHERIA","PROJETOS ESPECIAIS","LETRAS CAIXA",
-                ]}
-              />
+            {/* === BLOCO DAS PÍLULAS COM LIMITE VISUAL === */}
+            <div className="mt-6 max-w-[560px] md:max-w-[520px] overflow-hidden pb-12">
+              <div className="relative">
+                <InteractivePills
+                  items={[
+                    "DISPLAYS","GIGANTOGRAFIA","PRÉ IMPRESSÃO","MARKETING","TÊXTIL","CENOGRAFIA",
+                    "IMPRESSÃO UV","IMPRESSÃO OFFSET","GRÁFICA RÁPIDA","PDV","MARCENARIA","SERRALHERIA",
+                    "PROJETOS ESPECIAIS","LETRAS CAIXA",
+                  ]}
+                />
+              </div>
+            </div>
+
+            {/* Espaço para textos adicionais, se quiser preencher depois */}
+            <div className="mt-4 max-w-[60ch]">
+              <p className="text-sm leading-7 text-slate-700"></p>
+              <p className="mt-4 text-sm font-semibold text-slate-900"></p>
             </div>
           </div>
 
           {/* DIREITA (ANEL) */}
-          <div className="mx-auto">
+          <div className="mx-auto relative z-30">
             <div
               ref={wheelRef}
               className="relative select-none touch-none"
@@ -137,6 +182,7 @@ export default function Hub360() {
                   return (
                     <button
                       key={i}
+                      type="button"
                       onClick={() => handleIconClick(i)}
                       className="absolute grid place-items-center rounded-full bg-[#ECEFF7] shadow-sm hover:shadow-md active:scale-95 transition"
                       style={{

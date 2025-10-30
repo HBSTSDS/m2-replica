@@ -1,5 +1,6 @@
 import { useState } from "react";
 import WhatsAppButton from "../../components/WhatsAppButton";
+import headerImg from "../../assets/faleConosco/header.png"; // ✅ importa do assets
 
 export default function FaleConosco() {
   const [sent, setSent] = useState(false);
@@ -17,17 +18,15 @@ export default function FaleConosco() {
     e.currentTarget.reset();
   };
 
-  const headerSrc = `${import.meta.env.BASE_URL}faleConosco/header.png`;
-
   return (
     <main className="bg-[#F6F7FB] min-h-screen">
       {/* HEADER */}
       <div className="w-full h-[340px] overflow-hidden">
         <img
-          src={headerSrc}
+          src={headerImg}
           alt="Fale Conosco - Header"
           className="w-full h-full object-cover object-right"
-          onError={(e) => (e.currentTarget.src = "/faleConosco/header.png")}
+          onError={(e) => { e.currentTarget.src = headerImg; }} // ✅ usa a MESMA variável
         />
       </div>
 

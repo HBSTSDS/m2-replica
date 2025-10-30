@@ -1,18 +1,14 @@
 // src/sections/Displays.jsx
 import React, { useMemo, useState } from "react";
+import intro from "../assets/Displays/intro.png";
+import voila from "../assets/Displays/voila.png";
+
 
 function Img({ src, alt, className = "" }) {
-  const [cur, setCur] = useState(src);
   return (
     <img
-      src={cur}
+      src={src}
       alt={alt}
-      onError={() => {
-        const order = [".png", ".jpg", ".jpeg", ".webp"];
-        const low = cur.toLowerCase();
-        const i = order.findIndex((e) => low.endsWith(e));
-        if (i >= 0 && i < order.length - 1) setCur(cur.replace(order[i], order[i + 1]));
-      }}
       className={`block select-none ${className}`}
       draggable="false"
     />
@@ -22,15 +18,15 @@ function Img({ src, alt, className = "" }) {
 export default function Displays() {
   const items = useMemo(
     () => [
-      { slug: "voila",       title: "Voilá",        img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "automatico",  title: "Automático",   img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "easygreen",   title: "Easy Green",   img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "evolution",   title: "Evolution",    img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "flash",       title: "Flash",        img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "easyshelf",   title: "Easy Shelf",   img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "smartclip",   title: "Smart Clip",   img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "magicpopup",  title: "Magic Pop Up", img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "portico",     title: "Pórtico",      img: "/Displays/voila.png", desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "voila", title: "Voilá", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "automatico", title: "Automático", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "easygreen", title: "Easy Green", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "evolution", title: "Evolution", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "flash", title: "Flash", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "easyshelf", title: "Easy Shelf", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "smartclip", title: "Smart Clip", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "magicpopup", title: "Magic Pop Up", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      { slug: "portico", title: "Pórtico", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
     ],
     []
   );
@@ -41,7 +37,6 @@ export default function Displays() {
     <section className="w-full bg-[#EEF0F6] py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Cabeçalho */}
           <div>
             <h2 className="text-2xl tracking-wide text-gray-700 mb-4">DISPLAYS</h2>
             <p className="text-gray-600 leading-relaxed">
@@ -49,17 +44,14 @@ export default function Displays() {
             </p>
           </div>
 
-          {/* Imagem de abertura */}
           <div className="w-full max-w-[520px] mx-auto bg-[#E7E9F2] overflow-hidden">
-            <Img src="/Displays/intro.png" alt="Displays - vitrine" className="w-full h-auto object-contain" />
+            <Img src={intro} alt="Displays - vitrine" className="w-full h-auto object-contain" />
           </div>
         </div>
 
         <div className="my-10 h-px bg-black/5" />
 
-        {/* Seção principal */}
         <div className="grid lg:grid-cols-[220px_520px_1fr] md:grid-cols-2 gap-8 items-start">
-          {/* Lista lateral (usa .list-rail do CSS) */}
           <div className="relative w-[220px]">
             <ul className="list-rail w-full select-none">
               {items.map((it, i) => (
@@ -76,7 +68,6 @@ export default function Displays() {
             </ul>
           </div>
 
-          {/* Imagem central */}
           <div className="order-last md:order-none">
             <div className="w-full max-w-[520px] mx-auto bg-[#E7E9F2] overflow-hidden">
               <Img
@@ -89,16 +80,12 @@ export default function Displays() {
             <style>{`@keyframes fadeIn { to { opacity: 1 } }`}</style>
           </div>
 
-          {/* Descrição */}
           <div className="lg:pt-4">
             <h3 className="text-xl font-medium text-gray-900 mb-2">
               DISPLAY {items[active].title.toUpperCase()}
             </h3>
             <p className="text-gray-600 leading-relaxed">{items[active].desc}</p>
-            <a
-              href="#"
-              className="inline-block mt-4 text-gray-700 underline underline-offset-4 hover:no-underline"
-            >
+            <a href="#" className="inline-block mt-4 text-gray-700 underline underline-offset-4 hover:no-underline">
               ver detalhes &gt;&gt;
             </a>
           </div>

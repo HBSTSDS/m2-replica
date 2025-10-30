@@ -1,8 +1,6 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /HB/
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /HB/index.html [L]
-</IfModule>
+RewriteEngine On
+RewriteBase /HB/
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /HB/index.html [L]

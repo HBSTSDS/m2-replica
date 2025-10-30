@@ -1,13 +1,12 @@
 import { useState } from "react";
 import WhatsAppButton from "../../components/WhatsAppButton";
+import headerImg from "../../assets/trabalheComAgente/header.png";
 
 export default function TrabalheComAgente() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [fileName, setFileName] = useState("");
-
-  const headerSrc = `${import.meta.env.BASE_URL}trabalhe/header.png`;
-
+  
   const onFileChange = (e) => {
     const f = e.target.files?.[0];
     if (!f) return setFileName("");
@@ -45,14 +44,14 @@ export default function TrabalheComAgente() {
   return (
     <main className="bg-[#F6F7FB] min-h-screen">
       {/* HEADER */}
-      <div className="w-full h-[340px] overflow-hidden">
-        <img
-          src={headerSrc}
-          alt="Trabalhe com a gente - Header"
-          className="w-full h-full object-cover object-right"
-          onError={(e) => (e.currentTarget.src = "/trabalheComAgente/header.png")}
-        />
-      </div>
+     <div className="w-full h-[340px] overflow-hidden">
+    <img
+      src={headerImg}
+      alt="Trabalhe com a gente - Header"
+      className="w-full h-full object-cover object-right"
+      onError={(e) => (e.currentTarget.src = headerImg)}
+    />
+  </div>
 
 
       {/* CONTEÚDO */}
