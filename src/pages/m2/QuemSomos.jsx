@@ -13,17 +13,15 @@ export default function QuemSomos() {
 
   return (
     <div className="bg-[#EFF1F4]">
-      {/* faixa cinza topo */}
-      <div className="h-10 w-full bg-[#CFC7C5]" />
+  {/* hero */}
+  <div className="w-full">
+    <img
+      src={imgPrincipal}
+      alt="Fachada M2"
+      className="w-full h-44 md:h-60 object-cover"
+    />
+  </div>
 
-      {/* hero */}
-      <div className="w-full">
-        <img
-          src={imgPrincipal}
-          alt="Fachada M2"
-          className="w-full h-44 md:h-60 object-cover"
-        />
-      </div>
 
       {/* conteúdo */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-14">

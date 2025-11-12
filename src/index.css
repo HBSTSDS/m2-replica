@@ -29,7 +29,8 @@ html, body {
   background: white;
   scroll-behavior: smooth;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: hidden;      /* evita scroll lateral */
+  overflow-y: visible !important;  /* libera o sticky */
 }
 
 /* ================= NAVBAR ================= */
@@ -333,4 +334,50 @@ html, body {
   display: none !important;
 }
 
+/* ========= GLOBAL ========= */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideDown {
+  animation: slideDown .3s ease forwards;
+}
 
+.nav-toggle {
+  transition: background .3s ease, transform .2s ease;
+}
+.nav-toggle:hover {
+  background: #d01f7b;
+  transform: scale(1.05);
+}
+/* ==== Patches para o bloco do scroll ==== */
+html, body, #root { overflow-x: hidden; }
+
+#scroll-video {
+  background: #000;          /* resolve o “fundo branco enorme” */
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+#scroll-video > .sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+/* Neutraliza ancestrais comuns que atrapalham sticky */
+#root, main, .min-h-screen, .flex-1, .page, .content {
+  overflow: visible !important;
+  transform: none !important;
+  perspective: none !important;
+  filter: none !important;
+  contain: none !important;
+}
+
+div.min-h-screen {
+  overflow: visible !important;
+}
+html, body, #root, .min-h-screen, main { overflow-y: visible !important; }
+#scroll-video { background:#000; position:relative; }
+#scroll-video > .sticky { position: sticky; top:0; height:100vh; z-index:30; }

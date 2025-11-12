@@ -1,25 +1,30 @@
 // src/components/Footer.jsx
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 // ✅ imports corretos a partir de src/assets
 import bannerRevendedor from "../assets/bannerRevendedor.png";
-import m2logo from "../assets/m2-logo.png"; // se o arquivo estiver .svg, troque a extensão aqui
+import m2logo from "../assets/m2-logo.png"; // troque extensão se for .svg
 
 export default function Footer() {
   const location = useLocation();
 
+  const handleBannerClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
-      {/* Banner só na Home */}
       {location.pathname === "/" && (
         <div className="w-full mb-10">
-          <img
-            src={bannerRevendedor}
-            alt="A maior revenda UV da América Latina - Seja um revendedor!"
-            className="w-full block object-cover"
-            loading="lazy"
-            draggable={false}
-          />
+          <Link to="seja-um-revendedor" onClick={handleBannerClick}>
+            <img
+              src={bannerRevendedor}
+              alt="A maior revenda UV da América Latina - Seja um revendedor!"
+              className="w-full block object-cover cursor-pointer hover:opacity-90 transition"
+              loading="lazy"
+              draggable={false}
+            />
+          </Link>
         </div>
       )}
 
@@ -36,7 +41,13 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-6 py-12">
           {/* Lado esquerdo */}
           <div>
-            <img src={m2logo} alt="M2 Flex" className="w-28 mb-4" loading="lazy" draggable={false} />
+            <img
+              src={m2logo}
+              alt="M2 Flex"
+              className="w-28 mb-4"
+              loading="lazy"
+              draggable={false}
+            />
 
             <div className="flex items-center gap-3 mb-5">
               <a href="#" aria-label="Instagram">

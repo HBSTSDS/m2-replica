@@ -1,1 +1,8 @@
-﻿/*    /index.html   200
+﻿# Permite servir frames diretamente
+/frames1080/*   /frames1080/:splat   200
+/frames720/*    /frames720/:splat   200
+/frames_1080/*  /frames_1080/:splat 200
+/frames_720/*   /frames_720/:splat 200
+
+# Redireciona o resto pro React Router
+/* /index.html 200

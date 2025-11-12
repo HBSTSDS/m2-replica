@@ -1,28 +1,57 @@
 // src/sections/HeroVideo.jsx
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 export default function HeroVideo() {
+  const iframeRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  // função de controle do YouTube via API postMessage
+  const togglePlay = () => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const command = isPlaying ? "pauseVideo" : "playVideo";
+    iframe.contentWindow.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: command,
+        args: [],
+      }),
+      "*"
+    );
+    setIsPlaying(!isPlaying);
+  };
+
+  // inicializa o player com autoplay, loop e sem controles
+  const YT_URL =
+    "https://www.youtube.com/embed/RMFKv2lZ8f0?autoplay=1&mute=1&playsinline=1&loop=1&controls=0&playlist=RMFKv2lZ8f0&modestbranding=1&rel=0";
+
+  useEffect(() => {
+    // pausa o vídeo automaticamente se sair da tela (melhora performance)
+    const handleVisibilityChange = () => {
+      if (document.hidden && isPlaying) togglePlay();
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [isPlaying]);
+
   return (
-    <section className="relative w-full h-[calc(100vh-var(--nav-h,80px))] overflow-hidden bg-gray-200 flex items-center justify-center">
-      {/* Placeholder do vídeo */}
-      <div className="absolute inset-0 flex items-center justify-center bg-[#E5E5E5]">
-        <span className="text-[#1C1C1C] text-lg font-medium">
-          
-        </span>
-      </div>
+    <section className="herovideo relative w-full h-[700px] md:h-[700px] sm:h-[280px] overflow-hidden bg-black flex items-center justify-center">
+      {/* Vídeo do YouTube embedado */}
+      <iframe
+        ref={iframeRef}
+        src={YT_URL}
+        title="Vídeo institucional M2"
+        frameBorder="0"
+        allow="autoplay; fullscreen"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-      {/* Overlay de leve para simular o vídeo */}
-      <div className="absolute inset-0 bg-black/10" />
+      {/* Overlay sutil */}
+      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
 
-      {/* Botão play centralizado */}
-      <button
-        aria-label="play"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex h-20 w-20 items-center justify-center rounded-full bg-white/90 backdrop-blur hover:bg-white transition"
-      >
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </button>
+      
     </section>
   );
 }

@@ -1,0 +1,147 @@
+/* ========= MOBILE (≤768px) ========= */
+@media (max-width: 768px) {
+  /* ===== HERO VIDEO ===== */
+  .herovideo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    min-height: 170px;
+    height: auto;
+  }
+  .herovideo video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .herovideo h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 1rem 0;
+  }
+
+  /* ===== NAVBAR ===== */
+  .topbar .nav-list {
+    display: none !important;
+  }
+
+  .nav-toggle {
+    display: block;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    background: #E5258C;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .3s ease, transform .2s ease;
+  }
+  .nav-toggle:hover {
+    background: #d01f7b;
+    transform: scale(1.05);
+  }
+
+  .mobile-menu {
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .mobile-menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+  }
+  .mobile-menu-section button,
+  .mobile-menu-section a {
+    text-align: left;
+    padding-left: .75rem;
+  }
+  .mobile-menu-section button {
+    font-weight: 600;
+    color: #E5258C;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .mobile-menu-section a {
+    color: #000;
+    text-decoration: none;
+    font-size: .95rem;
+    padding-left: 1.25rem;
+  }
+  .mobile-menu-section a:hover {
+    color: #E5258C;
+  }
+
+  /* ===== HUB360 ===== */
+  .hub360 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+  }
+  .hub360 .col {
+    width: 100%;
+    text-align: center;
+  }
+  .hub360 *,
+  .hub360 *:hover {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: none !important;
+  }
+  .hub360 .content {
+    max-width: 90%;
+    text-align: center;
+  }
+  .hub360 img,
+  .hub360 video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ========= TABLETS ========= */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* ajustes intermediários */
+}
+
+/* ========= DESKTOP ========= */
+@media (min-width: 1025px) {
+  /* ajustes desktop específicos */
+}
+
+/* ========= GLOBAL ========= */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideDown {
+  animation: slideDown .3s ease forwards;
+}
+
+.nav-toggle {
+  transition: background .3s ease, transform .2s ease;
+}
+.nav-toggle:hover {
+  background: #d01f7b;
+  transform: scale(1.05);
+}
+

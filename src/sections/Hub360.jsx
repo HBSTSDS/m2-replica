@@ -1,16 +1,14 @@
 // src/sections/Hub360.jsx
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import InteractivePills from "../components/InteractivePills";
+import grafico from "../assets/360Mobile/grafico.svg";
 
 const ICON_NAMES = [
   "caixa", "camisa", "casa", "correto", "energetico", "engrenagem",
   "garrafa", "Impresora", "lampada", "lapis", "medalha", "minion", "papel", "serra",
 ];
 
-/** === Carrega SVGs em src/assets/icons (Vite) ===
- * Como este arquivo está em src/sections/Hub360.jsx,
- * o caminho correto para src/assets/icons é ../assets/icons/*.svg
- */
+/** === Carrega SVGs em src/assets/icons (Vite) === */
 const assetsGlob = import.meta.glob("../assets/icons/*.svg", {
   eager: true,
   as: "url",
@@ -19,25 +17,22 @@ const assetsGlob = import.meta.glob("../assets/icons/*.svg", {
 // Mapa { base-lowercase -> url }
 const ICON_URL_MAP = Object.fromEntries(
   Object.entries(assetsGlob).map(([path, url]) => {
-    const file = path.split("/").pop();              // "caixa.svg"
-    const base = file.replace(/\.svg$/i, "").toLowerCase(); // "caixa"
+    const file = path.split("/").pop();
+    const base = file.replace(/\.svg$/i, "").toLowerCase();
     return [base, url];
   })
 );
 
-// Resolve URL do ícone (assets -> public fallback)
 function resolveIconUrl(name) {
   const key = String(name).toLowerCase();
   const inAssets = ICON_URL_MAP[key];
-
   if (!inAssets) {
     console.warn(`[Hub360] Ícone não encontrado em src/assets/icons: "${name}". Tentando /icons/${key}.svg`);
-    return `/icons/${key}.svg`; // fallback para /public/icons
+    return `/icons/${key}.svg`;
   }
   return inAssets;
 }
 
-// Constrói componentes <img/> para cada ícone
 const icons = ICON_NAMES.map((name) => (props) => (
   <img
     src={resolveIconUrl(name)}
@@ -54,12 +49,19 @@ const icons = ICON_NAMES.map((name) => (props) => (
 ));
 
 export default function Hub360() {
-  /** ==== TAMANHOS (edite aqui se quiser) ==== */
-  const size = 680;          // diâmetro da roda
-  const btnSizePx = 64;      // diâmetro de cada botão
-  const trackPadding = 10;   // espaçamento ao redor dos botões
-  const outerRadius = 260;   // raio externo do anel
-  /** ======================================== */
+  /** ==== TAMANHOS ==== */
+  const size = 680;
+  const btnSizePx = 64;
+  const trackPadding = 10;
+  const outerRadius = 260;
+  /** ================== */
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const center = size / 2;
   const total = icons.length;
@@ -89,9 +91,11 @@ export default function Hub360() {
   }
 
   function onPointerDown(e) {
-    e.preventDefault(); e.stopPropagation();
-    // eslint-disable-next-line no-unused-vars
-    try { wheelRef.current.setPointerCapture?.(e.pointerId); } catch (err) { /* noop */ }
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      wheelRef.current.setPointerCapture?.(e.pointerId);
+    } catch (err) {}
     drag.current.dragging = true;
     drag.current.startAngle = getAngleFromPointer(e.clientX, e.clientY);
     drag.current.startRotation = rotation;
@@ -111,8 +115,9 @@ export default function Hub360() {
 
   function onPointerUp(e) {
     drag.current.dragging = false;
-    // eslint-disable-next-line no-unused-vars
-    try { wheelRef.current.releasePointerCapture?.(e.pointerId); } catch (err) { /* noop */ }
+    try {
+      wheelRef.current.releasePointerCapture?.(e.pointerId);
+    } catch (err) {}
     window.removeEventListener("pointermove", onPointerMove);
     window.removeEventListener("pointerup", onPointerUp);
   }
@@ -135,8 +140,8 @@ export default function Hub360() {
               O centro onde ideias, design e produção se conectam para transformar comunicação em resultado.
             </p>
 
-            {/* === BLOCO DAS PÍLULAS COM LIMITE VISUAL === */}
-            <div className="mt-6 max-w-[560px] md:max-w-[520px] overflow-hidden pb-12">
+            {/* BLOCO DAS PÍLULAS */}
+            <div className="mt-6 max-w-[560px] md:max-w-[520px] pb-12">
               <div className="relative">
                 <InteractivePills
                   items={[
@@ -147,76 +152,77 @@ export default function Hub360() {
                 />
               </div>
             </div>
-
-            {/* Espaço para textos adicionais, se quiser preencher depois */}
-            <div className="mt-4 max-w-[60ch]">
-              <p className="text-sm leading-7 text-slate-700"></p>
-              <p className="mt-4 text-sm font-semibold text-slate-900"></p>
-            </div>
           </div>
 
-          {/* DIREITA (ANEL) */}
-          <div className="mx-auto relative z-30">
-            <div
-              ref={wheelRef}
-              className="relative select-none touch-none"
-              style={{
-                width: size,
-                height: size,
-                maxWidth: "92vw",
-                maxHeight: "92vw",
-              }}
-              onPointerDown={onPointerDown}
-              onDragStart={(e) => e.preventDefault()}
-            >
-              {/* ÍCONES */}
+          {/* DIREITA */}
+          <div className="mx-auto relative z-30 flex justify-center items-center">
+            {isMobile ? (
+              <img
+                src={grafico}
+                alt="HUB 360º"
+                className="max-w-[340px] w-full h-auto mx-auto mb-[8px] sm:mb-[12px]"
+                loading="lazy"
+              />
+            ) : (
               <div
-                className="absolute inset-0 will-change-transform"
-                style={{ transform: `rotate(${rotation}deg)` }}
+                ref={wheelRef}
+                className="relative select-none touch-none"
+                style={{
+                  width: size,
+                  height: size,
+                  maxWidth: "92vw",
+                  maxHeight: "92vw",
+                }}
+                onPointerDown={onPointerDown}
+                onDragStart={(e) => e.preventDefault()}
               >
-                {positions.map(({ x, y }, i) => {
-                  const Icon = icons[i];
-                  const borderColors = ["#00D1FF", "#FFE600", "#FF005C"];
-                  const borderColor = borderColors[i % borderColors.length];
+                <div
+                  className="absolute inset-0 will-change-transform"
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                >
+                  {positions.map(({ x, y }, i) => {
+                    const Icon = icons[i];
+                    const borderColors = ["#00D1FF", "#FFE600", "#FF005C"];
+                    const borderColor = borderColors[i % borderColors.length];
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => handleIconClick(i)}
+                        className="absolute grid place-items-center rounded-full bg-[#ECEFF7] shadow-sm hover:shadow-md active:scale-95 transition"
+                        style={{
+                          left: x,
+                          top: y,
+                          width: btnSizePx,
+                          height: btnSizePx,
+                          transform: `translate(-50%, -50%) rotate(${-rotation}deg)`,
+                          cursor: "grab",
+                          border: `3px solid ${borderColor}`,
+                        }}
+                        title={ICON_NAMES[i]}
+                        aria-label={ICON_NAMES[i]}
+                      >
+                        <Icon />
+                      </button>
+                    );
+                  })}
+                </div>
 
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => handleIconClick(i)}
-                      className="absolute grid place-items-center rounded-full bg-[#ECEFF7] shadow-sm hover:shadow-md active:scale-95 transition"
-                      style={{
-                        left: x,
-                        top: y,
-                        width: btnSizePx,
-                        height: btnSizePx,
-                        transform: `translate(-50%, -50%) rotate(${-rotation}deg)`,
-                        cursor: "grab",
-                        border: `3px solid ${borderColor}`,
-                      }}
-                      title={ICON_NAMES[i]}
-                      aria-label={ICON_NAMES[i]}
-                    >
-                      <Icon />
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* CENTRO */}
-              <div className="absolute inset-0 grid place-content-center text-center pointer-events-none">
-                <div>
-                  <div className="text-slate-600 font-semibold tracking-wide text-2xl">HUB</div>
-                  <div className="text-slate-800 font-extrabold tracking-tight text-7xl md:text-8xl">
-                    360º
+                {/* CENTRO */}
+                <div className="absolute inset-0 grid place-content-center text-center pointer-events-none">
+                  <div>
+                    <div className="text-slate-600 font-semibold tracking-wide text-2xl">HUB</div>
+                    <div className="text-slate-800 font-extrabold tracking-tight text-7xl md:text-8xl">
+                      360º
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* TEXTO DE RODAPÉ */}
+        {/* RODAPÉ */}
         <div className="mt-6 md:mt-10 max-w-4xl">
           <p className="text-slate-600 leading-relaxed">
             Unimos estratégia, design e produção em um único ecossistema criativo. Atuando de ponta a ponta — do

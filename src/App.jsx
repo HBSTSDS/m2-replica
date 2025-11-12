@@ -8,6 +8,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 
 // SEÇÕES DA HOME
 import HeroVideo from "./sections/HeroVideo";
+import ScrollVideo from "./sections/ScrollVideo";
 import Hub360 from "./sections/Hub360";
 import M2Leds from "./sections/M2Leds";
 import Cases from "./sections/Cases_.jsx";
@@ -49,6 +50,7 @@ function Home() {
   return (
     <>
       <HeroVideo />
+      <ScrollVideo />
       <Hub360 />
       <M2Leds />
       <Cases />
@@ -64,7 +66,7 @@ function Shell() {
   const isRevendedorLP = location.pathname === "/seja-um-revendedor";
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F7FB]">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FB]" style={{ overflow: "visible" }}>
       {!isRevendedorLP && <NavBar />}
 
       <main className={!isRevendedorLP ? "flex-1 pt-0" : "flex-1"}>
