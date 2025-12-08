@@ -1,81 +1,125 @@
 import "./revendedor.css";
-import rosaBg from "../../assets/SejaUmRevendedor/Subtract-rosa.svg";
 
+// ✅ caminho correto (sobe 2 pastas -> entra em assets -> SejaUmRevendedor)
+import comunicacaoVisual from "../../assets/SejaUmRevendedor/comunicacao_visual.jpg";
+import graficaRapida from "../../assets/SejaUmRevendedor/grafica_rapida.jpg";
 
 export default function FaixaRosa() {
   return (
-    <section
-      className="section faixa-rosa"
-      style={{
-        ["--faixa-bg-url"]: `url(${rosaBg})`,
-        ["--faixa-bg-opacity"]: 1,
-        ["--rosa-bg-size"]: "contain",
-        ["--rosa-bg-pos-x"]: "right",
-        ["--rosa-bg-pos-y"]: "top",
-        ["--faixa-min-h"]: "860px",
-      }}
-    >
-      <div className="faixa-rosa__wrap">
-        <header className="faixa-rosa__heading">
-          <span className="faixa-rosa__tag" style={{ color: "yellow" }}>
-            NOSSOS PRODUTOS
-          </span>
-          <h2 className="faixa-rosa__title">
-            O QUE VOCÊ PODE <br /> REVENDER?
-          </h2>
-          <p className="faixa-rosa__desc">
-            Revenda produtos de Comunicação Visual, Gráfica Rápida, DTF, Offset,
-            Rígidos e Sublimação. Um catálogo completo com qualidade, variedade
-            e pronta entrega para todo o Brasil. Tudo o que você precisa para vender mais.
+    <section className="section faixa-rosa">
+      {/* 🔥 GRID FULL-WIDTH */}
+      <div className="faixa-rosa__fullgrid">
+        <div className="faixa-produtos faixa-produtos--left">
+          <h2 className="faixa-produtos__title">NOSSOS PRODUTOS</h2>
+
+          <p>
+            A M2 é o maior fornecedor para revendas de Comunicação Visual do
+            Brasil. Há mais de 20 anos no mercado, a M2 se consolidou como a
+            maior revenda de impressão UV e Comunicação Visual da América
+            Latina.
           </p>
-        </header>
 
-        <div className="prod-grid">
-          <div className="col col--left">
-            {[
-              ["COMUNICAÇÃO VISUAL", "Adesivos, Banners, Lona, Canvas"],
-              [
-                "GRÁFICA RÁPIDA",
-                "Cartões, Blocos, Cadernos, Agendas, Adesivos, Folders, Crachás, Sacolas e mais!",
-              ],
-              [
-                "SUBLIMAÇÃO",
-                "Personalize tudo com qualidade: camisas, almofadas, sacolas, tapetes, bandanas e muito mais!",
-              ],
-            ].map(([t, d], i) => (
-              <article className="prod-card" key={`L${i}`}>
-                <div className="prod-media" aria-hidden="true" />
-                <div className="prod-body">
-                  <h3 className="prod-title">{t}</h3>
-                  <p className="prod-desc">{d}</p>
-                  <button className="prod-btn">SAIBA MAIS</button>
-                </div>
-              </article>
-            ))}
-          </div>
+          <p>
+            Atendemos milhares de gráficas, agências e empreendedores em todo o
+            Brasil com produtos de alta qualidade, pronta entrega e suporte
+            técnico especializado.
+          </p>
 
-          <div className="col col--right">
-            {[
-              ["IMPRESSÃO DTF", "DTF Têxtil e DTF UV"],
-              [
-                "SOLUÇÕES EM RÍGIDOS",
-                "Soluções em rígidos para comunicação visual: displays, totens, acrílicos, PVC, IPS, XPS e mais!",
-              ],
-            ].map(([t, d], i) => (
-              <article className="prod-card card--right" key={`R${i}`}>
-                <div className="prod-media" aria-hidden="true" />
-                <div className="prod-body">
-                  <h3 className="prod-title">{t}</h3>
-                  <p className="prod-desc">{d}</p>
-                  <button className="prod-btn">SAIBA MAIS</button>
-                </div>
-              </article>
-            ))}
-          </div>
+          <p>
+            Se você busca uma revenda confiável e lucrativa, a M2 é o seu
+            parceiro ideal.
+          </p>
+        </div>
+
+        <div className="faixa-rosa__heading faixa-rosa__heading--right">
+          <h2 className="faixa-rosa__title">O QUE VOCÊ PODE REVENDER?</h2>
+
+          <p className="faixa-rosa__subtitle">
+            Um portfólio completo para impulsionar suas vendas
+          </p>
+
+          <p className="faixa-rosa__desc">
+            A M2 oferece um dos catálogos mais completos do setor, com soluções
+            que atendem desde pequenas gráficas até grandes operações.
+          </p>
+
+          <span className="faixa-rosa__tag">
+            LINHAS QUE VOCÊ PODE TRABALHAR
+          </span>
         </div>
       </div>
 
-      
+      {/* 🔻 CARDS */}
+      <div className="faixa-rosa__cards">
+        <div className="prod-grid">
+          <div className="col">
+            {/* 🎨 COMUNICAÇÃO VISUAL */}
+            <article className="prod-card">
+              <div
+                className="prod-img"
+                style={{ backgroundImage: `url(${comunicacaoVisual})` }}
+              />
+              <div className="prod-body">
+                <h3 className="prod-title">COMUNICAÇÃO VISUAL</h3>
+                <p className="prod-desc">
+                  Adesivos, banners, painéis, backdrops, placas e muito mais.
+                </p>
+                <button className="prod-btn">Saiba mais</button>
+              </div>
+            </article>
+
+            {/* 🖨️ GRÁFICA RÁPIDA */}
+            <article className="prod-card">
+              <div
+                className="prod-img"
+                style={{ backgroundImage: `url(${graficaRapida})` }}
+              />
+              <div className="prod-body">
+                <h3 className="prod-title">GRÁFICA RÁPIDA</h3>
+                <p className="prod-desc">
+                  Cartões, blocos, cadernos, agendas, folders e muito mais.
+                </p>
+                <button className="prod-btn">Saiba mais</button>
+              </div>
+            </article>
+
+            <article className="prod-card">
+              <div className="prod-img" />
+              <div className="prod-body">
+                <h3 className="prod-title">SUBLIMAÇÃO</h3>
+                <p className="prod-desc">
+                  Canecas, camisetas, e uma linha completa para revenda.
+                </p>
+                <button className="prod-btn">Saiba mais</button>
+              </div>
+            </article>
+          </div>
+
+          <div className="col">
+            <article className="prod-card">
+              <div className="prod-img" />
+              <div className="prod-body">
+                <h3 className="prod-title">IMPRESSÃO DTF</h3>
+                <p className="prod-desc">
+                  Tecnologia de ponta com alta durabilidade.
+                </p>
+                <button className="prod-btn">Saiba mais</button>
+              </div>
+            </article>
+
+            <article className="prod-card">
+              <div className="prod-img" />
+              <div className="prod-body">
+                <h3 className="prod-title">RÍGIDOS E DISPLAYS</h3>
+                <p className="prod-desc">
+                  Displays, totens, acrílicos e soluções para PDV.
+                </p>
+                <button className="prod-btn">Saiba mais</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

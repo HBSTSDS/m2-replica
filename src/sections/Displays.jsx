@@ -1,8 +1,17 @@
 // src/sections/Displays.jsx
 import React, { useMemo, useState } from "react";
-import intro from "../assets/Displays/intro.png";
-import voila from "../assets/Displays/voila.png";
 
+// pega todas as PNGs da pasta Displays de forma “global”
+const displayImages = import.meta.glob("../assets/Displays/*.png", {
+  eager: true,
+});
+
+// helper pra resolver o caminho da imagem
+function getImg(fileName) {
+  const mod = displayImages[`../assets/Displays/${fileName}`];
+  // em assets, o valor geralmente vem em mod.default
+  return mod?.default || "";
+}
 
 function Img({ src, alt, className = "" }) {
   return (
@@ -16,43 +25,108 @@ function Img({ src, alt, className = "" }) {
 }
 
 export default function Displays() {
+  const introImg = getImg("intro.png");
+
   const items = useMemo(
     () => [
-      { slug: "voila", title: "Voilá", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "automatico", title: "Automático", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "easygreen", title: "Easy Green", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "evolution", title: "Evolution", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "flash", title: "Flash", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "easyshelf", title: "Easy Shelf", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "smartclip", title: "Smart Clip", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "magicpopup", title: "Magic Pop Up", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
-      { slug: "portico", title: "Pórtico", img: voila, desc: "Lorem ipsum dolor sit amet consectetur." },
+      {
+        slug: "voila",
+        title: "Voilá",
+        file: "voila.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
+      {
+        slug: "displayauto",
+        title: "Automatico",
+        file: "displaysauto.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
+      {
+        slug: "displayevo",
+        title: "Evolution",
+        file: "displaysevo.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
+      {
+        slug: "displayflash",
+        title: "Flash",
+        file: "displaysflash.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
+      {
+        slug: "displaypopup",
+        title: "Pop Up",
+        file: "displayspopup.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
+      {
+        slug: "displaysportico",
+        title: "Pórtico",
+        file: "displaysportico.png",
+        desc: "Lorem ipsum dolor sit amet consectetur.",
+      },
     ],
     []
   );
 
   const [active, setActive] = useState(0);
+  const activeItem = items[active];
+  const activeImg = getImg(activeItem.file);
+
+  const renderTextBlock = (extraClasses = "") => (
+    <div className={extraClasses}>
+      <h3 className="text-xl font-medium text-gray-900 mb-2">
+        DISPLAY {activeItem.title.toUpperCase()}
+      </h3>
+      <p className="text-gray-600 leading-relaxed">{activeItem.desc}</p>
+      <a
+        href="#"
+        className="inline-block mt-4 text-gray-700 underline underline-offset-4 hover:no-underline"
+      >
+        ver detalhes &gt;&gt;
+      </a>
+    </div>
+  );
 
   return (
-    <section className="w-full bg-[#EEF0F6] py-16">
+    <section className="w-full bg-[#E7E9F2] py-16">
       <div className="max-w-7xl mx-auto px-4">
+        {/* INTRO */}
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-2xl tracking-wide text-gray-700 mb-4">DISPLAYS</h2>
+            <h2 className="text-2xl tracking-wide text-gray-700 mb-4">
+              DISPLAYS
+            </h2>
             <p className="text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur. Imperdiet purus volutpat pharetra sit tellus pellentesque.
+              Lorem ipsum dolor sit amet consectetur. Imperdiet purus volutpat
+              pharetra sit tellus pellentesque.
             </p>
           </div>
 
-          <div className="w-full max-w-[520px] mx-auto bg-[#E7E9F2] overflow-hidden">
-            <Img src={intro} alt="Displays - vitrine" className="w-full h-auto object-contain" />
+          <div className="w-full max-w-[520px] mx-auto bg-[#E7E9F2] overflow-hidden rounded-lg">
+            <Img
+              src={introImg}
+              alt="Displays - vitrine"
+              className="w-full h-auto object-contain max-h-[220px] md:max-h-none"
+            />
           </div>
         </div>
 
         <div className="my-10 h-px bg-black/5" />
 
-        <div className="grid lg:grid-cols-[220px_520px_1fr] md:grid-cols-2 gap-8 items-start">
-          <div className="relative w-[220px]">
+        {/* LISTA + IMAGEM + TEXTO */}
+        <div
+          className="
+            grid
+            grid-cols-2
+            md:grid-cols-2
+            lg:grid-cols-[220px_520px_1fr]
+            gap-8
+            items-start
+          "
+        >
+          {/* COLUNA 1 – LISTA */}
+          <div className="relative w-full md:w-[220px] col-span-1">
             <ul className="list-rail w-full select-none">
               {items.map((it, i) => (
                 <li key={it.slug}>
@@ -68,27 +142,25 @@ export default function Displays() {
             </ul>
           </div>
 
-          <div className="order-last md:order-none">
-            <div className="w-full max-w-[520px] mx-auto bg-[#E7E9F2] overflow-hidden">
+          {/* COLUNA 2 – IMAGEM + TEXTO (MOBILE/TABLET) */}
+          <div className="col-span-1 space-y-4">
+            <div className="w-full bg-[#E7E9F2] overflow-hidden rounded-lg">
               <Img
-                key={items[active].img}
-                src={items[active].img}
-                alt={`Display ${items[active].title}`}
-                className="w-full h-auto object-contain opacity-0 animate-[fadeIn_250ms_ease-out_forwards]"
+                key={activeItem.slug}
+                src={activeImg}
+                alt={`Display ${activeItem.title}`}
+                className="w-full h-auto object-contain max-h-[220px] md:max-h-none opacity-0 animate-[fadeIn_250ms_ease-out_forwards]"
               />
             </div>
-            <style>{`@keyframes fadeIn { to { opacity: 1 } }`}</style>
+
+            {/* texto logo EMBAIXO da imagem no mobile */}
+            <div className="block lg:hidden">{renderTextBlock("")}</div>
           </div>
 
-          <div className="lg:pt-4">
-            <h3 className="text-xl font-medium text-gray-900 mb-2">
-              DISPLAY {items[active].title.toUpperCase()}
-            </h3>
-            <p className="text-gray-600 leading-relaxed">{items[active].desc}</p>
-            <a href="#" className="inline-block mt-4 text-gray-700 underline underline-offset-4 hover:no-underline">
-              ver detalhes &gt;&gt;
-            </a>
-          </div>
+          {/* TEXTO EM COLUNA SEPARADA NO DESKTOP */}
+          <div className="hidden lg:block">{renderTextBlock("lg:pt-4")}</div>
+
+          <style>{`@keyframes fadeIn { to { opacity: 1 } }`}</style>
         </div>
       </div>
     </section>

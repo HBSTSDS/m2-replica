@@ -99,7 +99,7 @@ export default function Footer() {
         <div className="border-t border-[#cfcfcf]">
           <div className="max-w-6xl mx-auto px-6 py-8 text-[13px]">
             <nav className="footer-links flex flex-wrap justify-between gap-y-2 mb-6 leading-tight">
-              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
+              <a href="#" className="underline decoration-[#FF005c] underline-offset-4 font-medium decoration-1">
                 POLÍTICA DE PRIVACIDADE
               </a>
               <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">

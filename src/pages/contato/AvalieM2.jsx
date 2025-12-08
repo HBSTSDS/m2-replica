@@ -57,17 +57,17 @@ export default function AvalieM2() {
             </h1>
 
             <p className="mt-4 text-lg text-[#4B4B48]">
-              Sua opinião é muito importante para nós!
+              Sua opinião ajuda a construir uma M2 cada vez melhor
             </p>
             <p className="mt-2 text-[#4B4B48]">
-              A M2 quer ouvir você — suas sugestões, dúvidas, reclamações e
-              elogios nos ajudam a evoluir continuamente e oferecer um serviço
-              cada vez melhor.
+              A M2 quer ouvir você — suas sugestões, elogios e ideias são
+              essenciais para que possamos evoluir e oferecer experiências cada
+              vez melhores.
             </p>
             <p className="mt-6 text-[#4B4B48]">
-              Preencha o formulário abaixo e compartilhe sua experiência conosco.
-              Agradecemos por dedicar um momento do seu tempo para nos ajudar a
-              melhorar!
+              Preencha o formulário abaixo e conte como foi sua experiência com
+              a M2. Agradecemos por dedicar um momento do seu tempo para nos
+              ajudar a crescer!
             </p>
           </div>
 
@@ -110,7 +110,7 @@ export default function AvalieM2() {
                 {/* avaliação 0..10 */}
                 <fieldset>
                   <legend className="mb-2 block text-sm text-[#4B4B48]">
-                    Como você avalia sua experiência com a M2?
+                    De 0 a 10, como você avalia sua experiência com a M2?
                   </legend>
                   <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                     {notas.map((n) => (
@@ -139,11 +139,10 @@ export default function AvalieM2() {
                   placeholder="O que você mais gostou em nosso atendimento/produto/serviço?"
                   className="w-full rounded-md border border-[#D9DDE8] bg-[#F6F7FB] px-3 py-2 outline-none focus:ring-2 focus:ring-[#E5258C]/30 resize-y"
                 />
-
+                Tem algo que você acha que poderíamos fazer melhor?
                 <textarea
                   name="melhorias"
                   rows="2"
-                  placeholder="Há algo que poderíamos melhorar?"
                   className="w-full rounded-md border border-[#D9DDE8] bg-[#F6F7FB] px-3 py-2 outline-none focus:ring-2 focus:ring-[#E5258C]/30 resize-y"
                 />
 
@@ -154,7 +153,10 @@ export default function AvalieM2() {
                   </legend>
                   <div className="flex flex-wrap gap-3">
                     {["Sim", "Não", "Talvez"].map((opt) => (
-                      <label key={opt} className="inline-flex items-center gap-2">
+                      <label
+                        key={opt}
+                        className="inline-flex items-center gap-2"
+                      >
                         <input
                           type="radio"
                           name="recomendaria"
@@ -171,7 +173,8 @@ export default function AvalieM2() {
                 {/* contato posterior */}
                 <fieldset>
                   <legend className="mb-2 block text-sm text-[#4B4B48]">
-                    Deseja que entremos em contato para falar sobre sua avaliação?
+                    Deseja que entremos em contato para falar sobre sua
+                    avaliação?
                   </legend>
                   <div className="flex flex-wrap gap-3">
                     {[
@@ -179,7 +182,10 @@ export default function AvalieM2() {
                       { v: "whatsapp", label: "Sim, por WhatsApp" },
                       { v: "nao", label: "Não é necessário" },
                     ].map((o) => (
-                      <label key={o.v} className="inline-flex items-center gap-2">
+                      <label
+                        key={o.v}
+                        className="inline-flex items-center gap-2"
+                      >
                         <input
                           type="radio"
                           name="contato_posterior"
@@ -215,10 +221,15 @@ export default function AvalieM2() {
 
                 {/* consentimento */}
                 <label className="flex items-start gap-2 text-sm text-[#4B4B48]">
-                  <input type="checkbox" name="consent" required className="mt-1" />
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    required
+                    className="mt-1"
+                  />
                   <span>
-                    Li e dou consentimento para processar meus dados pessoais
-                    de acordo com as finalidades comerciais e de marketing.
+                    Li e dou consentimento para processar meus dados pessoais de
+                    acordo com as finalidades comerciais e de marketing.
                   </span>
                 </label>
 

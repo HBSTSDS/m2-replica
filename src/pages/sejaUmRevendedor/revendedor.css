@@ -1,52 +1,158 @@
 /* ===================== BASE / TOKENS ===================== */
 body.revendedor {
-  zoom: 1.0;
-  background-color: #fff;
-  color: #1c1c1c;
+  zoom: 1;
+  background-color: #ffffff;
+  color: #131313;
 }
 body.revendedor :root {
-  --m2-pink: #e5258c;
-  --m2-ink: #1c1c1c;
-  --m2-yellow: #ffd400;
+  --m2-pink: #ff005c;
+  --m2-ink: #131313;
+  --m2-yellow: #ffe600;
   --design-w: 1440;
   --design-h: 900;
 }
 
-/* ===================== ESTRUTURA GERAL ===================== */
-body.revendedor .section { position: relative; width: 100%; background: #fff; }
 body.revendedor .container {
-  max-width: 1320px; margin: 0 auto;
+  padding: 120px 24px; /* 120 em cima/baixo, 24 nas laterais */
+}
+
+/* ===================== ESTRUTURA GERAL ===================== */
+body.revendedor .section {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+}
+body.revendedor .container {
+  max-width: 1320px;
+  margin: 0 auto;
   padding: clamp(48px, 5vw, 72px) clamp(16px, 3vw, 24px);
 }
-body.revendedor .h1, body.revendedor .h2, body.revendedor .h3 { color: var(--m2-ink); margin: 0; }
-body.revendedor .h1 { font-size: clamp(42px, 6.8vw, 88px); line-height: 1.04; font-weight: 900; }
-body.revendedor .h2 { font-size: clamp(24px, 4.2vw, 40px); line-height: 1.12; font-weight: 900; }
-body.revendedor .h3 { font-size: clamp(18px, 2.4vw, 24px); line-height: 1.18; font-weight: 800; }
-body.revendedor .p  { font-size: clamp(14px, 1.6vw, 16px); line-height: 1.55; color: #3a3a38; }
-
-body.revendedor .btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  border:0; cursor:pointer; text-decoration:none;
-  padding:16px 28px; border-radius:18px; font-weight:800; text-transform:uppercase;
-  background:var(--m2-pink); color:#fff; box-shadow:0 14px 32px rgba(229,37,140,.28);
-  transition:transform .15s, box-shadow .15s;
+body.revendedor .h1,
+body.revendedor .h2,
+body.revendedor .h3 {
+  color: var(--m2-ink);
+  margin: 0;
 }
-body.revendedor .btn:hover{ transform:translateY(-2px); box-shadow:0 18px 42px rgba(229,37,140,.36); }
+body.revendedor .h1 {
+  font-size: clamp(42px, 6.8vw, 88px);
+  line-height: 1.04;
+  font-weight: 900;
+}
+body.revendedor .h2 {
+  font-size: clamp(24px, 4.2vw, 40px);
+  line-height: 1.12;
+  font-weight: 900;
+}
+body.revendedor .h3 {
+  font-size: clamp(18px, 2.4vw, 24px);
+  line-height: 1.18;
+  font-weight: 800;
+}
+body.revendedor .p {
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.55;
+  color: #4b4848;
+}
 
-body.revendedor .tag{
-  display:inline-block; font-size:12px; font-weight:800; letter-spacing:.2px;
-  padding:6px 10px; border-radius:999px; background:#f6f7fa; color:#5b5b58;
+body.revendedor .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 16px 28px;
+  border-radius: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--m2-pink);
+  color: #ffffff;
+  box-shadow: 0 14px 32px rgba(255, 0, 92, 0.28);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+body.revendedor .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(255, 0, 92, 0.36);
+}
+
+body.revendedor .tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e7e9f2;
+  color: #4b4848;
 }
 
 /* ===================== HERO ===================== */
+/* ===================== HERO ===================== */
 .hero-section {
   position: relative;
-  background: #ffeb00; /* amarelo ocupa toda a section */
+  background: transparent; /* quem faz o fundo agora é o SVG */
   min-height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
+}
+
+/* Fundo amarelo em SVG ocupando toda a área da section */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: url("../../assets/SejaUmRevendedor/Subtract-amarelo.svg")
+    no-repeat center / cover;
+  z-index: 0;
+}
+
+/* Cabeçalho (fica por cima do fundo) */
+.hero-header {
+  position: absolute;
+  top: 30px;
+  left: 80px;
+  right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 3; /* garante estar acima do ::before */
+}
+
+.hero-logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* “tamanho” aproximado do bloco branco do canto */
+  width: clamp(260px, 22vw, 320px);
+  height: clamp(110px, 12vw, 150px);
+}
+
+.revendedor-logo {
+  width: clamp(110px, 10vw, 150px);
+  height: auto;
+  display: block;
+}
+
+.rede-sociais {
+  width: clamp(130px, 12vw, 180px);
+  height: auto;
+  transform: translateY(-15px);
+}
+
+/* Container principal: também por cima do fundo */
+.hero-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 5vw;
 }
 
 /* Cabeçalho */
@@ -90,14 +196,14 @@ body.revendedor .tag{
   align-items: center;
   width: 100%;
   max-width: 1300px;
-  gap: 40px;
+  gap: 160px;
 }
 
 /* Texto */
 .hero-text h1 {
   font-size: clamp(3.4rem, 6vw, 5.5rem);
   font-weight: 900;
-  color: #000;
+  color: #131313;
   line-height: 1.05;
   letter-spacing: -1px;
 }
@@ -114,25 +220,25 @@ body.revendedor .tag{
   border: none;
   padding: 24px 56px;
   border-radius: 30px;
-  color: #fff;
+  color: #ffffff;
   font-weight: 800;
   font-size: 1.2rem;
   letter-spacing: 0.5px;
-  box-shadow: 0 10px 0 #e00050, 0 15px 25px rgba(255, 0, 92, 0.5);
+  box-shadow: 0 10px 0 #ff005c, 0 15px 25px rgba(255, 0, 92, 0.5);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 0 #e00050, 0 20px 30px rgba(255, 0, 92, 0.5);
+  box-shadow: 0 12px 0 #ff005c, 0 20px 30px rgba(255, 0, 92, 0.5);
 }
 
 /* Vídeo */
 .hero-video .video-placeholder {
   width: 80%;
   aspect-ratio: 4 / 5; /* antes era 9/16, agora mais largo */
-  background: #111;
+  background: #131313;
   border-radius: 28px;
   display: flex;
   justify-content: center;
@@ -144,7 +250,7 @@ body.revendedor .tag{
 
 .play-icon {
   font-size: 2.2rem;
-  color: #fff;
+  color: #ffffff;
 }
 
 /* Responsivo */
@@ -169,173 +275,876 @@ body.revendedor .tag{
   }
 }
 
-
 /* ===================== DESTAQUES ===================== */
-body.revendedor .destaques{ padding:clamp(40px, 8vw, 80px) 0; overflow:visible; }
-body.revendedor .destaques-banner{
-  width:100%; background-image:var(--dstk-img); background-repeat:no-repeat;
-  background-size:contain; background-position:center; aspect-ratio:3 / 1; border-radius:22px;
+body.revendedor .destaques {
+  padding: clamp(40px, 8vw, 80px) 0;
+  overflow: visible;
+}
+body.revendedor .destaques-banner {
+  width: 100%;
+  background-image: var(--dstk-img);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  aspect-ratio: 3 / 1;
+  border-radius: 22px;
 }
 
-/* ===================== FAIXA ROSA (com caminho direto) ===================== */
-body.revendedor .faixa-rosa{
-  position:relative; width:100%; height:2500px; background:#fff; overflow:visible; z-index:0;
-}
-/* a arte fica no ::before para não ser apagada por outras regras */
-body.revendedor .faixa-rosa::before{
-  content:""; position:absolute; inset:0;
-  background-image:url("/src/assets/SejaUmRevendedor/Subtract-rosa.svg");
-  background-repeat:no-repeat; background-position:center top; background-size:contain;
-  z-index:0;
-}
-body.revendedor .faixa-rosa__wrap{
-  position:relative; z-index:1; width:min(1200px,92vw); margin:0 auto;
-  padding-top:clamp(260px, 24vw, 380px); padding-bottom:clamp(60px, 8vw, 120px);
-}
+body.revendedor .faixa-rosa {
+  position: relative;
 
-/* título/descrição na faixa */
-body.revendedor .faixa-rosa__heading{ text-align:right; max-width:640px; margin-left:auto; margin-bottom:72px; }
-body.revendedor .faixa-rosa__tag{ display:block; font-weight:700; font-size:1rem; letter-spacing:.1em; margin-bottom:12px; color:#ffd400; }
-body.revendedor .faixa-rosa__title{ font-weight:900; font-size:clamp(2.2rem,4.5vw,3.6rem); line-height:1.1; color:#fff; margin-bottom:16px; }
-body.revendedor .faixa-rosa__desc{ color:#fff; font-size:1.05rem; line-height:1.6; font-weight:400; }
+  /* full bleed real */
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
 
-/* grid/cards */
-body.revendedor .prod-grid{ display:flex; justify-content:space-between; align-items:flex-start; gap:32px; }
-body.revendedor .col{ flex:1; display:flex; flex-direction:column; gap:28px; }
-
-body.revendedor .prod-card{
-  background:#fff; border-radius:16px; padding:50px 52px;
-  box-shadow:0 6px 16px rgba(0,0,0,.1);
-  display:flex; align-items:stretch; gap:18px;
-  transition:transform .25s ease, box-shadow .25s ease;
-}
-body.revendedor .prod-card:hover{ transform:translateY(-6px); box-shadow:0 10px 24px rgba(0,0,0,.15); }
-body.revendedor .prod-media{
-  flex:0 0 clamp(110px, 14vw, 170px); aspect-ratio:4/3; border-radius:12px;
-  background:#eceff3; background-size:cover; background-position:center;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.06); overflow:hidden;
-}
-body.revendedor .prod-body{ flex:1; display:flex; flex-direction:column; }
-body.revendedor .prod-title{ font-size:1.2rem; font-weight:800; color:#000; margin-bottom:8px; }
-body.revendedor .prod-desc{ font-size:.95rem; color:#333; flex:1; line-height:1.5; margin-bottom:16px; }
-body.revendedor .prod-btn{
-  align-self:flex-start; background-color:#ff005c; color:#fff; font-weight:700; text-transform:uppercase;
-  border:none; border-radius:999px; padding:10px 22px; cursor:pointer;
-  transition:transform .25s ease, box-shadow .25s ease;
-}
-body.revendedor .prod-btn:hover{ transform:translateY(-3px); box-shadow:0 6px 16px rgba(255,0,92,.4); }
-
-/* responsivo faixa rosa */
-@media (max-width: 960px){
-  body.revendedor .faixa-rosa__heading{ text-align:center; margin:0 auto 56px; }
-  body.revendedor .prod-grid{ flex-direction:column; }
-  body.revendedor .col{ width:100%; }
-}
-@media (max-width: 640px){
-  body.revendedor .prod-card{ flex-direction:column; padding:18px; }
-  body.revendedor .prod-media{ width:100%; aspect-ratio:16/9; }
-}
-
-
-/* ===================== CADASTRO ===================== */
-body.revendedor .cadastro {
+  overflow: tranparent; /* PRECISO pra invadir */
   background: transparent;
-  position: relative;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-  margin: 0; /* mantém a posição natural */
-  padding-top: 0;
+
+  padding-top: 160px;
+  padding-bottom: 180px;
+
+  z-index: 3; /* fica acima do que deve */
 }
 
-body.revendedor .cadastro-grid {
-  background: #ffffff;
-  border-radius: 20px;
-  width: min(1200px, 90vw);
-  height: clamp(480px, 48vw, 520px);
+body.revendedor .faixa-rosa::before {
+  content: "";
+  position: absolute;
+
+  /* Invadir para cima e para baixo */
+  top: -180px;
+  bottom: -180px;
+
+  left: 0;
+  width: 100vw; /* ENCOSTA NAS PAREDES */
+
+  background-image: url("../../assets/SejaUmRevendedor/Subtract-rosa.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* PROPORÇÃO CORRETA, SEM ZOOM EXAGERADO */
+  background-position: center 40%; /* AJUSTA A CURVA, PONTO CHAVE */
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CONTEÚDO (título + cards) SEMPRE POR CIMA DO RAIO */
+body.revendedor .faixa-rosa__wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Ajustes em telas menores */
+@media (max-width: 768px) {
+  body.revendedor .faixa-rosa {
+    padding-top: 80px;
+    padding-bottom: 120px;
+  }
+
+  body.revendedor .faixa-rosa::before {
+    width: 140vw; /* deixa o raio maior que a tela para ficar bonito */
+    top: 40%; /* ajusta ligeiramente a posição no mobile */
+  }
+}
+
+/* HEADER (centralizado, preto, com textos menores) */
+
+
+
+
+/* GRID DE PRODUTOS */
+body.revendedor .prod-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: center;
-  gap: clamp(24px, 4vw, 40px);
-  padding: clamp(32px, 4vw, 48px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  margin: -600px auto 0; /* 👈 apenas o card invade o rosa */
-  position: relative;
-  z-index: 4;
+  grid-template-columns: 2fr 1.4fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 80px;
 }
 
-body.revendedor .cadastro-grid > div:first-child {
-  padding-left: clamp(16px, 3vw, 32px);
+body.revendedor .prod-grid .col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-body.revendedor .tag {
-  display: inline-block;
+/* CARD QUADRADO COM IMAGEM CINZA NA ESQUERDA */
+
+body.revendedor .prod-card {
+  background: #ffffff;
+  border-radius: 0;
+  border: 1px solid #e7e9f2;
+  height: 300px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* quadrado cinza da imagem */
+body.revendedor .prod-card .prod-img {
+  width: 50%;
+  height: 100%;
+  background: #e7e9f2;
+  background-size: cover;
+  background-position: center;
+}
+
+/* texto do card */
+body.revendedor .prod-card .prod-body {
+  width: 50%;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* título */
+body.revendedor .prod-card .prod-title {
+  font-size: 18px;
   font-weight: 700;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: #f3f3f3;
-  padding: 6px 12px;
-  border-radius: 999px;
-  color: #333;
+  margin-bottom: 6px;
+  color: #4b4848;
 }
 
-body.revendedor .cadastro-grid .h2 {
-  font-weight: 900;
-  color: #000;
-  line-height: 1.15;
-  font-size: clamp(1.8rem, 3vw, 2.2rem);
-  text-transform: uppercase;
+/* texto principal */
+body.revendedor .prod-card .prod-desc {
+  font-size: 14px;
+  color: #4b4848;
+  line-height: 1.4;
 }
 
-body.revendedor .cadastro-grid .p {
-  font-size: clamp(1rem, 1.2vw, 1.05rem);
-  color: #333;
+/* texto extra em itálico */
+body.revendedor .prod-card .prod-extra {
+  font-size: 13px;
+  font-style: italic;
+  color: #4b4848;
+  margin: 8px 0 0;
+}
+
+/* Saiba Mais no canto inferior direito */
+body.revendedor .prod-card .prod-link,
+body.revendedor .prod-btn {
+  margin-top: auto;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ff005c;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body.revendedor .prod-card .prod-link:hover,
+body.revendedor .prod-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===================== RESPONSIVO ===================== */
+
+@media (max-width: 900px) {
+  body.revendedor .faixa-rosa__wrap {
+    padding: 60px 16px 80px;
+  }
+
+
+
+  body.revendedor .prod-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.revendedor .prod-card {
+    height: 300px;
+  }
+}
+
+/* =================== BOTÃO “SAIBA MAIS” =================== */
+
+body.revendedor .prod-btn {
+  color: #ff005c; /* igual ao Figma / paleta */
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: auto;
+  display: inline-block;
+}
+
+/* ===================== INTRO (NOSSOS PRODUTOS) ===================== */
+
+body.revendedor .faixa-rosa__intro {
+  max-width: 720px;
+}
+
+/* Título NOSSOS PRODUTOS – branco e com cara de heading principal */
+body.revendedor .faixa-rosa__intro .intro-title {
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
   margin-bottom: 16px;
 }
 
-body.revendedor .cadastro-grid .btn {
-  background: #ff005c;
-  color: #fff;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 14px 32px;
-  border-radius: 999px;
-  box-shadow: 0 6px 16px rgba(255, 0, 92, 0.35);
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-body.revendedor .cadastro-grid .btn:hover {
-  transform: translateY(-3px);
+/* Texto da intro branco também */
+body.revendedor .faixa-rosa__intro p {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 8px;
 }
 
-body.revendedor .video-mock {
-  width: 100%;
-  height: clamp(280px, 40vw, 360px);
-  border-radius: 18px;
-  background: #0f0f10;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+/* ===================== HEADING O QUE VOCÊ PODE REVENDER ===================== */
+/* (mantemos apenas para garantir que qualquer override fique igual ao desejado) */
+
+
+
+
+/* ===================== GRID DE PRODUTOS ===================== */
+
+body.revendedor .prod-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+body.revendedor .prod-grid .col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* === CARD QUADRADO COM IMAGEM CINZA NA ESQUERDA === */
+
+body.revendedor .prod-card {
+  background: #ffffff;
+  border-radius: 0;
+  border: 1px solid #e7e9f2;
+  height: 300px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* quadrado cinza da imagem */
+body.revendedor .prod-card .prod-img {
+  width: 50%;
+  height: 100%;
+  background: #e7e9f2; /* cinza claro da paleta */
+  background-size: cover;
+  background-position: center;
+}
+
+/* texto do card */
+body.revendedor .prod-card .prod-body {
+  width: 50%;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* título */
+body.revendedor .prod-card .prod-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #4b4848;
+}
+
+/* texto principal */
+body.revendedor .prod-card .prod-desc {
+  font-size: 14px;
+  color: #4b4848;
+  line-height: 1.4;
+}
+
+/* texto extra em itálico */
+body.revendedor .prod-card .prod-extra {
+  font-size: 13px;
+  font-style: italic;
+  color: #4b4848;
+  margin: 8px 0 0;
+}
+
+/* Saiba Mais no canto inferior direito */
+body.revendedor .prod-card .prod-link {
+  margin-top: auto;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ff005c;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body.revendedor .prod-card .prod-link:hover {
+  text-decoration: underline;
+}
+
+/* ===================== RESPONSIVO ===================== */
+
+@media (max-width: 900px) {
+  body.revendedor .faixa-rosa__wrap {
+    padding: 60px 16px 80px;
+  }
+
+
+
+  body.revendedor .prod-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.revendedor .prod-card {
+    height: 300px;
+  }
+}
+
+/* ====== CADASTRO SECTION ====== */
+
+body.revendedor .cadastro-section {
+  position: relative;
+  z-index: 1;
+
+  /* sobe essa sessão para encaixar depois da faixa rosa */
+  margin-top: -260px;
+  /* cria o “respiro” branco entre a faixa rosa e os títulos,
+     igual ao Figma */
+  padding: 300px 0 140px;
+}
+
+.cadastro-wrapper {
+  width: min(1200px, 92vw);
   margin: 0 auto;
 }
 
+/* ================= GRID PRINCIPAL (VANTAGENS + COMO FUNCIONA) ================= */
+
+.cadastro-grid-text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;                /* espaço entre as colunas, mais perto do Figma */
+  margin-bottom: 96px;      /* respiro antes da faixa “PARA QUEM É” */
+  position: relative;
+  align-items: flex-start;
+}
+
+/* Linha divisória vertical entre as colunas */
+.cadastro-grid-text::before {
+  content: "";
+  position: absolute;
+  top: 12px;                /* não encosta no topo – igual ao layout */
+  bottom: 12px;             /* nem no fim, termina junto com o texto */
+  left: 50%;
+  width: 1px;
+  background-color: #c7c7c7;
+}
+
+/* Colunas internas */
+.cadastro-grid-text .col {
+  padding: 0 24px;
+}
+
+/* Títulos das colunas (VANTAGENS / COMO FUNCIONA) */
+.cadastro-grid-text .col h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+/* “SUA REVENDA” em rosa */
+.cadastro-grid-text .highlight {
+  color: #ff005c;
+}
+
+/* Parágrafos das colunas */
+.cadastro-grid-text .col p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b4848;
+  margin-bottom: 16px;
+  max-width: 520px;          /* deixa a largura de texto igual ao box do Figma */
+}
+
+/* Negrito dentro do texto (O processo é simples:) */
+.cadastro-grid-text .col p strong {
+  color: #131313;
+  font-weight: 700;
+}
+
+/* (mantidos para compatibilidade caso use listas em outro lugar) */
+.cadastro-list,
+.cadastro-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ================== “PARA QUEM É” – FAIXA CINZA ================== */
+
+.cadastro-target {
+  /* full width, igual à faixa do Figma */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+
+  background: #e7e9f2;
+  padding: 40px 0;          /* altura da faixa cinza */
+  text-align: center;
+}
+
+.cadastro-target h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: #4b4848;
+}
+
+/* texto corrido no centro, igual ao print */
+.cadastro-target p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b4848;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media (max-width: 960px) {
+  .cadastro-grid-text {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .cadastro-grid-text::before {
+    display: none;          /* some a linha no mobile */
+  }
+
+  .cadastro-grid-text .col {
+    padding: 0;
+  }
+
+  .cadastro-grid-text .col p {
+    max-width: none;
+  }
+
+  .cadastro-target {
+    left: 0;
+    margin-left: 0;
+    width: 100%;
+    padding: 32px 16px;
+  }
+
+  .cadastro-target p {
+    max-width: 100%;
+  }
+}
+
+
 /* ===================== SELO VERDE ===================== */
-body.revendedor .eco-strip{ padding:clamp(24px, 5vw, 44px) 0; }
-body.revendedor .eco-wrap{ width:min(1200px,92vw); margin:0 auto; }
-body.revendedor .eco-img{ width:100%; height:auto; display:block; }
+body.revendedor .eco-strip {
+  padding: clamp(24px, 5vw, 44px) 0;
+}
+body.revendedor .eco-wrap {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+body.revendedor .eco-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 /* ===================== WHATS CTA ===================== */
-body.revendedor .whats-cta{ padding:clamp(24px, 6vw, 48px) 0; }
-body.revendedor .whats-grid{ width:min(1200px,92vw); margin:0 auto; }
-body.revendedor .whats-img{ width:100%; display:block; }
+/* SEÇÃO WHATS CTA */
+body.revendedor .whats-cta {
+  padding: clamp(24px, 6vw, 48px) 0;
+}
 
+body.revendedor .whats-grid {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+/* FOOTER */
 body.revendedor .footer-section {
-  padding: 0; /* remove padding que criava a faixa cinza */
-  margin: 0; /* cola o footer no fim do site */
-  background: transparent; /* elimina qualquer tom de fundo */
+  padding: 0;
+  margin: 0;
+  background: transparent;
 }
 body.revendedor .footer-img {
   width: 100%;
   display: block;
   margin: 0;
+}
+
+/* 🔶 RETÂNGULO AMARELO DO CTA */
+body.revendedor .yellow-container {
+  position: relative;
+  border-radius: 21px;
+  overflow: hidden; /* impede imagem vazar */
+}
+
+/* Fundo com a arte cta.png */
+body.revendedor .cta-bg {
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  min-height: 387px; /* altura da arte */
+  padding: 40px 72px 40px 80px; /* 🔥 mais espaço à esquerda */
+
+  display: flex;
+  justify-content: flex-start; /* texto fica à esquerda */
+  align-items: center;
+}
+/* Brilho suave (opcional) */
+.yellow-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 150, 0.45) 0%,
+    rgba(255, 255, 150, 0) 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 🔥 Caixa de texto centralizada */
+.cta-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 720px; /* 🔥 AUMENTEI A COLUNA PARA CABER OS BOTÕES */
+  margin: 0 auto; /* centraliza tudo */
+  text-align: center; /* centraliza texto */
+  padding-right: 140px; /* 🔥 RESERVA ESPAÇO PRA MENINA */
+}
+
+/* Título – SEJA UM REVENDEDOR M2 */
+.cta-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+/* Subtítulo – Transforme seu negócio... */
+.cta-subtitle {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Texto menor – Cadastre-se para receber... */
+.cta-description {
+  font-size: 16px;
+  line-height: 1.45;
+  margin-bottom: 26px;
+}
+
+/* BOTÕES — TAMANHO EXATO DO FIGMA */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap; /* 🔥 isso impede a quebra */
+}
+
+/* PADRÃO BASE PARA AMBOS */
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 62.35px; /* 🔥 altura do Figma */
+  padding: 12.5px; /* 🔥 padding do Figma */
+  font-size: 15px; /* 🔥 tamanho mais próximo do Figma */
+  font-weight: 700;
+
+  border-radius: 15px; /* 🔥 border-radius do Figma */
+  text-decoration: none;
+  color: #fff;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+
+  white-space: nowrap; /* 🔥 evita quebra de linha dentro do botão */
+}
+
+/* BOTÃO ROSA — largura fixa */
+.btn-pink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 306.382px; /* mesmo tamanho do Figma */
+  height: 62.356px;
+  padding: 12.5px;
+
+  background: #ff005c;
+  border-radius: 15px;
+
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+/* BOTÃO VERDE — largura fixa */
+.btn-green {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12.5px;
+
+  width: 306.382px; /* 🔥 largura exata do Figma */
+  height: 62.356px; /* 🔥 altura exata do Figma */
+
+  padding: 12.5px; /* 🔥 padding exato */
+  border-radius: 15px;
+
+  background: #94c94b; /* 🔥 cor exata */
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+/* MOBILE continua empilhando os botões */
+/* MOBILE: pode continuar empilhando */
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* aqui pode quebrar, não tem problema */
+  }
+}
+
+/* DIV CINZA FULL WIDTH */
+body.revendedor .cadastro-target {
+  width: 100vw; /* ocupa a tela inteira */
+  position: relative;
+
+  left: 50%; /* tira do container */
+  right: 50%;
+  margin-left: -50vw; /* re-centraliza */
+  margin-right: -50vw;
+
+  background: #e7e9f2; /* cor da caixa cinza */
+  padding: 40px 0; /* igual ao Figma (vertical apenas) */
+}
+
+.rede-sociais {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rede-sociais a {
+  padding-top: 10px;
+  display: inline-flex;
+  font-size: 28px; /* tamanho do ícone */
+  color: #ff005c; /* mesma cor para todos */
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.rede-sociais a:hover {
+  transform: translateY(-1px);
+  color: #ff005c; /* hover na mesma paleta */
+}
+
+/* 🔥 FORÇA O BOTÃO VERDE A SOBREPOR O .btn ROSA */
+body.revendedor .btn.btn-green {
+  background: #94c94b !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+.faixa-produtos {
+  width: 789px; /* igual ao Figma */
+  margin: 0 auto 60px; /* centralizado + espaço abaixo */
+  padding: 0 16px;
+}
+
+.faixa-produtos__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ff005c;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+/* bloco "NOSSOS PRODUTOS" colado à esquerda na área branca */
+.faixa-produtos {
+  max-width: 789px;
+  margin: 0 0 200px; /* AQUI: aumentei o espaço inferior */
+  padding-left: 120px;
+  padding-right: 16px;
+}
+
+
+/* título */
+.faixa-produtos__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #FF005C;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+/* parágrafos */
+.faixa-produtos p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 150%;
+  color: #000000;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+
+@media (max-width: 820px) {
+  .faixa-produtos {
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .faixa-produtos__title {
+    font-size: 26px;
+  }
+
+  .faixa-produtos p {
+    font-size: 18px;
+  }
+}
+/* CONTAINER DO BLOCO DE TEXTO DENTRO DA FAIXA ROSA */
+/* ===== BLOCO ROSA – TÍTULO + TEXTOS + CARDS ===== */
+
+body.revendedor .faixa-rosa {
+  position: relative;      /* mantém só como container da faixa */
+  padding-top: 160px;
+  padding-bottom: 180px;
+}
+
+/* wrapper interno (onde estão heading + cards) */
+body.revendedor .faixa-rosa__wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px 80px;    /* laterais e espaço embaixo */
+}
+
+/* TODOS os textos do bloco rosa ficam na mesma “div lógica”
+   alinhados à direita */
+body.revendedor .faixa-rosa__heading {
+  display: grid;
+  row-gap: 12px;
+  justify-items: end;      /* tudo encostado na direita */
+  text-align: right;
+  color: #fff;
+  margin-top: -120px; /* ajuste fino aqui */
+}
+
+/* TÍTULO: "O QUE VOCÊ PODE REVENDER?" */
+body.revendedor .faixa-rosa__title {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 0.8685;     /* 86,85% */
+  text-transform: uppercase;
+  max-width: 581px;
+}
+
+/* SUBTÍTULO + TEXTO LONGO */
+body.revendedor .faixa-rosa__subtitle,
+body.revendedor .faixa-rosa__desc {
+  font-family: "Poppins", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;        /* 150% */
+  max-width: 775px;
+}
+
+/* "LINHAS QUE VOCÊ PODE TRABALHAR" */
+body.revendedor .faixa-rosa__tag {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 0.8685;
+  text-transform: uppercase;
+}
+
+/* Sobe levemente os cards, sem achatar nada */
+body.revendedor .faixa-rosa__cards {
+  max-width: 1120px;
+  margin: -24px auto 0;    /* sobe 24px e mantém centralizado */
+}
+/* GRID DO TOPO: NOSSOS PRODUTOS (ESQ) + O QUE VOCÊ PODE REVENDER? (DIR) */
+body.revendedor .faixa-rosa__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 64px; /* espaço pra respiro antes dos cards */
+}
+/* bloco "NOSSOS PRODUTOS" colado à esquerda na área branca */
+/* bloco "NOSSOS PRODUTOS" agora dentro do grid à esquerda */
+.faixa-produtos {
+  max-width: 789px;
+  margin: 0;              /* tira o espaço gigante pra baixo */
+  padding-left: 0;        /* sem empurrar demais */
+  padding-right: 16px;    /* só um respiro interno */
+}
+/* 🔥 GRID FULL WIDTH PARA ALINHAR UM BLOCO À ESQUERDA E OUTRO À DIREITA */
+.faixa-rosa__fullgrid {
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+
+  align-items: flex-start;
+  position: relative;
+  z-index: 2; /* fica acima do rosa */
+}
+
+/* BLOCO DA ESQUERDA – SEM FUNDO, FICA NA ÁREA BRANCA */
+.faixa-produtos--left {
+  padding-left: 80px;
+  max-width: 700px;
+  margin-top: -200px; /* 🔥 sobe o texto da esquerda */
+}
+
+
+/* BLOCO DA DIREITA – TEXTO BRANCO DENTRO DO ROSA */
+.faixa-rosa__heading--right {
+  color: white;
+  text-align: right;
+  padding-right: 80px;
+  max-width: 700px;
+  justify-self: end;
 }

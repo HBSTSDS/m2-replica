@@ -1,6 +1,6 @@
 // src/sections/M2Leds.jsx
 import React from "react";
-import m2logo from "../assets/m2-leds-logo.svg";
+import m2logo from "../assets/m2 leds.svg";
 
 export default function M2Leds() {
   return (

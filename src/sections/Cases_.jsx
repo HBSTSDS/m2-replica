@@ -25,7 +25,12 @@ export default function Cases() {
           CASES
         </h2>
 
-        <div className="grid grid-cols-4 gap-5 auto-rows-[260px]">
+        {/* GRID ORIGINAL — só adaptando altura no mobile */}
+        <div className="
+          grid grid-cols-4 gap-5
+          auto-rows-[160px]        /* mobile (reduzido) */
+          md:auto-rows-[260px]     /* desktop (original) */
+        ">
           {images.map(({ src, alt, className = "" }, i) => (
             <CardImage key={i} src={src} alt={alt} className={className} />
           ))}

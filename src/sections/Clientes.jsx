@@ -18,8 +18,21 @@ import tim from "../assets/clientes/tim.svg";
 
 export default function Clients() {
   const logos = [
-    be180, betano, disney, gp, hortifruti, jcdecaux, lolla,
-    netflix, prime, rir, samsung, sesc, shell, thetown, tim
+    be180,
+    betano,
+    disney,
+    gp,
+    hortifruti,
+    jcdecaux,
+    lolla,
+    netflix,
+    prime,
+    rir,
+    samsung,
+    sesc,
+    shell,
+    thetown,
+    tim,
   ];
 
   const loop = [...logos, ...logos];
@@ -27,9 +40,30 @@ export default function Clients() {
   return (
     <section className="w-full bg-[#EEF0F6] py-14">
       <style>{`
-        @keyframes clients-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        @keyframes marquee {
+          0%   { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .clients-wrapper {
+          display: flex;
+          white-space: nowrap;
+          width: max-content;
+        }
+
+        .clients-row {
+          display: flex;
+          white-space: nowrap;
+          width: max-content;
+          animation: marquee 13s linear infinite;
+          transform: translateZ(0);
+          will-change: transform;
+        }
+
+        @media (min-width: 769px) {
+          .clients-row {
+            animation-duration: 25s;
+          }
         }
       `}</style>
 
@@ -45,24 +79,21 @@ export default function Clients() {
               "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
           }}
         >
-          <div
-            className="
-              flex flex-nowrap gap-14 will-change-transform
-              animate-[clients-marquee_25s_linear_infinite]
-              hover:[animation-play-state:paused]
-            "
-          >
-            {loop.map((src, i) => (
-              <div key={i} className="shrink-0 flex items-center">
-                <img
-                  src={src}
-                  alt=""
-                  className="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200"
-                  draggable="false"
-                  loading={i < logos.length ? "eager" : "lazy"}
-                />
-              </div>
-            ))}
+          {/* wrapper necessário para o loop suave */}
+          <div className="clients-wrapper">
+            <div className="clients-row">
+              {loop.map((src, i) => (
+                <div key={i} className="shrink-0 flex items-center mx-6">
+                  <img
+                    src={src}
+                    alt=""
+                    className="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-200"
+                    draggable="false"
+                    loading={i < logos.length ? "eager" : "lazy"}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

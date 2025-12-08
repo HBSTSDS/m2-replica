@@ -26,24 +26,23 @@ export default function FaleConosco() {
           src={headerImg}
           alt="Fale Conosco - Header"
           className="w-full h-full object-cover object-right"
-          onError={(e) => { e.currentTarget.src = headerImg; }} // ✅ usa a MESMA variável
+          onError={(e) => {
+            e.currentTarget.src = headerImg;
+          }} // ✅ usa a MESMA variável
         />
       </div>
-
-      
 
       {/* CONTEÚDO */}
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-6">
           {/* faixinha colorida */}
-          <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14">
-          </div>
+          <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14"></div>
           <div className="flex  mb-5 h-1.5">
-              <span className="w-16 bg-[#E5258C]" />
-              <span className="w-16 bg-[#00B8F1]" />
-              <span className="w-16 bg-[#FFD400]" />
-              <span className="w-16 bg-[#1C1C1C]" />
-            </div>
+            <span className="w-16 bg-[#E5258C]" />
+            <span className="w-16 bg-[#00B8F1]" />
+            <span className="w-16 bg-[#FFD400]" />
+            <span className="w-16 bg-[#1C1C1C]" />
+          </div>
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* Texto */}
             <div>
@@ -54,15 +53,59 @@ export default function FaleConosco() {
                 Sua opinião é muito importante para a M2!
               </p>
               <p className="mt-2 text-[#4B4B48]">
-                Envie suas dúvidas, críticas ou sugestões preenchendo o formulário ao lado.
-                Nossa equipe analisará sua mensagem e retornará o contato o quanto antes.
+                Envie suas dúvidas, críticas ou sugestões preenchendo o
+                formulário ao lado. Nossa equipe analisará sua mensagem e
+                retornará o contato o quanto antes.
               </p>
-
-              <ul className="mt-8 space-y-2 text-[#4B4B48]">
-                <li>📍 Av. Brasil 12.025 – Penha, Rio de Janeiro.</li>
-                <li>📍 Rua Augusto Corrêa, 6 – Capela do Socorro, São Paulo</li>
-                <li>☎️ (21) 97322-2743</li>
-                <li>✉️ contato@m2flex.com.br</li>
+              <br />
+              <h3>📞 Telefones</h3>
+              <ul>
+                <li>
+                  <a href="https://wa.me/5521973222743" target="_blank">
+                    (21) 97322-2743 (Rio)
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wa.me/5511972451120" target="_blank">
+                    (11) 97245-1120 (São Paulo)
+                  </a>
+                </li>
+              </ul>
+              <br />
+              <h3>📧 E-mail</h3>
+              
+              <ul>
+                <li>
+                  <a href="mailto:contato@m2flex.com.br">
+                    contato@m2flex.com.br
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:comercial@m2flex.com.br">
+                    comercial@m2flex.com.br
+                  </a>
+                </li>
+              </ul>
+              <br />
+              <h3>📍 Unidades</h3>
+              
+              <ul>
+                <li>
+                  <a
+                    href="https://www.google.com/maps?q=Av.+Brasil,+12025,+Penha,+Rio+de+Janeiro"
+                    target="_blank"
+                  >
+                    RJ – Av. Brasil, 12.025 – Penha
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.google.com/maps?q=Rua+Augusto+Corrêa,+6,+Capela+do+Socorro,+São+Paulo"
+                    target="_blank"
+                  >
+                    SP – Rua Augusto Corrêa, 6 – Capela do Socorro
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -137,7 +180,12 @@ export default function FaleConosco() {
 
                   {/* consentimento */}
                   <label className="flex items-start gap-2 text-sm text-[#4B4B48]">
-                    <input type="checkbox" name="consent" required className="mt-1" />
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      required
+                      className="mt-1"
+                    />
                     <span>
                       Li e dou consentimento para processar meus dados pessoais
                       de acordo com as finalidades comerciais e de marketing.
@@ -157,8 +205,6 @@ export default function FaleConosco() {
           </div>
         </div>
       </section>
-
-      
 
       <WhatsAppButton />
     </main>

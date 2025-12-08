@@ -6,7 +6,7 @@ export default function TrabalheComAgente() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [fileName, setFileName] = useState("");
-  
+
   const onFileChange = (e) => {
     const f = e.target.files?.[0];
     if (!f) return setFileName("");
@@ -44,27 +44,25 @@ export default function TrabalheComAgente() {
   return (
     <main className="bg-[#F6F7FB] min-h-screen">
       {/* HEADER */}
-     <div className="w-full h-[340px] overflow-hidden">
-    <img
-      src={headerImg}
-      alt="Trabalhe com a gente - Header"
-      className="w-full h-full object-cover object-right"
-      onError={(e) => (e.currentTarget.src = headerImg)}
-    />
-  </div>
-
+      <div className="w-full h-[340px] overflow-hidden">
+        <img
+          src={headerImg}
+          alt="Trabalhe com a gente - Header"
+          className="w-full h-full object-cover object-right"
+          onError={(e) => (e.currentTarget.src = headerImg)}
+        />
+      </div>
 
       {/* CONTEÚDO */}
       <section className="py-10">
         <div className="max-w-6xl mx-auto px-6">
-             <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14">
-      </div>
-      <div className="flex  mb-5 h-1.5">
-          <span className="w-16 bg-[#E5258C]" />
-          <span className="w-16 bg-[#00B8F1]" />
-          <span className="w-16 bg-[#FFD400]" />
-          <span className="w-16 bg-[#1C1C1C]" />
-        </div>
+          <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14"></div>
+          <div className="flex  mb-5 h-1.5">
+            <span className="w-16 bg-[#E5258C]" />
+            <span className="w-16 bg-[#00B8F1]" />
+            <span className="w-16 bg-[#FFD400]" />
+            <span className="w-16 bg-[#1C1C1C]" />
+          </div>
           <div className="grid md:grid-cols-2 gap-10 items-start">
             {/* texto */}
             <div>
@@ -73,11 +71,15 @@ export default function TrabalheComAgente() {
               </h1>
               <p className="mt-4 text-lg text-[#4B4B48]">
                 A M2 cresce com pessoas que acreditam no poder da inovação!
+                Aqui, cada projeto é uma oportunidade de criar algo novo,
+                superar desafios e transformar ideias em resultados reais.
               </p>
+              <br />
               <p className="mt-2 text-[#4B4B48]">
-                Quer fazer parte de uma equipe que respira desafios e conquista
-                resultados todos os dias? Envie seu currículo agora e venha
-                construir o futuro com a gente!
+                Quer fazer parte de uma equipe que respira tecnologia,
+                criatividade e compromisso com o futuro sustentável? Envie seu
+                currículo e venha construir com a gente o próximo capítulo da
+                M2!
               </p>
             </div>
 
@@ -162,7 +164,9 @@ export default function TrabalheComAgente() {
 
                   {/* captcha */}
                   <div>
-                    <label className="block text-sm text-[#4B4B48] mb-2">captcha</label>
+                    <label className="block text-sm text-[#4B4B48] mb-2">
+                      captcha
+                    </label>
                     <input
                       name="captcha"
                       placeholder="digite o texto da imagem"
@@ -172,10 +176,15 @@ export default function TrabalheComAgente() {
 
                   {/* consentimento */}
                   <label className="flex items-start gap-2 text-sm text-[#4B4B48]">
-                    <input type="checkbox" name="consent" required className="mt-1" />
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      required
+                      className="mt-1"
+                    />
                     <span>
-                      Li e dou consentimento para processar meus dados pessoais
-                      de acordo com as finalidades comerciais e de marketing.
+                      Autorizo o uso dos meus dados para contato relacionado à
+                      minha candidatura.
                     </span>
                   </label>
 
@@ -192,14 +201,6 @@ export default function TrabalheComAgente() {
           </div>
         </div>
       </section>
-
-      {/* FAIXAS RODAPÉ */}
-      <div className="flex w-full h-1.5">
-        <div className="flex-1 bg-[#E5258C]" />
-        <div className="flex-1 bg-[#00B8F1]" />
-        <div className="flex-1 bg-[#FFD400]" />
-        <div className="flex-1 bg-[#1C1C1C]" />
-      </div>
 
       <WhatsAppButton />
     </main>

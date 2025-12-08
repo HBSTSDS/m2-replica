@@ -1,11 +1,7 @@
-// src/pages/blog/Blog.jsx
-import { Link } from "react-router-dom";
-import { useState } from "react";
-
-// importa as imagens do assets
+import { useState, useEffect } from "react";
 import headerImg from "../../assets/blog/header.png";
-import img1 from "../../assets/blog/img-1.png";
 
+/** Helper para trocar extensão caso a imagem falhe */
 function Img({ src, alt, className = "" }) {
   const [cur, setCur] = useState(src);
   const order = [".jpg", ".png", ".jpeg", ".webp"];
@@ -27,49 +23,53 @@ function Img({ src, alt, className = "" }) {
   );
 }
 
-const posts = [
-  {
-    id: 1,
-    slug: "stand-skeelo-bienal-2025",
-    title: "STAND SKEELO BIENAL 2025",
-    img: img1,
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
-    date: "20/07/2025",
-  },
-  {
-    id: 2,
-    slug: "stand-skeelo-bienal-2025-2",
-    title: "STAND SKEELO BIENAL 2025",
-    img: img1,
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
-    date: "20/07/2025",
-  },
-  {
-    id: 3,
-    slug: "stand-skeelo-bienal-2025-3",
-    title: "STAND SKEELO BIENAL 2025",
-    img: img1,
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
-    date: "20/07/2025",
-  },
-  {
-    id: 4,
-    slug: "stand-skeelo-bienal-2025-4",
-    title: "STAND SKEELO BIENAL 2025",
-    img: img1,
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur. Sapien turpis pharetra volutpat purus. Elit et est sollicitudin metus.",
-    date: "20/07/2025",
-  },
-];
-
 export default function Blog() {
+  const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  // ================================
+  // CARREGAR POSTS DO CMS
+  // ================================
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch(
+          "https://poster.flaviobrick.com.br/HB/m2-cms/blog/posts.json",
+          { cache: "no-cache" }
+        );
+        if (!res.ok) throw new Error("Erro ao carregar posts");
+        const data = await res.json();
+        setPosts(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Erro carregando posts:", err);
+        setPosts([]);
+      }
+    }
+    load();
+  }, []);
+
+  // ================================
+  // FECHAR MODAL NO ESC
+  // ================================
+  useEffect(() => {
+    if (!selectedPost) return;
+    function handleKey(e) {
+      if (e.key === "Escape") setSelectedPost(null);
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedPost]);
+
+  function openPost(p) {
+    setSelectedPost(p);
+  }
+  function closePost() {
+    setSelectedPost(null);
+  }
+
   return (
     <main className="min-h-screen bg-[#E7E9F2] text-[#4B4B48]">
-      {/* Banner / Header */}
+      {/* HEADER */}
       <section className="relative">
         <Img
           src={headerImg}
@@ -82,44 +82,122 @@ export default function Blog() {
         </h1>
       </section>
 
-      {/* Conteúdo */}
+      {/* LISTA */}
       <section className="max-w-6xl mx-auto px-6 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.map((p) => (
-            <article
-              key={p.id}
-              className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden"
-            >
-              <Link to={`/blog/${p.slug}`} className="block group">
-                <div className="overflow-hidden">
-                  <Img
-                    src={p.img}
-                    alt={p.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="p-4">
-                  <div className="flex items-center mb-4">
-                    <span className="h-[6px] w-14 bg-[#E5258C] rounded-full" />
-                    <span className="h-[6px] w-14 bg-[#00B8F1] rounded-full" />
-                    <span className="h-[6px] w-14 bg-[#FFD400] rounded-full" />
-                    <span className="h-[6px] w-14 bg-[#1C1C1C] rounded-full" />
+        {posts.length === 0 ? (
+          <p className="text-sm text-[#4B4B48]/70">
+            Nenhuma notícia cadastrada ainda.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {posts.map((p) => (
+              <article
+                key={p.id}
+                className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden"
+              >
+                <button
+                  className="block w-full text-left group"
+                  type="button"
+                  onClick={() => openPost(p)}
+                >
+                  <div className="overflow-hidden">
+                    <Img
+                      src={p.image}
+                      alt={p.title}
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
-                  <h2 className="text-[#1C1C1C] font-semibold text-base leading-tight">
-                    {p.title}
-                  </h2>
-                  <p className="mt-2 text-sm text-[#4B4B48]/80 line-clamp-3">
-                    {p.excerpt}
-                  </p>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
+
+                  <div className="p-4">
+                    <div className="flex items-center mb-4">
+                      <span className="h-[6px] w-14 bg-[#E5258C] rounded-full" />
+                      <span className="h-[6px] w-14 bg-[#00B8F1] rounded-full" />
+                      <span className="h-[6px] w-14 bg-[#FFD400] rounded-full" />
+                      <span className="h-[6px] w-14 bg-[#1C1C1C] rounded-full" />
+                    </div>
+
+                    <h2 className="text-[#1C1C1C] font-semibold text-base leading-tight">
+                      {p.title}
+                    </h2>
+
+                    <p className="mt-2 text-sm text-[#4B4B48]/80 line-clamp-3">
+                      {p.excerpt}
+                    </p>
+
+                    {p.date && (
+                      <p className="mt-2 text-[11px] text-[#4B4B48]/60">
+                        {p.date}
+                      </p>
+                    )}
+                  </div>
+                </button>
+              </article>
+            ))}
+          </div>
+        )}
 
         <div className="mt-10 h-px bg-[#D8DDE8]" />
       </section>
+
+      {/* MODAL */}
+      {selectedPost && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          {/* Fundo escuro */}
+          <div className="absolute inset-0 bg-black/60" onClick={closePost} />
+
+          {/* CARD */}
+          <div className="relative bg-white max-w-3xl w-full rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
+            {/* FECHAR */}
+            <button
+              type="button"
+              onClick={closePost}
+              className="absolute top-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white text-sm"
+            >
+              ✕
+            </button>
+
+            {/* IMAGEM */}
+            <Img
+              src={selectedPost.image}
+              alt={selectedPost.title}
+              className="w-full h-56 md:h-64 object-cover"
+            />
+
+            {/* CONTEÚDO */}
+            <div className="p-6 md:p-8 overflow-y-auto">
+              <h2 className="text-xl md:text-2xl font-semibold text-[#1C1C1C]">
+                {selectedPost.title}
+              </h2>
+
+              {selectedPost.date && (
+                <p className="mt-1 text-xs md:text-sm text-[#4B4B48]/60">
+                  {selectedPost.date}
+                </p>
+              )}
+
+              <div className="mt-4 text-sm md:text-base text-[#4B4B48] leading-relaxed whitespace-pre-line">
+                {selectedPost.content?.trim()?.length
+                  ? selectedPost.content
+                  : selectedPost.excerpt}
+              </div>
+
+              {/* BOTÃO PARA A PÁGINA COMPLETA */}
+              <div className="mt-6">
+                <a
+                  href={`/HB/m2-cms/blog/view-post.php?slug=${encodeURIComponent(
+                    selectedPost.slug
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-[#E5258C] text-white hover:bg-[#c51f75] transition-colors"
+                >
+                  Ver página completa →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
