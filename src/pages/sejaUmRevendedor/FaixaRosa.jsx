@@ -1,14 +1,15 @@
 import "./revendedor.css";
 
-// ✅ caminho correto (sobe 2 pastas -> entra em assets -> SejaUmRevendedor)
+// ✅ caminhos das imagens
 import comunicacaoVisual from "../../assets/SejaUmRevendedor/comunicacao_visual.jpg";
 import graficaRapida from "../../assets/SejaUmRevendedor/grafica_rapida.jpg";
 
 export default function FaixaRosa() {
   return (
     <section className="section faixa-rosa">
-      {/* 🔥 GRID FULL-WIDTH */}
+      {/* GRID PRINCIPAL */}
       <div className="faixa-rosa__fullgrid">
+        {/* COLUNA ESQUERDA – NOSSOS PRODUTOS */}
         <div className="faixa-produtos faixa-produtos--left">
           <h2 className="faixa-produtos__title">NOSSOS PRODUTOS</h2>
 
@@ -31,7 +32,9 @@ export default function FaixaRosa() {
           </p>
         </div>
 
-        <div className="faixa-rosa__heading faixa-rosa__heading--right">
+        {/* COLUNA DIREITA – O QUE VOCÊ PODE REVENDER */}
+        {/* ➕ adicionada classe "revenda-texto-mobile" para controlar o layout no mobile */}
+        <div className="faixa-rosa__heading faixa-rosa__heading--right revenda-texto-mobile">
           <h2 className="faixa-rosa__title">O QUE VOCÊ PODE REVENDER?</h2>
 
           <p className="faixa-rosa__subtitle">
@@ -49,11 +52,10 @@ export default function FaixaRosa() {
         </div>
       </div>
 
-      {/* 🔻 CARDS */}
+      {/* CARDS */}
       <div className="faixa-rosa__cards">
         <div className="prod-grid">
           <div className="col">
-            {/* 🎨 COMUNICAÇÃO VISUAL */}
             <article className="prod-card">
               <div
                 className="prod-img"
@@ -68,7 +70,6 @@ export default function FaixaRosa() {
               </div>
             </article>
 
-            {/* 🖨️ GRÁFICA RÁPIDA */}
             <article className="prod-card">
               <div
                 className="prod-img"

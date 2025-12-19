@@ -187,8 +187,6 @@ export default function Blog() {
                   href={`/HB/m2-cms/blog/view-post.php?slug=${encodeURIComponent(
                     selectedPost.slug
                   )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-[#E5258C] text-white hover:bg-[#c51f75] transition-colors"
                 >
                   Ver página completa →

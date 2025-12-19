@@ -1,5 +1,5 @@
-// src/sections/Displays.jsx
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 // pega todas as PNGs da pasta Displays de forma “global”
 const displayImages = import.meta.glob("../assets/Displays/*.png", {
@@ -9,7 +9,6 @@ const displayImages = import.meta.glob("../assets/Displays/*.png", {
 // helper pra resolver o caminho da imagem
 function getImg(fileName) {
   const mod = displayImages[`../assets/Displays/${fileName}`];
-  // em assets, o valor geralmente vem em mod.default
   return mod?.default || "";
 }
 
@@ -33,37 +32,43 @@ export default function Displays() {
         slug: "voila",
         title: "Voilá",
         file: "voila.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "Elegância e praticidade para comunicar com leveza e impacto: o Voilá é um display portátil de montagem rápida, ideal para eventos e pontos de venda, com visual limpo e área gráfica contínua. O diferencial está na facilidade de transporte e instalação, no acabamento mais premium e na troca simples de arte para campanhas diferentes.",
       },
       {
         slug: "displayauto",
-        title: "Automatico",
+        title: "Automático",
         file: "displaysauto.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "Abriu, montou, comunicou em segundos: o Automático é um display com estrutura autoexpansível, pensado para ações rápidas em eventos, lojas e ativações. Seu diferencial é a montagem ultrarrápida e a operação simples, reduzindo tempo de equipe e facilitando a repetição em várias praças.",
       },
       {
         slug: "displayevo",
         title: "Evolution",
         file: "displaysevo.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "Um display que evolui com a sua campanha: o Evolution é um sistema modular para montar diferentes formatos e composições de comunicação visual. O diferencial é a flexibilidade para reconfigurar tamanhos e layouts, reaproveitando a estrutura e trocando apenas os gráficos quando necessário.",
       },
       {
         slug: "displayflash",
         title: "Flash",
         file: "displaysflash.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "Impacto imediato para promoções e ativações: o Flash é um display leve e portátil, feito para destacar mensagens e ofertas em PDV e eventos. O diferencial é a praticidade de montar e desmontar, o bom custo-benefício e a agilidade para campanhas de curta duração.",
       },
       {
         slug: "displaypopup",
         title: "Pop Up",
         file: "displayspopup.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "Parede de impacto para fotos, marcas e grandes campanhas: o Pop Up é uma estrutura expansível que vira um painel de fundo (backdrop) para eventos, estandes e ações promocionais. O diferencial é a grande área de comunicação com montagem rápida, garantindo presença forte com logística simples.",
       },
       {
         slug: "displaysportico",
         title: "Pórtico",
         file: "displaysportico.png",
-        desc: "Lorem ipsum dolor sit amet consectetur.",
+        desc:
+          "A entrada que marca presença desde o primeiro passo: o Pórtico é uma estrutura em formato de arco ou portal usada para sinalizar entrada, percurso ou destaque em eventos e ativações. O diferencial é a alta visibilidade e o efeito cenográfico, ajudando a orientar o público e valorizar a experiência com a marca.",
       },
     ],
     []
@@ -79,12 +84,12 @@ export default function Displays() {
         DISPLAY {activeItem.title.toUpperCase()}
       </h3>
       <p className="text-gray-600 leading-relaxed">{activeItem.desc}</p>
-      <a
-        href="#"
+      <Link
+        to="/redbox"
         className="inline-block mt-4 text-gray-700 underline underline-offset-4 hover:no-underline"
       >
         ver detalhes &gt;&gt;
-      </a>
+      </Link>
     </div>
   );
 
@@ -98,8 +103,10 @@ export default function Displays() {
               DISPLAYS
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur. Imperdiet purus volutpat
-              pharetra sit tellus pellentesque.
+              Soluções versáteis para destacar marcas, mensagens e experiências
+              em eventos, pontos de venda e ativações. Displays pensados para
+              facilitar a montagem, otimizar logística e ampliar o impacto da
+              comunicação visual em diferentes contextos.
             </p>
           </div>
 

@@ -1,8 +1,20 @@
 // src/pages/servicos/PontoDeVenda.jsx
+import { useState } from "react";
 import headerImg from "../../assets/pontoDeVenda/header.png";
 import img2 from "../../assets/pontoDeVenda/img-2.png";
 
+// IMPORT GLOBAL AUTOMÁTICO DAS TAGS DE PDV
+// carrega qualquer arquivo que comece com "tag" dentro de /pontoDeVenda
+const tagImages = Object.values(
+  import.meta.glob("../../assets/pontoDeVenda/tag*.{png,jpg,jpeg}", {
+    eager: true,
+    import: "default",
+  })
+);
+
 export default function PontoDeVenda() {
+  const [lightboxImg, setLightboxImg] = useState(null);
+
   return (
     <main className="bg-[#E7E9F2] text-[#4B4B48]">
       {/* HEADER */}
@@ -51,23 +63,23 @@ export default function PontoDeVenda() {
 
                 <p className="mb-3">
                   Na M2, PDV é onde toda a estratégia de comunicação visual
-                  encontra seu momento mais decisivo: a hora da compra.
-                  Falamos de displays, wobblers, testeiras, ilhas, expositores,
-                  faixas de gôndola, stoppers e mobiliários especiais que
-                  organizam, comunicam e valorizam produtos no ponto de venda.
+                  encontra seu momento mais decisivo: a hora da compra. Falamos
+                  de displays, wobblers, testeiras, ilhas, expositores, faixas
+                  de gôndola, stoppers e mobiliários especiais que organizam,
+                  comunicam e valorizam produtos no ponto de venda.
                 </p>
 
                 <p className="mb-3">
                   Desenvolvemos materiais de PDV com foco em sell-out,
                   experiência e padronização de marca, garantindo que cada
-                  campanha converse com o shopper, destaque os produtos
-                  certos e traduza o posicionamento da marca na gôndola.
+                  campanha converse com o shopper, destaque os produtos certos e
+                  traduza o posicionamento da marca na gôndola.
                 </p>
 
                 <p>
                   Do design à produção e instalação, integramos displays,
-                  wobblers e mobiliários especiais em soluções completas
-                  para varejo e redes.
+                  wobblers e mobiliários especiais em soluções completas para
+                  varejo e redes.
                 </p>
               </div>
 
@@ -87,8 +99,8 @@ export default function PontoDeVenda() {
                 </div>
 
                 <p className="mb-3">
-                  Investir em PDV é investir onde a relação entre marca,
-                  produto e consumidor acontece de forma mais direta:
+                  Investir em PDV é investir onde a relação entre marca, produto
+                  e consumidor acontece de forma mais direta:
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
@@ -109,8 +121,8 @@ export default function PontoDeVenda() {
                     benefícios e evidenciar preços e ofertas;
                   </li>
                   <li>
-                    Padroniza a comunicação entre lojas e regiões,
-                    fortalecendo a identidade da marca no varejo.
+                    Padroniza a comunicação entre lojas e regiões, fortalecendo
+                    a identidade da marca no varejo.
                   </li>
                 </ul>
 
@@ -143,7 +155,7 @@ export default function PontoDeVenda() {
                 </p>
 
                 <p className="mb-3">
-                  <span className="font-semibold">Operação nacional 24/7</span>, 
+                  <span className="font-semibold">Operação nacional 24/7</span>,
                   com prazos competitivos para ações sazonais, lançamentos e
                   campanhas de varejo que não podem atrasar.
                 </p>
@@ -176,8 +188,8 @@ export default function PontoDeVenda() {
                 <p>
                   Com a M2, o PDV deixa de ser apenas o “final da cadeia” e
                   passa a ser tratado como um ativo estratégico de marca e
-                  venda, com materiais pensados para entregar resultado no
-                  dia a dia.
+                  venda, com materiais pensados para entregar resultado no dia a
+                  dia.
                 </p>
               </div>
             </div>
@@ -205,64 +217,38 @@ export default function PontoDeVenda() {
           </h3>
 
           <form className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Nome */}
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Nome:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
 
-            {/* E-mail / Whatsapp */}
             <div>
               <label className="block text-sm mb-1">E-mail:</label>
-              <input
-                type="email"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
             <div>
               <label className="block text-sm mb-1">Whatsapp:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
 
-            {/* Empresa / CNPJ */}
             <div>
               <label className="block text-sm mb-1">Empresa:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
             <div>
               <label className="block text-sm mb-1">CNPJ:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
 
-            {/* Cargo / Produto de interesse */}
             <div>
               <label className="block text-sm mb-1">Cargo:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
             <div>
               <label className="block text-sm mb-1">Produto de interesse:</label>
-              <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm"
-              />
+              <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
 
-            {/* Mensagem */}
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Mensagem:</label>
               <textarea
@@ -271,7 +257,6 @@ export default function PontoDeVenda() {
               />
             </div>
 
-            {/* Checkbox + botão */}
             <div className="md:col-span-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-1">
               <label className="flex items-start gap-2 text-xs leading-snug max-w-xl">
                 <input type="checkbox" className="mt-0.5" />
@@ -281,26 +266,58 @@ export default function PontoDeVenda() {
                 </span>
               </label>
 
-              <button
-                type="submit"
-                className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white"
-              >
+              <button className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white">
                 enviar
               </button>
             </div>
           </form>
         </div>
 
-        {/* GRID FINAL */}
+        {/* GRID FINAL – TAGS PDV (AGORA CLICÁVEIS) */}
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
+          {tagImages.map((src, i) => (
+            <button
               key={i}
-              className="aspect-[4/3] rounded-xl bg-[#D8DCE7] hover:bg-[#cfd3df] transition-colors"
-            />
+              type="button"
+              onClick={() => setLightboxImg(src)}
+              className="rounded-xl overflow-hidden bg-white shadow-sm cursor-pointer focus:outline-none"
+              aria-label={`Abrir tag PDV ${i + 1} em tela cheia`}
+            >
+              <img
+                src={src}
+                alt={`Tag PDV ${i + 1}`}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </button>
           ))}
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setLightboxImg(null)}
+              className="absolute -top-10 right-0 text-white text-3xl font-light hover:opacity-70"
+            >
+              ×
+            </button>
+
+            <img
+              src={lightboxImg}
+              alt="Imagem ampliada"
+              className="w-full max-h-[85vh] object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

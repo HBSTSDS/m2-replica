@@ -1,11 +1,22 @@
 // src/pages/servicos/ProjetosEspeciais.jsx
+import { useState } from "react";
 import headerImg from "../../assets/projetosEspeciais/header.png";
 import img2 from "../../assets/projetosEspeciais/img-2.png";
 
+// IMPORT GLOBAL AUTOMÁTICO DAS TAGS
+// carrega tudo que começa com "tag" dentro de /projetosEspeciais
+const tagImages = Object.values(
+  import.meta.glob("../../assets/projetosEspeciais/tag*.{png,jpg,jpeg}", {
+    eager: true,
+    import: "default",
+  })
+);
+
 export default function ProjetosEspeciais() {
+  const [lightboxImg, setLightboxImg] = useState(null);
+
   return (
     <main className="bg-[#E7E9F2] text-[#4B4B48]">
-
       {/* HEADER */}
       <section className="w-full">
         <img
@@ -18,10 +29,8 @@ export default function ProjetosEspeciais() {
       {/* CONTEÚDO */}
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <div className="grid md:grid-cols-3 gap-10 md:gap-14 items-start">
-
           {/* TEXTOS */}
           <div className="md:col-span-2">
-
             {/* Barras coloridas */}
             <div className="flex items-center mb-4">
               <span className="h-[6px] w-14 bg-[#E5258C] rounded-full" />
@@ -36,7 +45,6 @@ export default function ProjetosEspeciais() {
             </h1>
 
             <div className="space-y-10 leading-relaxed text-[16px] md:text-[17px]">
-
               {/* 1️⃣ O que são projetos especiais na M2? */}
               <div>
                 <div className="relative mb-2">
@@ -54,22 +62,15 @@ export default function ProjetosEspeciais() {
 
                 <p className="mb-3">
                   Na M2, projetos especiais são ativações e estruturas
-                  personalizadas que vão além do padrão da comunicação
-                  visual do dia a dia.
+                  personalizadas que vão além do padrão da comunicação visual do
+                  dia a dia.
                 </p>
 
                 <p className="mb-3">
                   Criamos ativações de destaque, estruturas cenográficas,
-                  elementos de grande escala, formas especiais, integrações
-                  com iluminação, design e apoio estrutural para proporcionar
+                  elementos de grande escala, formas especiais e integrações com
+                  iluminação, design e apoio estrutural para proporcionar
                   experiências únicas.
-                </p>
-
-                <p className="mb-3">
-                  Criamos ativações e estruturas personalizadas, integrando
-                  arquitetura promocional, cenografia, iluminação, tecnologia
-                  e montagem profissional para eventos, feiras, lançamentos,
-                  projetos especiais e ações de marca em todo o Brasil.
                 </p>
 
                 <p>
@@ -94,36 +95,20 @@ export default function ProjetosEspeciais() {
                 </div>
 
                 <p className="mb-3">
-                  Projetos especiais são indicados quando a marca precisa ir
-                  além do convencional e gerar uma experiência memorável.
-                </p>
-
-                <p className="mb-3">
-                  Dão protagonismo à marca em feiras, eventos e pontos estratégicos;
+                  Projetos especiais são indicados quando a marca precisa ir além
+                  do convencional e gerar experiências memoráveis.
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
-                  <li>
-                    Criam experiências imersivas, com uso de luz, LED, volumetria
-                    e automação;
-                  </li>
-                  <li>
-                    Reforçam posicionamento e inovação, traduzindo os valores da
-                    marca no espaço físico;
-                  </li>
-                  <li>
-                    Aumentam engajamento, estimulando proximidade, interação e
-                    registro em fotos/vídeos;
-                  </li>
-                  <li>
-                    Diferenciam a presença da marca em meio a vários expositores
-                    e concorrentes.
-                  </li>
+                  <li>Criam experiências imersivas com luz, LED e volumetria;</li>
+                  <li>Reforçam posicionamento e inovação;</li>
+                  <li>Aumentam engajamento e registro em fotos e vídeos;</li>
+                  <li>Diferenciam a presença da marca em eventos e feiras.</li>
                 </ul>
 
                 <p className="mt-3">
-                  Mais do que “um stand ou estrutura”, um projeto especial bem pensado
-                  vira plataforma de relacionamento, conteúdo e vendas.
+                  Um projeto especial bem executado vira plataforma de
+                  relacionamento e vendas.
                 </p>
               </div>
 
@@ -143,45 +128,24 @@ export default function ProjetosEspeciais() {
                 </div>
 
                 <p className="mb-3">
-                  A M2 reúne engenharia, design, produção gráfica e montagem em
-                  uma mesma operação, garantindo que a ideia seja bela no papel
-                  e viável na prática.
+                  A M2 une engenharia, design, produção gráfica e montagem em uma
+                  única operação.
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
+                  <li>Criação e desenvolvimento técnico;</li>
+                  <li>Integração com LED, iluminação e automação;</li>
+                  <li>Projeto estrutural com foco em segurança;</li>
+                  <li>Produção gráfica interna com controle de acabamento;</li>
+                  <li>Operação nacional para grandes projetos;</li>
                   <li>
-                    Criação e desenvolvimento técnico de stands completos e
-                    estruturas especiais;
-                  </li>
-                  <li>
-                    Integração com LED, iluminação, tecnologia e automação;
-                  </li>
-                  <li>
-                    Projeto estrutural de engenharia, com foco em segurança e
-                    normas técnicas;
-                  </li>
-                  <li>
-                    Produção interna de elementos gráficos e revestimentos, com
-                    controle total de cor e acabamento;
-                  </li>
-                  <li>
-                    Operação nacional, atendendo projetos de grande escala em
-                    todo o Brasil;
-                  </li>
-                  <li>
-                    Acompanhamento do conceito ao pós-instalação, com equipe
-                    dedicada em cada etapa;
-                  </li>
-                  <li>
-                    Atendimento focado em campanhas de varejo, garantindo
-                    qualidade, padronização e cumprimento de prazos.
+                    Acompanhamento total, do conceito ao pós-instalação.
                   </li>
                 </ul>
 
                 <p className="mt-3">
-                  Com a M2, um projeto especial deixa de ser apenas uma entrega –
-                  e se torna uma solução completa que eleva a experiência e o
-                  impacto que a sua marca precisa.
+                  Com a M2, cada projeto especial se torna uma solução completa
+                  de impacto.
                 </p>
               </div>
             </div>
@@ -209,7 +173,6 @@ export default function ProjetosEspeciais() {
           </h3>
 
           <form className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4">
-
             <div className="md:col-span-2">
               <label className="text-sm mb-1 block">Nome:</label>
               <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
@@ -238,19 +201,25 @@ export default function ProjetosEspeciais() {
               <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="text-sm mb-1 block">Produto de Interesse:</label>
+              <label className="text-sm mb-1 block">
+                Produto de Interesse:
+              </label>
               <input className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
             </div>
 
             <div className="md:col-span-2">
               <label className="text-sm mb-1 block">Mensagem:</label>
-              <textarea rows={4} className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm resize-none" />
+              <textarea
+                rows={4}
+                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm resize-none"
+              />
             </div>
 
             <div className="md:col-span-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-1">
               <label className="flex items-start gap-2 text-xs leading-snug max-w-xl">
                 <input type="checkbox" className="mt-0.5" />
-                Eu dou consentimento para processar meus dados pessoais e para futuras comunicações de marketing.
+                Eu dou consentimento para processar meus dados pessoais e para
+                futuras comunicações de marketing.
               </label>
 
               <button className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white">
@@ -260,16 +229,51 @@ export default function ProjetosEspeciais() {
           </form>
         </div>
 
-        {/* GRID FINAL */}
+        {/* GRID FINAL — TAGS (AGORA CLICÁVEIS) */}
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
+          {tagImages.map((src, i) => (
+            <button
               key={i}
-              className="aspect-[4/3] rounded-xl bg-[#D8DCE7] hover:bg-[#cfd3df] transition-colors"
-            />
+              type="button"
+              onClick={() => setLightboxImg(src)}
+              className="rounded-xl overflow-hidden bg-white shadow-sm cursor-pointer focus:outline-none"
+              aria-label={`Abrir projeto especial ${i + 1} em tela cheia`}
+            >
+              <img
+                src={src}
+                alt={`Projeto Especial ${i + 1}`}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </button>
           ))}
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setLightboxImg(null)}
+              className="absolute -top-10 right-0 text-white text-3xl font-light hover:opacity-70"
+            >
+              ×
+            </button>
+
+            <img
+              src={lightboxImg}
+              alt="Imagem ampliada"
+              className="w-full max-h-[85vh] object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }

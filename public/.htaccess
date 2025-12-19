@@ -1,13 +1,24 @@
-Options -Indexes
-DirectoryIndex index.html
+RewriteEngine On
+RewriteBase /HB/
 
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
-</IfModule>
+# ================================
+# 1) NÃO REESCREVER O CMS (PHP)
+# ================================
+RewriteRule ^m2-cms/ - [L]
 
-AddType application/javascript .js
-AddType text/css .css
+# ================================
+# 2) NÃO REESCREVER ASSETS
+# ================================
+RewriteRule ^assets/ - [L]
+
+# ================================
+# 3) SE EXISTIR ARQUIVO OU PASTA REAL, ENTREGA NORMAL
+# ================================
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ================================
+# 4) TODAS AS ROTAS DO REACT
+# ================================
+RewriteRule . /HB/index.html [L]

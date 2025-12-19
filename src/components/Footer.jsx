@@ -5,26 +5,44 @@ import { useLocation, Link } from "react-router-dom";
 import bannerRevendedor from "../assets/bannerRevendedor.png";
 import m2logo from "../assets/m2-logo.png"; // troque extensão se for .svg
 
-export default function Footer() {
+export default function Footer({ isEmbed = false }) {
   const location = useLocation();
 
   const handleBannerClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const resolvePath = (path) => {
+    const base = "/HB";
+    const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+    return `${base}/${cleanPath}`;
+  };
+
   return (
     <>
       {location.pathname === "/" && (
         <div className="w-full mb-10">
-          <Link to="seja-um-revendedor" onClick={handleBannerClick}>
-            <img
-              src={bannerRevendedor}
-              alt="A maior revenda UV da América Latina - Seja um revendedor!"
-              className="w-full block object-cover cursor-pointer hover:opacity-90 transition"
-              loading="lazy"
-              draggable={false}
-            />
-          </Link>
+          {isEmbed ? (
+            <a href={resolvePath("/seja-um-revendedor")} target="_top" onClick={handleBannerClick}>
+              <img
+                src={bannerRevendedor}
+                alt="A maior revenda UV da América Latina - Seja um revendedor!"
+                className="w-full block object-cover cursor-pointer hover:opacity-90 transition"
+                loading="lazy"
+                draggable={false}
+              />
+            </a>
+          ) : (
+            <Link to="seja-um-revendedor" onClick={handleBannerClick}>
+              <img
+                src={bannerRevendedor}
+                alt="A maior revenda UV da América Latina - Seja um revendedor!"
+                className="w-full block object-cover cursor-pointer hover:opacity-90 transition"
+                loading="lazy"
+                draggable={false}
+              />
+            </Link>
+          )}
         </div>
       )}
 

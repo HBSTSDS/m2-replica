@@ -1,217 +1,155 @@
 // src/components/InteractivePills.jsx
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 
 /* ============================================================
-   MOBILE – INTERAÇÃO LEVE (ARRASTAR O BLOCO INTEIRO)
-   ============================================================ */
-function InteractivePillsMobile({ items }) {
-  const containerRef = useRef(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const drag = useRef({
-    dragging: false,
-    lastX: 0,
-    lastY: 0,
-    vx: 0,
-    vy: 0,
-  });
-
-  const rafRef = useRef(null);
-
-  // animação suave quando solta o dedo
-  const animateBack = () => {
-    const step = () => {
-      const { vx, vy } = drag.current;
-
-      if (Math.abs(vx) < 0.02 && Math.abs(vy) < 0.02) {
-        drag.current.vx = 0;
-        drag.current.vy = 0;
-        return;
-      }
-
-      drag.current.vx *= 0.9;
-      drag.current.vy *= 0.9;
-
-      setOffset((prev) => ({
-        x: prev.x + drag.current.vx,
-        y: prev.y + drag.current.vy,
-      }));
-
-      rafRef.current = requestAnimationFrame(step);
-    };
-
-    rafRef.current = requestAnimationFrame(step);
-  };
-
-  const onPointerDown = (e) => {
-    drag.current.dragging = true;
-    drag.current.lastX = e.clientX;
-    drag.current.lastY = e.clientY;
-    drag.current.vx = 0;
-    drag.current.vy = 0;
-  };
-
-  const onPointerMove = (e) => {
-    if (!drag.current.dragging) return;
-
-    const dx = e.clientX - drag.current.lastX;
-    const dy = e.clientY - drag.current.lastY;
-
-    drag.current.lastX = e.clientX;
-    drag.current.lastY = e.clientY;
-
-    drag.current.vx = dx * 0.4;
-    drag.current.vy = dy * 0.4;
-
-    // limite suave
-    const max = 26;
-
-    setOffset((prev) => ({
-      x: Math.max(Math.min(prev.x + dx * 0.4, max), -max),
-      y: Math.max(Math.min(prev.y + dy * 0.4, max), -max),
-    }));
-  };
-
-  const onPointerUp = () => {
-    drag.current.dragging = false;
-    animateBack();
-  };
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative w-full pt-4 select-none"
-      style={{ touchAction: "none" }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
-    >
-      <div
-        className="flex flex-wrap gap-x-3 gap-y-3"
-        style={{
-          transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
-          transition: drag.current.dragging ? "none" : "transform 0.25s ease-out",
-        }}
-      >
-        {items.map((label, i) => (
-          <span
-            key={i}
-            className="
-              inline-flex items-center justify-center
-              rounded-full border border-slate-300
-              bg-white text-slate-800
-              px-4 py-2 text-xs font-medium
-              shadow-sm
-              active:scale-95
-              transition-transform duration-150
-            "
-          >
-            {label}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   DESKTOP – FÍSICA ORIGINAL (SEU CÓDIGO)
+   ÚNICO MOTOR (DESKTOP + MOBILE)
+   - Colisão elíptica (usa hw/hh) -> não “entra dentro”
+   - Mantém o feeling da sua física original (damping/gravity/bounce)
+   - OTIMIZADO: Removeu o React State do loop de animação (Direct DOM)
    ============================================================ */
 
-function InteractivePillsDesktop({ items }) {
+function InteractivePillsPhysics({ items, isMobile }) {
   const containerRef = useRef(null);
   const pillRefs = useRef([]);
   const rafRef = useRef(null);
 
-  const [nodes, setNodes] = useState(() =>
-    items.map((label, i) => ({
-      id: i,
-      label,
-      x: 40 + (i % 3) * 140,
-      y: 30 + Math.floor(i / 3) * 70,
-      vx: 0,
-      vy: 0,
-      r: 28,
-      w: 120,
-      h: 40,
-      dragging: false,
-      z: 0,
-    }))
-  );
-
   const draggingId = useRef(null);
-  const mouse = useRef({ x: 0, y: 0, dx: 0, dy: 0, inside: false });
+  const pointerIdRef = useRef(null);
+  const mouse = useRef({ x: 0, y: 0 });
 
-  // Mede tamanhos
-  useEffect(() => {
-    if (!containerRef.current) return;
+  // Armazena o estado físico fora do React State para 60fps lisos
+  const physics = useRef([]);
 
-    const next = nodes.map((n, i) => {
+  // Mantemos um 'version' state apenas para forçar re-render se items mudarem drasticamente,
+  // mas aqui usaremos o próprio array 'items' na renderização.
+  
+  // Inicializa/Sincroniza objetos de física com os items
+  useLayoutEffect(() => {
+    const newPhysics = items.map((label, i) => {
+      // Preserva estado anterior se existir (para não resetar posição em resize)
+      const existing = physics.current[i];
+      if (existing) {
+        return { ...existing, label };
+      }
+      // Se é novo, inicializa
+      return {
+        id: i,
+        label,
+        x: 80 + (i % 4) * 140,
+        y: -50 - Math.random() * 120,
+        vx: (Math.random() - 0.5) * 15,
+        vy: 0,
+        w: 120,
+        h: 40,
+        hw: 60,
+        hh: 20,
+        dragging: false,
+        z: 0,
+      };
+    });
+    
+    physics.current = newPhysics;
+    // Ajusta tamanho do array de refs
+    pillRefs.current = pillRefs.current.slice(0, newPhysics.length);
+  }, [items]);
+
+  // Mede tamanho real das pílulas e atualiza a física
+  useLayoutEffect(() => {
+    const c = containerRef.current;
+    if (!c) return;
+    const cb = c.getBoundingClientRect();
+
+    physics.current.forEach((n, i) => {
       const el = pillRefs.current[i];
-      if (!el) return n;
+      if (!el) return;
 
       const b = el.getBoundingClientRect();
-      const cb = containerRef.current.getBoundingClientRect();
       const w = b.width;
       const h = b.height;
-      const r = Math.max(h / 2, Math.min(w / 2, h * 0.75));
+      const hw = w / 2;
+      const hh = h / 2;
 
-      const x = Math.min(Math.max(n.x, r + 4), cb.width - r - 4);
-      const y = Math.min(Math.max(n.y, r + 4), cb.height - r - 4);
+      // Garante que spawne dentro ou ajuste se redimensionou
+      const x = Math.min(Math.max(n.x, hw + 6), cb.width - hw - 6);
 
-      return { ...n, w, h, r, x, y };
+      // Atualiza referências
+      n.w = w;
+      n.h = h;
+      n.hw = hw;
+      n.hh = hh;
+      n.x = x;
     });
+  }, [items, isMobile]);
 
-    setNodes(next);
-  }, []);
-
-  // Física Desktop
+  // Loop de Física
   useEffect(() => {
     const conf = {
       dt: 1 / 60,
-      damping: 0.92,
-      repel: 1200,
-      mouseInfluence: 1.3,
-      dragStiff: 0.35,
+      damping: 0.965,
+      repel: 900,
       wallBounce: 0.7,
+      gravity: 12,
+      collisionIters: isMobile ? 6 : 4,
+      gap: isMobile ? 4 : 3,
+      sep: 0.95,
     };
 
     const step = () => {
       const c = containerRef.current;
-      if (!c) return;
+      if (!c) {
+        rafRef.current = requestAnimationFrame(step);
+        return;
+      }
 
       const { width: W, height: H } = c.getBoundingClientRect();
       const m = mouse.current;
+      const nodes = physics.current;
 
-      setNodes((prev) => {
-        const next = prev.map((n) => ({ ...n }));
+      // Movimento + gravidade
+      for (const n of nodes) {
+        if (n.dragging) {
+          n.x = m.x;
+          n.y = m.y;
+          n.vx = 0;
+          n.vy = 0;
+        } else {
+          n.vy += conf.gravity * conf.dt;
+          n.vx *= conf.damping;
+          n.vy *= conf.damping;
 
-        // vento do mouse
-        if (m.inside) {
-          for (const n of next) {
-            if (n.dragging) continue;
-            const dx = n.x - m.x;
-            const dy = n.y - m.y;
-            const dist = Math.hypot(dx, dy) + 1;
-            n.vx += (m.dx * conf.mouseInfluence) / (dist * 0.15);
-            n.vy += (m.dy * conf.mouseInfluence) / (dist * 0.15);
-          }
+          n.x += n.vx * conf.dt * 60;
+          n.y += n.vy * conf.dt * 60;
         }
+      }
 
-        // colisões
-        for (let i = 0; i < next.length; i++) {
-          for (let j = i + 1; j < next.length; j++) {
-            const a = next[i];
-            const b = next[j];
+      // Colisões (O(N^2) mas N é pequeno)
+      for (let pass = 0; pass < conf.collisionIters; pass++) {
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i];
+            const b = nodes[j];
+
             const dx = b.x - a.x;
             const dy = b.y - a.y;
-            const d = Math.hypot(dx, dy) || 0.0001;
-            const minD = a.r + b.r + 6;
 
-            if (d < minD) {
-              const overlap = (minD - d) / d;
-              const fx = dx * overlap * conf.repel * 0.0005;
-              const fy = dy * overlap * conf.repel * 0.0005;
+            const rx = a.hw + b.hw + conf.gap;
+            const ry = a.hh + b.hh + conf.gap;
+
+            const nx = dx / (rx || 0.0001);
+            const ny = dy / (ry || 0.0001);
+            const s = nx * nx + ny * ny;
+
+            if (s < 1) {
+              const dist = Math.hypot(dx, dy) || 0.0001;
+              const dirx = dx / dist;
+              const diry = dy / dist;
+
+              const d = Math.sqrt(s || 0.000001);
+              const pen = 1 - d;
+              const pushPx = pen * Math.min(rx, ry) * conf.sep;
+
+              const fx = dirx * pushPx * 0.1;
+              const fy = diry * pushPx * 0.1;
 
               if (!a.dragging) {
                 a.vx -= fx;
@@ -222,133 +160,161 @@ function InteractivePillsDesktop({ items }) {
                 b.vy += fy;
               }
 
-              const corr = overlap * 0.5;
-
-              if (!a.dragging) {
-                a.x -= dx * corr;
-                a.y -= dy * corr;
-              }
-              if (!b.dragging) {
-                b.x += dx * corr;
-                b.y += dy * corr;
+              if (a.dragging && !b.dragging) {
+                b.x += dirx * pushPx;
+                b.y += diry * pushPx;
+              } else if (!a.dragging && b.dragging) {
+                a.x -= dirx * pushPx;
+                a.y -= diry * pushPx;
+              } else {
+                if (!a.dragging) {
+                  a.x -= dirx * pushPx * 0.5;
+                  a.y -= diry * pushPx * 0.5;
+                }
+                if (!b.dragging) {
+                  b.x += dirx * pushPx * 0.5;
+                  b.y += diry * pushPx * 0.5;
+                }
               }
             }
           }
         }
+      }
 
-        // movimento e colisão com as paredes
-        for (const n of next) {
-          if (n.dragging) continue;
+      // Paredes
+      for (const n of nodes) {
+        const left = n.hw + 2;
+        const right = W - n.hw - 2;
+        const top = n.hh + 2;
+        const bottom = H - n.hh - 2;
 
-          n.vx *= conf.damping;
-          n.vy *= conf.damping;
-
-          n.x += n.vx * conf.dt * 60;
-          n.y += n.vy * conf.dt * 60;
-
-          if (n.x < n.r + 2) {
-            n.x = n.r + 2;
-            n.vx = Math.abs(n.vx) * conf.wallBounce;
-          } else if (n.x > W - n.r - 2) {
-            n.x = W - n.r - 2;
-            n.vx = -Math.abs(n.vx) * conf.wallBounce;
-          }
-          if (n.y < n.r + 2) {
-            n.y = n.r + 2;
-            n.vy = Math.abs(n.vy) * conf.wallBounce;
-          } else if (n.y > H - n.r - 2) {
-            n.y = H - n.r - 2;
-            n.vy = -Math.abs(n.vy) * conf.wallBounce;
-          }
+        if (n.x < left) {
+          n.x = left;
+          n.vx = Math.abs(n.vx) * conf.wallBounce;
+        } else if (n.x > right) {
+          n.x = right;
+          n.vx = -Math.abs(n.vx) * conf.wallBounce;
         }
 
-        return next;
-      });
+        if (n.y < top) {
+          n.y = top;
+          n.vy = Math.abs(n.vy) * conf.wallBounce;
+        } else if (n.y > bottom) {
+          n.y = bottom;
+          n.vy = -Math.abs(n.vy) * conf.wallBounce;
+        }
+      }
 
-      mouse.current.dx *= 0.85;
-      mouse.current.dy *= 0.85;
+      // ----------------------------------------------------
+      // APLICA NO DOM (Critical Path de Performance)
+      // ----------------------------------------------------
+      for (let i = 0; i < nodes.length; i++) {
+        const el = pillRefs.current[i];
+        const n = nodes[i];
+        if (el) {
+          el.style.transform = `translate(${n.x - n.w / 2}px, ${n.y - n.h / 2}px)`;
+          // Z-index only changed explicitly via events, but we can sync here if needed
+          // To save overhead, we only touch style.zIndex inside event handlers or if specific logic demands
+        }
+      }
 
       rafRef.current = requestAnimationFrame(step);
     };
 
     rafRef.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafRef.current);
-  }, []);
+  }, [isMobile]);
 
   const onPointerMove = (e) => {
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    mouse.current.dx = x - mouse.current.x;
-    mouse.current.dy = y - mouse.current.y;
-    mouse.current.x = x;
-    mouse.current.y = y;
-
-    if (draggingId.current != null) {
-      setNodes((prev) => {
-        const next = prev.map((n) => ({ ...n }));
-        const n = next[draggingId.current];
-
-        const targetX = x;
-        const targetY = y;
-
-        n.vx += (targetX - n.x) * 0.35;
-        n.vy += (targetY - n.y) * 0.35;
-
-        return next;
-      });
-    }
+    const c = containerRef.current;
+    if (!c) return;
+    const rect = c.getBoundingClientRect();
+    mouse.current.x = e.clientX - rect.left;
+    mouse.current.y = e.clientY - rect.top;
   };
-
-  const onPointerEnter = () => (mouse.current.inside = true);
-  const onPointerLeave = () => (mouse.current.inside = false);
 
   const onDown = (idx) => (e) => {
     e.preventDefault();
-    draggingId.current = idx;
+    e.stopPropagation(); // Good practice for multiple interactions
 
-    setNodes((prev) =>
-      prev.map((n, i) =>
-        i === idx ? { ...n, dragging: true, z: 1 } : { ...n, z: 0 }
-      )
-    );
+    pointerIdRef.current = e.pointerId;
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+
+    const c = containerRef.current;
+    if (c) {
+      const rect = c.getBoundingClientRect();
+      mouse.current.x = e.clientX - rect.left;
+      mouse.current.y = e.clientY - rect.top;
+    }
+
+    draggingId.current = idx;
+    
+    // Atualiza estado físico + zIndex visual
+    const n = physics.current[idx];
+    if (n) {
+      n.dragging = true;
+      n.z = 1;
+      // Atualiza DOM imediatamente para feedback visual (z-index, cursor)
+      const el = pillRefs.current[idx];
+      if (el) {
+        el.style.zIndex = "20";
+        el.style.cursor = "grabbing";
+      }
+    }
   };
 
   const onUp = () => {
+    if (draggingId.current !== null) {
+      const idx = draggingId.current;
+      const n = physics.current[idx];
+      if (n) {
+        n.dragging = false;
+        n.z = 0;
+        const el = pillRefs.current[idx];
+        if (el) {
+          el.style.zIndex = "10";
+          el.style.cursor = "grab";
+        }
+      }
+    }
     draggingId.current = null;
-    setNodes((prev) => prev.map((n) => ({ ...n, dragging: false, z: 0 })));
+    pointerIdRef.current = null;
   };
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[500px] select-none rounded-xl"
+      className={`relative w-full select-none rounded-xl ${
+        isMobile ? "h-[240px]" : "h-[500px]"
+      }`}
       style={{ touchAction: "none" }}
       onPointerMove={onPointerMove}
-      onPointerEnter={onPointerEnter}
-      onPointerLeave={onPointerLeave}
       onPointerUp={onUp}
       onPointerCancel={onUp}
+      onPointerLeave={onUp}
     >
-      {nodes.map((n, i) => (
+      {items.map((label, i) => (
         <span
-          key={n.id}
+          key={i}
           ref={(el) => (pillRefs.current[i] = el)}
           onPointerDown={onDown(i)}
+          // Initial styles (will be overwritten by JS immediately, but good for SSR/First paint)
           style={{
-            transform: `translate(${n.x - n.w / 2}px, ${n.y - n.h / 2}px)`,
-            zIndex: n.z ? 20 : 10,
+            transform: "translate(-999px, -999px)", // esconde até o primeiro frame posicionar
+            zIndex: 10,
+            userSelect: "none",
+            willChange: "transform", // Hint browser for optimization
           }}
-          className="
-            absolute inline-flex items-center rounded-full border-2
-            border-slate-400/60 bg-white/80 text-slate-700
-            px-4 py-2 text-sm font-medium shadow-sm
+          className={`
+            absolute inline-flex items-center justify-center
+            rounded-full border-2 border-slate-400/60
+            bg-white/80 text-slate-700
+            shadow-sm whitespace-nowrap
             cursor-grab active:cursor-grabbing
-            transition-[box-shadow,transform] duration-150
-          "
+            ${isMobile ? "px-2.5 py-0.5 text-[11px]" : "px-4 py-2 text-sm"}
+          `}
         >
-          {n.label}
+          {label}
         </span>
       ))}
     </div>
@@ -356,7 +322,7 @@ function InteractivePillsDesktop({ items }) {
 }
 
 /* ============================================================
-   WRAPPER – Decide mobile ou desktop
+   WRAPPER – DECIDE MOBILE OU DESKTOP
    ============================================================ */
 
 export default function InteractivePills({ items }) {
@@ -370,7 +336,5 @@ export default function InteractivePills({ items }) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  if (isMobile) return <InteractivePillsMobile items={items} />;
-
-  return <InteractivePillsDesktop items={items} />;
+  return <InteractivePillsPhysics items={items} isMobile={isMobile} />;
 }

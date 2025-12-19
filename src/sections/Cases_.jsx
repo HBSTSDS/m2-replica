@@ -1,13 +1,15 @@
-// src/sections/Cases_.jsx
-import case1 from "../assets/cases/case-img-1.jpg";
-import case2 from "../assets/cases/case-img-2.jpg";
-import case3 from "../assets/cases/case-img-3.jpg";
-import case4 from "../assets/cases/case-img-4.jpg";
-import case5 from "../assets/cases/case-img-5.jpg";
-import case6 from "../assets/cases/case-img-6.jpg";
-import case7 from "../assets/cases/case-img-7.jpg";
+import { useEffect, useState } from "react";
+import case1 from "../assets/cases/case-img-1.png";
+import case2 from "../assets/cases/case-img-2.png";
+import case3 from "../assets/cases/case-img-3.png";
+import case4 from "../assets/cases/case-img-4.png";
+import case5 from "../assets/cases/case-img-5.png";
+import case6 from "../assets/cases/case-img-6.png";
+import case7 from "../assets/cases/case-img-7.png";
 
 export default function Cases() {
+  const [activeImage, setActiveImage] = useState(null);
+
   const images = [
     { src: case1, alt: "Case 1 (Skeelo)" },
     { src: case2, alt: "Case 2 (Arpoador)" },
@@ -18,35 +20,106 @@ export default function Cases() {
     { src: case7, alt: "Case 7 (New Balance)", className: "col-span-2" },
   ];
 
-  return (
-    <section className="bg-[#EEF0F6] py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-[#4B4B48] text-3xl md:text-[32px] font-semibold tracking-tight mb-6">
-          CASES
-        </h2>
+  // Fechar modal com ESC
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === "Escape") setActiveImage(null);
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
-        {/* GRID ORIGINAL — só adaptando altura no mobile */}
-        <div className="
-          grid grid-cols-4 gap-5
-          auto-rows-[160px]        /* mobile (reduzido) */
-          md:auto-rows-[260px]     /* desktop (original) */
-        ">
-          {images.map(({ src, alt, className = "" }, i) => (
-            <CardImage key={i} src={src} alt={alt} className={className} />
-          ))}
+  return (
+    <>
+      <section className="bg-[#EEF0F6] py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-[#4B4B48] text-3xl md:text-[32px] font-semibold tracking-tight mb-6">
+            CASES
+          </h2>
+
+          {/* GRID ORIGINAL */}
+          <div
+            className="
+              grid grid-cols-4 gap-5
+              auto-rows-[160px]
+              md:auto-rows-[260px]
+            "
+          >
+            {images.map(({ src, alt, className = "" }, i) => (
+              <CardImage
+                key={i}
+                src={src}
+                alt={alt}
+                className={className}
+                onClick={() => setActiveImage({ src, alt })}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* OVERLAY FULLSCREEN */}
+      {activeImage && (
+        <div
+          className="
+            fixed inset-0 z-[9999]
+            bg-black/85
+            flex items-center justify-center
+            px-3 md:px-6
+          "
+          onClick={() => setActiveImage(null)}
+        >
+          {/* Botão fechar */}
+          <button
+            className="
+              absolute top-6 right-6
+              text-white text-3xl font-light
+              hover:opacity-70
+            "
+            onClick={() => setActiveImage(null)}
+          >
+            ✕
+          </button>
+
+          <img
+            src={activeImage.src}
+            alt={activeImage.alt}
+            className="
+              max-w-[95vw]
+              max-h-[95vh]
+              rounded-xl
+              shadow-2xl
+              scale-110
+              md:scale-125
+              transition-transform duration-300
+              animate-[zoomIn_0.35s_ease-out]
+            "
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
   );
 }
 
-function CardImage({ src, alt, className = "" }) {
+function CardImage({ src, alt, className = "", onClick }) {
   return (
-    <div className={`overflow-hidden rounded-[18px] bg-[#D9D9D9] ${className}`}>
+    <div
+      onClick={onClick}
+      className={`
+        overflow-hidden rounded-[18px] bg-[#D9D9D9]
+        cursor-pointer
+        ${className}
+      `}
+    >
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]"
+        className="
+          w-full h-full object-cover
+          transition-transform duration-300
+          hover:scale-[1.05]
+        "
         loading="lazy"
       />
     </div>

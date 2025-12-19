@@ -1,4 +1,5 @@
 // src/pages/servicos/ComunicacaoVisual.jsx
+import { useState } from "react";
 import headerImg from "../../assets/comunicacaoVisual/header.png";
 import img2 from "../../assets/comunicacaoVisual/img2.png";
 
@@ -27,6 +28,8 @@ const gridImgs = Object.entries(allImages)
   });
 
 export default function ComunicacaoVisual() {
+  const [lightboxImg, setLightboxImg] = useState(null);
+
   return (
     <main className="bg-[#E7E9F2] text-[#4B4B48]">
       {/* HEADER (MANTIDO) */}
@@ -296,19 +299,52 @@ export default function ComunicacaoVisual() {
         {/* GRID FINAL (AGORA COM AS IMAGENS) */}
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {gridImgs.map((src, i) => (
-            <div
+            <button
               key={i}
-              className="aspect-[4/3] rounded-xl overflow-hidden bg-[#D8DCE7]"
+              type="button"
+              onClick={() => setLightboxImg(src)}
+              className="aspect-[4/3] rounded-xl overflow-hidden bg-[#D8DCE7] cursor-pointer focus:outline-none"
+              aria-label={`Abrir imagem ${i + 1} em tela cheia`}
             >
               <img
                 src={src}
                 alt={`Projeto de comunicação visual ${i + 1}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
               />
-            </div>
+            </button>
           ))}
         </div>
       </section>
+
+      {/* LIGHTBOX (TELA CHEIA) */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          <div
+            className="relative max-w-5xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Botão fechar */}
+            <button
+              type="button"
+              onClick={() => setLightboxImg(null)}
+              className="absolute -top-10 right-0 text-white text-3xl font-light hover:opacity-70"
+              aria-label="Fechar"
+              title="Fechar"
+            >
+              ×
+            </button>
+
+            <img
+              src={lightboxImg}
+              alt="Imagem ampliada"
+              className="w-full max-h-[85vh] object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
