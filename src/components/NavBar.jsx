@@ -11,7 +11,7 @@ function asset(path) {
   return `${import.meta.env.BASE_URL}${clean}`;
 }
 
-export default function NavBar() {
+export default function NavBar({ isEmbed }) {
   const [open, setOpen] = useState(null);
   const navRef = useRef(null);
   const navigate = useNavigate();
@@ -56,24 +56,28 @@ export default function NavBar() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-center justify-between py-8">
           {/* LOGO */}
-          <Link to="/" className="block logo-shift" onClick={() => setOpen(null)}>
-            <img src={logo} alt="M2" className="h-12 w-auto" />
-          </Link>
+          {/* LOGO */}
+          {/* LOGO (Apenas se NÃO for embed) */}
+          {!isEmbed && (
+            <Link to="/" className="block logo-shift" onClick={() => setOpen(null)}>
+              <img src={logo} alt="M2" className="h-12 w-auto" />
+            </Link>
+          )}
 
           {/* NAV */}
-          <nav className="nav-pill" ref={navRef}>
-            <ul className="nav-list flex items-center gap-6">
+          <nav className={`nav-pill ${isEmbed ? "w-full" : ""}`} ref={navRef}>
+            <ul className={`nav-list flex items-center ${isEmbed ? "justify-between w-full gap-6" : "gap-6"}`}>
               {/* HOME: usa goToSection para não simplificar seu código */}
               <li>
                 <button
-                  className="nav-link"
+                  className={`nav-link ${isEmbed ? "!p-0" : ""}`}
                   onClick={(e) => {
                     e.preventDefault();
                     goToSection("#home");
                   }}
                   title="Home"
                 >
-                  home
+                  {isEmbed ? <img src={logo} alt="M2" className="h-10 w-auto" /> : "home"}
                 </button>
               </li>
 

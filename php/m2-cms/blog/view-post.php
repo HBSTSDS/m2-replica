@@ -157,13 +157,16 @@ $reactFooterUrl = "/HB/embed/footer";
         }
 
         .simple-navbar nav {
-            background: #F5F7FB;
             /* Mesmo background que a original */
             padding: 12px 32px;
             border-radius: 999px;
             /* Pill shape */
             display: flex;
-            gap: 24px;
+            align-items: center;
+            justify-content: space-between;
+            /* Espalha os itens */
+            width: 100%;
+            /* Ocupa toda a largura do container */
         }
 
         .simple-navbar .nav-link {
@@ -457,8 +460,8 @@ $reactFooterUrl = "/HB/embed/footer";
 
         <?php if (!empty($customCss)): ?>
             /* ===========================
-                       CSS PERSONALIZADO DA NOTÍCIA
-                       =========================== */
+                               CSS PERSONALIZADO DA NOTÍCIA
+                               =========================== */
             <?= $customCss ?>
 
         <?php endif; ?>
@@ -471,7 +474,10 @@ $reactFooterUrl = "/HB/embed/footer";
     <header class="simple-navbar">
         <div class="nav-container">
             <nav>
-                <a href="/HB/" class="nav-link">Home</a>
+                <a href="/HB/" class="nav-link" style="display: flex; align-items: center;">
+                    <img src="https://poster.flaviobrick.com.br/HB/imagnes_site/m2-logo.png" alt="M2"
+                        style="height: 40px; width: auto;">
+                </a>
                 <a href="/HB/seja-um-revendedor" class="nav-link">Seja um Revendedor</a>
             </nav>
         </div>
