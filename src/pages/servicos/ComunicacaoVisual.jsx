@@ -1,7 +1,17 @@
 // src/pages/servicos/ComunicacaoVisual.jsx
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Captcha from "../../components/Captcha";
 import headerImg from "../../assets/comunicacaoVisual/header.png";
 import img2 from "../../assets/comunicacaoVisual/img2.png";
+import { useForm } from "../../hooks/useForm";
+import { 
+  validateName, 
+  validateEmail, 
+  validatePhone, 
+  validateCNPJ, 
+  validateRequired,
+  validateChecked
+} from "../../utils/validation";
 
 // Pega TODAS as imagens da pasta automaticamente (qualquer nome/extensão)
 const allImages = import.meta.glob(
@@ -28,7 +38,79 @@ const gridImgs = Object.entries(allImages)
   });
 
 export default function ComunicacaoVisual() {
+  const [status, setStatus] = useState("idle");
+  const [sent, setSent] = useState(false);
   const [lightboxImg, setLightboxImg] = useState(null);
+  const captchaRef = useRef(null);
+
+  const initialValues = {
+    nome: "",
+    email: "",
+    whatsapp: "",
+    empresa: "",
+    cnpj: "",
+    cargo: "",
+    produto_interesse: "",
+    mensagem: "",
+    consent: false
+  };
+
+  const validationRules = {
+    nome: validateName,
+    email: validateEmail,
+    whatsapp: validatePhone,
+    empresa: validateRequired, // Required per user request
+    cnpj: validateCNPJ,
+    cargo: (v) => "",
+    produto_interesse: (v) => "",
+    mensagem: validateRequired, 
+    consent: validateChecked
+  };
+
+  const { values, errors, handleChange, handleBlur, validateAll, resetForm } = useForm(initialValues, validationRules);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateAll()) {
+      alert("Por favor, corrija os erros no formulário.");
+      return;
+    }
+
+    setStatus("sending");
+
+    const data = { ...values, formType: "comunicacao_visual" };
+
+    try {
+      const response = await fetch("https://poster.flaviobrick.com.br/HB/api/submit-form.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSent(true);
+        setStatus("success");
+        resetForm();
+        if(captchaRef.current) captchaRef.current.reset();
+      } else {
+        setStatus("error");
+        alert(result.message || "Erro ao enviar. Tente novamente.");
+        if(captchaRef.current) captchaRef.current.refresh();
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      alert("Erro de conexão.");
+    }
+  };
+
+  const getInputClass = (fieldName) => {
+    const base = "w-full border bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C] transition-colors";
+    const error = "border-red-500 focus:border-red-500";
+    const normal = "border-[#D3D6E2]";
+    return `${base} ${errors[fieldName] ? error : normal}`;
+  };
 
   return (
     <main className="bg-[#E7E9F2] text-[#4B4B48]">
@@ -209,61 +291,103 @@ export default function ComunicacaoVisual() {
             Peça agora seu orçamento!
           </h3>
 
-          <form className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4">
+          {sent ? (
+             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative text-center">
+                <strong className="font-bold block mb-1">Sucesso!</strong>
+                <span className="block mb-2">Seus dados foram enviados. Entraremos em contato em breve.</span>
+                <button onClick={() => { setSent(false); setStatus("idle"); }} className="text-sm font-bold underline hover:text-green-900">Enviar novo</button>
+             </div>
+          ) : (
+          <form onSubmit={onSubmit} className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4" noValidate>
             {/* Nome */}
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Nome:</label>
               <input
+                name="nome"
                 type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.nome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("nome")}
               />
+              {errors.nome && <p className="text-red-500 text-xs mt-1">{errors.nome}</p>}
             </div>
 
             {/* E-mail | Whatsapp */}
             <div>
               <label className="block text-sm mb-1">E-mail:</label>
               <input
+                name="email"
                 type="email"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("email")}
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
             <div>
               <label className="block text-sm mb-1">Whatsapp:</label>
               <input
-                type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                name="whatsapp"
+                type="tel"
+                value={values.whatsapp}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                maxLength={15}
+                className={getInputClass("whatsapp")}
               />
+              {errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>}
             </div>
 
             {/* Empresa | CNPJ */}
             <div>
               <label className="block text-sm mb-1">Empresa:</label>
               <input
+                name="empresa"
                 type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.empresa}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("empresa")}
               />
+               {errors.empresa && <p className="text-red-500 text-xs mt-1">{errors.empresa}</p>}
             </div>
             <div>
               <label className="block text-sm mb-1">CNPJ:</label>
               <input
+                name="cnpj"
                 type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.cnpj}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                maxLength={18}
+                className={getInputClass("cnpj")}
               />
+               {errors.cnpj && <p className="text-red-500 text-xs mt-1">{errors.cnpj}</p>}
             </div>
 
             {/* Cargo | Produto de interesse */}
             <div>
               <label className="block text-sm mb-1">Cargo:</label>
               <input
+                name="cargo"
                 type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.cargo}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("cargo")}
               />
             </div>
             <div>
               <label className="block text-sm mb-1">Produto de interesse:</label>
               <input
+                name="produto_interesse"
                 type="text"
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C]"
+                value={values.produto_interesse}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("produto_interesse")}
               />
             </div>
 
@@ -271,29 +395,48 @@ export default function ComunicacaoVisual() {
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Mensagem:</label>
               <textarea
+                name="mensagem"
                 rows={4}
-                className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm outline-none resize-none focus:border-[#E5258C]"
+                value={values.mensagem}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("mensagem") + " resize-none"}
               />
+               {errors.mensagem && <p className="text-red-500 text-xs mt-1">{errors.mensagem}</p>}
+            </div>
+            
+            {/* Captcha */}
+            <div className="md:col-span-2">
+              <Captcha ref={captchaRef} />
             </div>
 
             {/* Checkbox + botão */}
             <div className="md:col-span-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-1">
               <label className="flex items-start gap-2 text-xs leading-snug max-w-xl">
-                <input type="checkbox" className="mt-0.5" />
-                <span>
+                <input 
+                    name="consent" 
+                    type="checkbox" 
+                    checked={values.consent}
+                    onChange={handleChange}
+                    className="mt-0.5" 
+                />
+                <span className={errors.consent ? "text-red-500" : ""}>
                   Eu dou consentimento para processar meus dados pessoais e
                   confidenciais e para futuras comunicações de marketing.
                 </span>
               </label>
 
               <button
+                disabled={status === "sending"}
                 type="submit"
-                className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white hover:bg-[#c91f77] transition-colors"
+                className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white hover:bg-[#c91f77] transition-colors disabled:opacity-50"
               >
-                enviar
+                {status === "sending" ? "ENVIANDO..." : "enviar"}
               </button>
             </div>
+            {errors.consent && <p className="text-red-500 text-xs md:col-span-2">{errors.consent}</p>}
           </form>
+          )}
         </div>
 
         {/* GRID FINAL (AGORA COM AS IMAGENS) */}

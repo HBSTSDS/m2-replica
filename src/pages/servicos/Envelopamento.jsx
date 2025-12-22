@@ -1,7 +1,17 @@
 // src/pages/servicos/Envelopamento.jsx
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Captcha from "../../components/Captcha";
 import headerImg from "../../assets/envelopamento/header.png";
 import img2 from "../../assets/envelopamento/img-2.png";
+import { useForm } from "../../hooks/useForm";
+import { 
+  validateName, 
+  validateEmail, 
+  validatePhone, 
+  validateCNPJ, 
+  validateRequired,
+  validateChecked
+} from "../../utils/validation";
 
 // Importa automaticamente TODAS as imagens da pasta envelopamento
 // e filtra para manter somente 1.png até 8.png (ou qualquer nome numérico).
@@ -28,6 +38,78 @@ const gridImgs = Object.entries(allImages)
 
 export default function Envelopamento() {
   const [lightboxImg, setLightboxImg] = useState(null);
+  const [status, setStatus] = useState("idle");
+  const [sent, setSent] = useState(false);
+  const captchaRef = useRef(null);
+
+  const initialValues = {
+    nome: "",
+    email: "",
+    whatsapp: "",
+    empresa: "",
+    cnpj: "",
+    cargo: "",
+    produto_interesse: "",
+    mensagem: "",
+    consent: false
+  };
+
+  const validationRules = {
+    nome: validateName,
+    email: validateEmail,
+    whatsapp: validatePhone,
+    empresa: validateRequired,
+    cnpj: validateCNPJ,
+    cargo: (v) => "",
+    produto_interesse: (v) => "",
+    mensagem: validateRequired,
+    consent: validateChecked
+  };
+
+  const { values, errors, handleChange, handleBlur, validateAll, resetForm } = useForm(initialValues, validationRules);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateAll()) {
+      alert("Por favor, corrija os erros no formulário.");
+      return;
+    }
+
+    setStatus("sending");
+
+    const data = { ...values, formType: "envelopamento" };
+
+    try {
+      const response = await fetch("https://poster.flaviobrick.com.br/HB/api/submit-form.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSent(true);
+        setStatus("success");
+        resetForm();
+        if(captchaRef.current) captchaRef.current.reset();
+      } else {
+        setStatus("error");
+        alert(result.message || "Erro ao enviar. Tente novamente.");
+        if(captchaRef.current) captchaRef.current.refresh();
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      alert("Erro de conexão.");
+    }
+  };
+
+  const getInputClass = (fieldName) => {
+    const base = "w-full border bg-white rounded-md px-3 py-2 text-sm outline-none focus:border-[#E5258C] transition-colors";
+    const error = "border-red-500 focus:border-red-500";
+    const normal = "border-[#D3D6E2]";
+    return `${base} ${errors[fieldName] ? error : normal}`;
+  };
 
   return (
     <main className="bg-[#E7E9F2] text-[#4B4B48]">
@@ -74,16 +156,16 @@ export default function Envelopamento() {
                 </div>
 
                 <p className="mb-3">
-                  Na M2, envelopamento é o processo de revestir superfícies com películas...
+                  Na M2, envelopamento é o processo de revestir superfícies com películas adesivas de alta performance, para fins estéticos, promocionais ou de proteção.
                 </p>
                 <p className="mb-3">
-                  Falamos de transformar veículos, fachadas, equipamentos...
+                  Falamos de transformar veículos, fachadas, equipamentos, móveis e ambientes inteiros sem a sujeira e a demora de uma pintura ou reforma tradicional.
                 </p>
                 <p className="mb-3">
-                  Com tecnologia de impressão e materiais de alta performance...
+                  Com tecnologia de impressão e materiais de alta performance, garantimos personalização total, durabilidade e acabamento impecável, seja para proteger a pintura original ou para dar uma nova identidade visual.
                 </p>
                 <p>
-                  A M2 oferece soluções de envelopamento que transformam superfícies e ambientes...
+                  A M2 oferece soluções de envelopamento que transformam superfícies e ambientes em ferramentas de comunicação potentes e versáteis.
                 </p>
               </div>
 
@@ -97,19 +179,19 @@ export default function Envelopamento() {
                 </div>
 
                 <p className="mb-3">
-                  Investir em envelopamento é uma forma inteligente de potencializar a marca...
+                  Investir em envelopamento é uma forma inteligente de potencializar a marca, proteger ativos e modernizar espaços com custo-benefício e rapidez.
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
-                  <li><strong>Renova sem reforma:</strong> muda a cara de ambientes...</li>
-                  <li><strong>Transfoma frota em mídia:</strong> carros, ônibus, metrô...</li>
-                  <li><strong>Padroniza pontos de venda:</strong> ideal para redes...</li>
-                  <li><strong>Protege superfícies:</strong> películas preservam a pintura...</li>
-                  <li><strong>Flexibilidade e agilidade:</strong> campanhas rápidas...</li>
+                  <li><strong>Renova sem reforma:</strong> muda a cara de ambientes e móveis em horas, sem obra;</li>
+                  <li><strong>Transfoma frota em mídia:</strong> carros, ônibus, metrô e caminhões viram outdoors móveis com sua marca;</li>
+                  <li><strong>Padroniza pontos de venda:</strong> ideal para redes que precisam de identidade visual unificada;</li>
+                  <li><strong>Protege superfícies:</strong> películas preservam a pintura original contra riscos e intempéries;</li>
+                  <li><strong>Flexibilidade e agilidade:</strong> campanhas rápidas podem ser instaladas e removidas sem danos.</li>
                 </ul>
 
                 <p className="mt-3">
-                  Com um bom projeto e aplicação profissional, o envelopamento...
+                  Com um bom projeto e aplicação profissional, o envelopamento entrega impacto visual imediato e preserva o valor do seu patrimônio.
                 </p>
               </div>
 
@@ -122,8 +204,8 @@ export default function Envelopamento() {
                   </h2>
                 </div>
 
-                <p className="mb-3">A M2 une estrutura industrial, materiais certificados...</p>
-                <p className="mb-3">Somos especialistas em envelopamento de transporte...</p>
+                <p className="mb-3">A M2 une estrutura industrial, materiais certificados e equipe de instalação própria para entregar envelopamentos de alta complexidade e escala.</p>
+                <p className="mb-3">Somos especialistas em envelopamento de transporte público:</p>
 
                 <ul className="ml-5 mb-3 space-y-0.5">
                   <li>Metrô</li>
@@ -134,11 +216,11 @@ export default function Envelopamento() {
                   <li>Caminhões</li>
                 </ul>
 
-                <p className="mb-3">Nossos processos garantem aderência perfeita...</p>
-                <p className="mb-3">Materiais certificados e adequados a transporte...</p>
-                <p className="mb-3"><strong>Projeto completo:</strong> medição, arte, produção...</p>
-                <p className="mb-3">Atuação em todo o Brasil...</p>
-                <p>Com a M2, envelopamento vira solução estratégica...</p>
+                <p className="mb-3">Nossos processos garantem aderência perfeita, emendas discretas e durabilidade real, mesmo em condições extremas de uso.</p>
+                <p className="mb-3">Materiais certificados e adequados a transporte público e normas de segurança;</p>
+                <p className="mb-3"><strong>Projeto completo:</strong> medição, arte, produção e instalação;</p>
+                <p className="mb-3">Atuação em todo o Brasil com equipes volantes;</p>
+                <p>Com a M2, envelopamento vira solução estratégica, executada com precisão técnica e qualidade visual de ponta.</p>
               </div>
             </div>
           </div>
@@ -155,66 +237,149 @@ export default function Envelopamento() {
           </aside>
         </div>
 
-        {/* FORMULÁRIO (mantido como estava) */}
+          {/* FORMULÁRIO */}
         <div className="mt-16 md:mt-20">
           <h2 className="text-[18px] md:text-[20px] font-bold leading-snug">Gostou do que viu?</h2>
           <h3 className="text-[18px] md:text-[20px] font-bold mb-4">Peça agora seu orçamento!</h3>
 
-          <form className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4">
+          {sent ? (
+             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative text-center">
+                <strong className="font-bold block mb-1">Sucesso!</strong>
+                <span className="block mb-2">Seus dados foram enviados. Entraremos em contato em breve.</span>
+                <button onClick={() => { setSent(false); setStatus("idle"); }} className="text-sm font-bold underline hover:text-green-900">Enviar novo</button>
+             </div>
+          ) : (
+          <form onSubmit={onSubmit} className="p-0 bg-[#E7E9F2] grid grid-cols-1 md:grid-cols-2 gap-4" noValidate>
 
             {/* Campos do formulário */}
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Nome:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="nome" 
+                type="text" 
+                value={values.nome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("nome")} 
+              />
+              {errors.nome && <p className="text-red-500 text-xs mt-1">{errors.nome}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">E-mail:</label>
-              <input type="email" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="email" 
+                type="email" 
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("email")} 
+              />
+               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">Whatsapp:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="whatsapp" 
+                type="tel" 
+                value={values.whatsapp}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                maxLength={15}
+                className={getInputClass("whatsapp")} 
+              />
+              {errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">Empresa:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="empresa" 
+                type="text" 
+                value={values.empresa}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("empresa")} 
+              />
+               {errors.empresa && <p className="text-red-500 text-xs mt-1">{errors.empresa}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">CNPJ:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="cnpj" 
+                type="text" 
+                value={values.cnpj}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                maxLength={18}
+                className={getInputClass("cnpj")} 
+              />
+              {errors.cnpj && <p className="text-red-500 text-xs mt-1">{errors.cnpj}</p>}
             </div>
 
             <div>
               <label className="block text-sm mb-1">Cargo:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="cargo" 
+                type="text" 
+                value={values.cargo}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("cargo")} 
+              />
             </div>
 
             <div>
               <label className="block text-sm mb-1">Produto de interesse:</label>
-              <input type="text" className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm" />
+              <input 
+                name="produto_interesse" 
+                type="text" 
+                value={values.produto_interesse}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("produto_interesse")} 
+              />
             </div>
 
             <div className="md:col-span-2">
               <label className="block text-sm mb-1">Mensagem:</label>
-              <textarea rows={4} className="w-full border border-[#D3D6E2] bg-white rounded-md px-3 py-2 text-sm resize-none" />
+              <textarea 
+                name="mensagem" 
+                rows={4} 
+                value={values.mensagem}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={getInputClass("mensagem") + " resize-none"} 
+              />
+              {errors.mensagem && <p className="text-red-500 text-xs mt-1">{errors.mensagem}</p>}
+            </div>
+
+            <div className="md:col-span-2">
+               <Captcha ref={captchaRef} />
             </div>
 
             <div className="md:col-span-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-1">
               <label className="flex items-start gap-2 text-xs leading-snug max-w-xl">
-                <input type="checkbox" className="mt-0.5" />
-                <span>Eu dou consentimento para processar meus dados pessoais e para futuras comunicações de marketing.</span>
+                <input 
+                    name="consent" 
+                    type="checkbox" 
+                    checked={values.consent}
+                    onChange={handleChange}
+                    className="mt-0.5" 
+                />
+                <span className={errors.consent ? "text-red-500" : ""}>Eu dou consentimento para processar meus dados pessoais e para futuras comunicações de marketing.</span>
               </label>
 
-              <button className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white">
-                enviar
+              <button disabled={status === "sending"} className="self-start px-6 py-2 rounded-full text-sm font-semibold bg-[#E5258C] text-white disabled:opacity-50">
+                {status === "sending" ? "ENVIANDO..." : "ENVIAR"}
               </button>
             </div>
+            {errors.consent && <p className="text-red-500 text-xs md:col-span-2">{errors.consent}</p>}
 
           </form>
+          )}
         </div>
 
         {/* GRID FINAL AUTOMÁTICO COM AS IMAGENS 1–8 */}
