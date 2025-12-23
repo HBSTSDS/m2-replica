@@ -157,26 +157,19 @@ export default function Midiaooh() {
                 </div>
 
                 <p className="mb-3">
-                  Na M2, mídia OOH (Out of Home) é tudo aquilo que leva a sua
-                  mensagem para as ruas: outdoors, painéis de grande formato,
-                  frontlights, backlights, empenas, mobiliário urbano, metrô,
-                  BRT, VLT, terminais e aeroportos.
+                  Mídia OOH (Out of Home) é toda comunicação veiculada fora de
+                  casa, levando sua mensagem para as ruas: outdoors, painéis de
+                  grande formato, frontlights, backlights, empenas, mobiliário
+                  urbano, além de ativações em metrô, BRT, VLT, terminais e
+                  aeroportos.
                 </p>
 
                 <p className="mb-3">
-                  Planejamos e produzimos peças para OOH com foco em impacto e
-                  legibilidade, garantindo consistência na cor e durabilidade
-                  mesmo em condições de alta exposição.
-                </p>
-
-                <p className="mb-3">
-                  Do planejamento à instalação, nossa operação 24/7 assegura
-                  prazos competitivos em todo o Brasil.
-                </p>
-
-                <p className="mb-3">
-                  Na M2, não cuidamos apenas da arte final: entregamos a solução
-                  completa em produção gráfica para OOH.
+                  Na M2, entregamos a produção gráfica completa para OOH, com foco
+                  em impacto e legibilidade. Trabalhamos com controle de cor,
+                  materiais adequados para alta exposição e uma operação preparada
+                  para atender prazos e volumes em todo o Brasil, do planejamento
+                  à instalação.
                 </p>
               </div>
 
@@ -196,8 +189,8 @@ export default function Midiaooh() {
                 </div>
 
                 <p className="mb-3">
-                  Investir em mídia OOH é colocar sua marca em contato diário
-                  com milhares de pessoas, em ambientes de grande fluxo:
+                  Investir em mídia OOH coloca sua marca em contato diário com
+                  milhares de pessoas em ambientes de grande fluxo:
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
@@ -214,19 +207,19 @@ export default function Midiaooh() {
                     leitura rápida;
                   </li>
                   <li>
-                    Fortalece posicionamento, destacando presença em pontos
-                    premium da cidade;
+                    Fortalece o posicionamento, destacando presença em locais
+                    premium;
                   </li>
                   <li>
                     Alcança públicos diversos, sem depender de algoritmos ou
-                    segmentações digitais.;
+                    segmentações digitais.
                   </li>
                 </ul>
 
                 <p className="mt-3">
                   Quando bem planejada e bem produzida, a mídia OOH se torna um
                   ativo de marca, ajudando a construir lembrança, autoridade e
-                  preferência na hora da compra.
+                  preferência no momento da compra.
                 </p>
               </div>
 
@@ -246,47 +239,35 @@ export default function Midiaooh() {
                 </div>
 
                 <p className="mb-3">
-                  Na M2, não cuidamos apenas da arte final: entregamos a solução
-                  completa em produção gráfica para OOH.
+                  A M2 combina estrutura industrial e operação de ponta a ponta
+                  para garantir padrão, agilidade e consistência em campanhas
+                  regionais e nacionais:
                 </p>
 
-                <p className="mb-3">
-                  Planejamos e produzimos peças para OOH com foco em impacto,
-                  legibilidade, durabilidade e consistência na cor mesmo em
-                  condições de alta exposição.
-                </p>
+                <ul className="list-disc ml-5 space-y-1.5">
+                  <li>
+                    Prazos competitivos, com capacidade para grande volume e
+                    formatos especiais;
+                  </li>
+                  <li>
+                    Controle de cor e padrão visual, essencial para campanhas em
+                    múltiplas praças;
+                  </li>
+                  <li>
+                    Materiais próprios para área externa, com alta resistência a
+                    intempéries;
+                  </li>
+                  <li>
+                    Equipe de instalação especializada, com atuação em diferentes
+                    cidades e estados;
+                  </li>
+                  <li>
+                    Acompanhamento e controle de qualidade em cada etapa, da
+                    produção à aplicação.
+                  </li>
+                </ul>
 
-                <p className="mb-3">
-                  Do planejamento à instalação, nossa operação 24/7 assegura
-                  prazos competitivos em todo o Brasil.
-                </p>
-
-                <p className="mb-3">
-                  Prazos competitivos, preparados para grande volume e formatos
-                  especiais.
-                </p>
-
-                <p className="mb-3">
-                  Controle de cor e padrão visual, essencial em campanhas
-                  nacionais.
-                </p>
-
-                <p className="mb-3">
-                  Materiais adequados para área externa, com resistência a
-                  intempéries e alta durabilidade.
-                </p>
-
-                <p className="mb-3">
-                  Equipe de instalação especializada, com atuação em diferentes
-                  cidades e estados.
-                </p>
-
-                <p className="mb-3">
-                  Acompanhamento e controle de qualidade em cada etapa da
-                  produção à aplicação.
-                </p>
-
-                <p className="mb-3">
+                <p className="mb-3 mt-3">
                   Atendemos campanhas nacionais mantendo o mesmo padrão de
                   qualidade em todas as praças, garantindo que sua marca seja
                   vista com a mesma força e cuidado.

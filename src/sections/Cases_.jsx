@@ -8,7 +8,7 @@ import case6 from "../assets/cases/case-img-6.png";
 import case7 from "../assets/cases/case-img-7.png";
 
 export default function Cases() {
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const images = [
     { src: case1, alt: "Case 1 (Skeelo)" },
@@ -20,14 +20,30 @@ export default function Cases() {
     { src: case7, alt: "Case 7 (New Balance)", className: "col-span-2" },
   ];
 
-  // Fechar modal com ESC
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === null ? null : (prev + 1) % images.length));
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) =>
+      prev === null ? null : (prev - 1 + images.length) % images.length
+    );
+  };
+
+  // Fechar modal com ESC e navegar com setas
   useEffect(() => {
     function handleKey(e) {
-      if (e.key === "Escape") setActiveImage(null);
+      if (e.key === "Escape") setActiveIndex(null);
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
     }
-    window.addEventListener("keydown", handleKey);
+    if (activeIndex !== null) {
+      window.addEventListener("keydown", handleKey);
+    }
     return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+  }, [activeIndex]);
+
+  const activeImage = activeIndex !== null ? images[activeIndex] : null;
 
   return (
     <>
@@ -51,7 +67,7 @@ export default function Cases() {
                 src={src}
                 alt={alt}
                 className={className}
-                onClick={() => setActiveImage({ src, alt })}
+                onClick={() => setActiveIndex(i)}
               />
             ))}
           </div>
@@ -67,7 +83,7 @@ export default function Cases() {
             flex items-center justify-center
             px-3 md:px-6
           "
-          onClick={() => setActiveImage(null)}
+          onClick={() => setActiveIndex(null)}
         >
           {/* Botão fechar */}
           <button
@@ -75,22 +91,60 @@ export default function Cases() {
               absolute top-6 right-6
               text-white text-3xl font-light
               hover:opacity-70
+              z-50
             "
-            onClick={() => setActiveImage(null)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setActiveIndex(null);
+            }}
           >
             ✕
           </button>
 
+          {/* Botão Anterior */}
+          <button
+            className="
+              absolute left-2 md:left-8
+              text-white text-4xl md:text-6xl font-thin
+              hover:opacity-70
+              z-50 p-4
+            "
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+          >
+            ‹
+          </button>
+
+          {/* Botão Próximo */}
+          <button
+            className="
+              absolute right-2 md:right-8
+              text-white text-4xl md:text-6xl font-thin
+              hover:opacity-70
+              z-50 p-4
+            "
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+          >
+            ›
+          </button>
+
           <img
+            // Key força remontagem para animação reiniciar ao trocar imagem
+            key={activeIndex} 
             src={activeImage.src}
             alt={activeImage.alt}
             className="
-              max-w-[95vw]
-              max-h-[95vh]
+              max-w-[85vw]
+              max-h-[85vh]
               rounded-xl
               shadow-2xl
-              scale-110
-              md:scale-125
+              scale-100
+              md:scale-100
               transition-transform duration-300
               animate-[zoomIn_0.35s_ease-out]
             "

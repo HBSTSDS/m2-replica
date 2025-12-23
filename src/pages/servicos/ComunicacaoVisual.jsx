@@ -163,17 +163,16 @@ export default function ComunicacaoVisual() {
                 </div>
 
                 <p className="mb-3">
-                  Na M2, quando falamos em comunicação visual, falamos em
-                  transformar ideias em presença física: fachadas, impressos,
-                  recorte, montagem e instalação. É o encontro entre criação e
-                  indústria gráfica, materializando campanhas em displays,
-                  sinalização, adesivos e materiais de ponto de venda.
+                  Comunicação visual é o conjunto de elementos que levam a
+                  identidade da sua marca para o mundo real com impacto, clareza e
+                  propósito, seja em loja, na rua, em eventos ou feiras.
                 </p>
                 <p>
-                  A comunicação visual é o conjunto desses elementos que ajudam
-                  a levar a identidade da sua marca para o mundo real com
-                  impacto, clareza e propósito – seja em loja, rua, evento ou
-                  feira.
+                  Na M2, quando falamos em comunicação visual, falamos em
+                  transformar ideias em presença física: impressos em geral,
+                  acabamento, montagem e instalação. É o encontro entre criação e
+                  indústria gráfica, materializando campanhas em produtos físicos,
+                  displays, sinalização, adesivos e materiais de ponto de venda.
                 </p>
               </div>
 
@@ -197,7 +196,7 @@ export default function ComunicacaoVisual() {
 
                 <ul className="list-disc ml-5 space-y-1.5">
                   <li>
-                    Chamar a atenção do cliente no meio de tantos estímulos
+                    Chamar a atenção do cliente em meio a tantos estímulos
                     visuais;
                   </li>
                   <li>
@@ -209,15 +208,15 @@ export default function ComunicacaoVisual() {
                     objetiva;
                   </li>
                   <li>
-                    Transparecer organização, profissionalismo e confiança,
-                    impactando diretamente na decisão de compra.
+                    Transmitir organização, profissionalismo e confiança,
+                    impactando diretamente a decisão de compra.
                   </li>
                 </ul>
 
                 <p className="mt-3">
                   Uma imagem bem planejada e bem impressa transmite a mensagem
                   em segundos. Ela informa, orienta e convence o cliente que
-                  circula pelo seu espaço e coloca sua marca um passo à frente
+                  circula pelo seu espaço, colocando sua marca um passo à frente
                   no ponto de venda.
                 </p>
               </div>
@@ -243,7 +242,7 @@ export default function ComunicacaoVisual() {
                 <p className="mb-3">
                   Na M2, unimos estratégia, design e um parque gráfico de alta
                   performance para entregar soluções completas em comunicação
-                  visual, do planejamento à instalação.
+                  visual, ou seja, do planejamento à instalação.
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
@@ -251,15 +250,15 @@ export default function ComunicacaoVisual() {
                     Escala e agilidade para campanhas de varejo e grandes redes;
                   </li>
                   <li>
-                    Consistência de cores e padrões entre lojas, regiões e
-                    materiais diferentes;
+                    Consistência de cores e padrões entre os materiais, mesmo em
+                    diferentes formatos;
                   </li>
                   <li>
                     Acabamento premium, com foco em durabilidade e apresentação
-                    impecável no ponto de venda;
+                    impecável;
                   </li>
                   <li>
-                    Processos competitivos, mesmo em produções de alto volume;
+                    Processos competitivos, inclusive em produções de alto volume;
                   </li>
                   <li>
                     Equipe especializada em instalação, garantindo que o projeto

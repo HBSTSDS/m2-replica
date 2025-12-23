@@ -109,12 +109,12 @@ body.revendedor .tag {
 /* Cabeçalho (fica por cima do fundo) */
 .hero-header {
   position: absolute;
-  top: 30px;
-  left: 80px;
-  right: 80px;
+  top: 5px;
+  left: 20px;
+  right: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   z-index: 3; /* garante estar acima do ::before */
 }
 
@@ -137,7 +137,7 @@ body.revendedor .tag {
 .rede-sociais {
   width: clamp(130px, 12vw, 180px);
   height: auto;
-  transform: translateY(-15px);
+  /* transform removed for alignment */
 }
 
 /* Container principal: também por cima do fundo */
@@ -190,11 +190,25 @@ body.revendedor .tag {
   box-shadow: 0 10px 0 #ff005c, 0 15px 25px rgba(255, 0, 92, 0.5);
   cursor: pointer;
   transition: all 0.3s ease;
+  animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 92, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255, 0, 92, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 92, 0);
+  }
 }
 
 .cta-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 0 #ff005c, 0 20px 30px rgba(255, 0, 92, 0.5);
+  animation: none;
 }
 
 /* Vídeo */
@@ -673,6 +687,7 @@ body.revendedor .cadastro-section {
 /* ===================== SELO VERDE ===================== */
 body.revendedor .eco-strip {
   padding: clamp(24px, 5vw, 44px) 0;
+  padding-bottom: 80px; /* Compensate for scale(1.25) */
 }
 body.revendedor .eco-wrap {
   width: min(1200px, 92vw);
@@ -1334,6 +1349,7 @@ body.revendedor .btn.btn-green {
     box-sizing: border-box !important;
   }
 
+
   /* ajusta o conteúdo interno */
   .cadastro-target h3 {
     font-size: 20px !important;
@@ -1345,5 +1361,47 @@ body.revendedor .btn.btn-green {
     line-height: 1.45 !important;
     max-width: 90% !important;
     margin: 0 auto !important;
+  }
+}
+
+/* ================== FOOTER SOCIAL OVERLAY ================== */
+.footer-section {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.footer-social-overlay {
+  position: absolute;
+  bottom: 25%; /* Tentativa de posicionar mais acima na faixa escura se houver */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  z-index: 10;
+}
+
+.footer-social-overlay a {
+  color: #ffffff;
+  font-size: 38px; /* Increased from 28px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.footer-social-overlay a:hover {
+  transform: scale(1.15);
+  color: #ff005c; /* M2 Pink hover */
+}
+
+@media (max-width: 768px) {
+  .footer-social-overlay {
+    bottom: 20%;
+    gap: 16px;
+  }
+  .footer-social-overlay a {
+    font-size: 30px; /* Increased from 22px */
   }
 }

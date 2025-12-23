@@ -156,16 +156,25 @@ export default function Envelopamento() {
                 </div>
 
                 <p className="mb-3">
-                  Na M2, envelopamento é o processo de revestir superfícies com películas adesivas de alta performance, para fins estéticos, promocionais ou de proteção.
+                  Envelopamento é o processo de revestir superfícies com películas
+                  adesivas de alta performance, com finalidade estética,
+                  promocional ou de proteção.
                 </p>
                 <p className="mb-3">
-                  Falamos de transformar veículos, fachadas, equipamentos, móveis e ambientes inteiros sem a sujeira e a demora de uma pintura ou reforma tradicional.
+                  Ele permite transformar veículos, fachadas, equipamentos, móveis
+                  e até ambientes inteiros, sem a sujeira e a demora de uma
+                  pintura ou reforma tradicional.
                 </p>
                 <p className="mb-3">
-                  Com tecnologia de impressão e materiais de alta performance, garantimos personalização total, durabilidade e acabamento impecável, seja para proteger a pintura original ou para dar uma nova identidade visual.
+                  Com tecnologia de impressão e materiais de alto desempenho,
+                  garantimos personalização total, durabilidade e acabamento
+                  impecável — seja para proteger a pintura original, seja para
+                  aplicar uma nova identidade visual.
                 </p>
                 <p>
-                  A M2 oferece soluções de envelopamento que transformam superfícies e ambientes em ferramentas de comunicação potentes e versáteis.
+                  A M2 oferece soluções de envelopamento que transformam
+                  superfícies e ambientes em ferramentas de comunicação potentes
+                  e versáteis.
                 </p>
               </div>
 
@@ -179,19 +188,38 @@ export default function Envelopamento() {
                 </div>
 
                 <p className="mb-3">
-                  Investir em envelopamento é uma forma inteligente de potencializar a marca, proteger ativos e modernizar espaços com custo-benefício e rapidez.
+                  Investir em envelopamento é uma forma inteligente de
+                  potencializar a marca, proteger ativos e modernizar espaços com
+                  rapidez e ótimo custo-benefício.
                 </p>
 
                 <ul className="list-disc ml-5 space-y-1.5">
-                  <li><strong>Renova sem reforma:</strong> muda a cara de ambientes e móveis em horas, sem obra;</li>
-                  <li><strong>Transfoma frota em mídia:</strong> carros, ônibus, metrô e caminhões viram outdoors móveis com sua marca;</li>
-                  <li><strong>Padroniza pontos de venda:</strong> ideal para redes que precisam de identidade visual unificada;</li>
-                  <li><strong>Protege superfícies:</strong> películas preservam a pintura original contra riscos e intempéries;</li>
-                  <li><strong>Flexibilidade e agilidade:</strong> campanhas rápidas podem ser instaladas e removidas sem danos.</li>
+                  <li>
+                    Renova sem reforma: muda a aparência de ambientes e móveis
+                    em horas, sem obra;
+                  </li>
+                  <li>
+                    Transforma a frota em mídia: carros, ônibus, metrôs e
+                    caminhões viram outdoors móveis com a sua marca;
+                  </li>
+                  <li>
+                    Padroniza pontos de venda: ideal para redes que precisam de
+                    identidade visual unificada;
+                  </li>
+                  <li>
+                    Protege superfícies: as películas preservam a pintura
+                    original contra riscos e intempéries;
+                  </li>
+                  <li>
+                    Flexibilidade e agilidade: campanhas rápidas podem ser
+                    instaladas e removidas sem danos.
+                  </li>
                 </ul>
 
                 <p className="mt-3">
-                  Com um bom projeto e aplicação profissional, o envelopamento entrega impacto visual imediato e preserva o valor do seu patrimônio.
+                  Com um bom projeto e aplicação profissional, o envelopamento
+                  gera impacto visual imediato e ajuda a preservar o valor do
+                  seu patrimônio.
                 </p>
               </div>
 
@@ -204,8 +232,14 @@ export default function Envelopamento() {
                   </h2>
                 </div>
 
-                <p className="mb-3">A M2 une estrutura industrial, materiais certificados e equipe de instalação própria para entregar envelopamentos de alta complexidade e escala.</p>
-                <p className="mb-3">Somos especialistas em envelopamento de transporte público:</p>
+                <p className="mb-3">
+                  A M2 une estrutura industrial, materiais certificados e equipe
+                  própria de instalação para entregar envelopamentos com alta
+                  complexidade e escala.
+                </p>
+                <p className="mb-3">
+                  Somos especialistas em envelopamento de frota, incluindo:
+                </p>
 
                 <ul className="ml-5 mb-3 space-y-0.5">
                   <li>Metrô</li>
@@ -216,11 +250,24 @@ export default function Envelopamento() {
                   <li>Caminhões</li>
                 </ul>
 
-                <p className="mb-3">Nossos processos garantem aderência perfeita, emendas discretas e durabilidade real, mesmo em condições extremas de uso.</p>
-                <p className="mb-3">Materiais certificados e adequados a transporte público e normas de segurança;</p>
-                <p className="mb-3"><strong>Projeto completo:</strong> medição, arte, produção e instalação;</p>
-                <p className="mb-3">Atuação em todo o Brasil com equipes volantes;</p>
-                <p>Com a M2, envelopamento vira solução estratégica, executada com precisão técnica e qualidade visual de ponta.</p>
+                <p className="mb-3">
+                  Nossos processos garantem aderência perfeita, emendas discretas
+                  e durabilidade real, mesmo em condições extremas de uso.
+                </p>
+                <p className="mb-3">
+                  Materiais certificados, adequados a transporte público e às
+                  normas de segurança;
+                </p>
+                <p className="mb-3">
+                  Projeto completo: medição, produção e instalação;
+                </p>
+                <p className="mb-3">
+                  Atuação em todo o Brasil, com equipes volantes.
+                </p>
+                <p>
+                  Com a M2, o envelopamento se torna uma solução estratégica,
+                  executada com precisão técnica e qualidade visual de ponta.
+                </p>
               </div>
             </div>
           </div>
