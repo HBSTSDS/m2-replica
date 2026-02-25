@@ -1,0 +1,70 @@
+# ======================================
+# CONFIGURAÇÕES GERAIS
+# ======================================
+
+Options -MultiViews
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# ======================================
+# NÃO REESCREVER CMS / API
+# ======================================
+
+RewriteRule ^api/ - [L]
+RewriteRule ^cms/ - [L]
+RewriteRule ^m2-cms/ - [L]
+RewriteRule ^docs/ - [L]
+RewriteRule ^assets/ - [L]
+RewriteRule ^videos/ - [L]
+
+# ======================================
+# REDIRECT WWW → SEM WWW (CANONICAL)
+# ======================================
+
+# m2flex www → sem www
+RewriteCond %{HTTP_HOST} ^www\.m2flex\.com\.br$ [NC]
+RewriteRule ^ https://m2flex.com.br%{REQUEST_URI} [R=301,L]
+
+# m2midias www → sem www
+RewriteCond %{HTTP_HOST} ^www\.m2midias\.com\.br$ [NC]
+RewriteRule ^ https://m2midias.com.br%{REQUEST_URI} [R=301,L]
+
+# ======================================
+# DOMINIOS ACEITOS
+# ======================================
+
+RewriteCond %{HTTP_HOST} !^(m2flex\.com\.br|www\.m2flex\.com\.br|m2midias\.com\.br|www\.m2midias\.com\.br)$ [NC]
+RewriteRule ^ - [F,L]
+
+# ======================================
+# NUNCA CACHEAR index.html
+# ======================================
+
+<IfModule mod_headers.c>
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# ======================================
+# LITESPEED CACHE OFF
+# ======================================
+
+<IfModule LiteSpeed>
+  CacheLookup off
+</IfModule>
+
+# ======================================
+# REACT ROUTER → index.html (COM EXCLUSÕES)
+# ======================================
+
+RewriteCond %{REQUEST_URI} !^/api/blog-proxy.php
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/cms/
+RewriteCond %{REQUEST_URI} !^/m2-cms/
+RewriteCond %{REQUEST_URI} !^/docs/
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteRule ^ index.html [L]

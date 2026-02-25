@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hover rosa + cone refinado</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --rosa-m2:#E5258C;
+    --texto:#4B4B48;
+  }
+
+  body{
+    margin:0; padding:40px;
+    font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:#f3f5fb;
+    color:var(--texto);
+  }
+
+  .demo{
+    max-width:480px; margin:auto; background:#fff;
+    border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.07);
+    padding:28px 32px;
+  }
+
+  .demo h1{ font-size:18px; margin:0 0 12px; color:#0f172a; }
+
+  /* ===== LISTA ===== */
+  .menu{ list-style:none; margin:0; padding:0; }
+  .menu li{
+    position:relative;
+    padding-left:18px;
+    margin:10px 0;
+    line-height:1;
+    isolation:isolate;
+  }
+
+  .menu li .label{
+    position:relative;
+    z-index:2;
+    color:var(--texto);
+    transition:color .25s ease;
+  }
+  .menu li:hover .label{
+    color:var(--rosa-m2);
+  }
+
+  /* === FEIXE EM CONE MAIS CURTO === */
+  .menu li::before,
+  .menu li::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    right:98%;                  /* colado no texto */
+    transform-origin:right center;
+    width:36px; height:5px;     /* feixe mais curto e fino */
+    opacity:0;
+    pointer-events:none;
+    background:linear-gradient(
+      to left,
+      rgba(0,0,0,.5) 0%,
+      rgba(0,0,0,.25) 45%,
+      rgba(0,0,0,0) 100%
+    );
+    filter:blur(1.8px);
+    transition:opacity .2s ease, transform .2s ease;
+    z-index:1;
+  }
+
+  /* braços do V mais fechados (ângulo menor) */
+  .menu li::before{
+    transform:translateY(-150%) rotate(-6deg);
+  }
+  .menu li::after{
+    transform:translateY(50%) rotate(6deg);
+  }
+
+  /* Hover: ativa o cone */
+  .menu li:hover::before,
+  .menu li:hover::after{
+    opacity:1;
+  }
+  .menu li:hover::before{ transform:translateY(-50%) rotate(-6deg); }
+  .menu li:hover::after { transform:translateY(-50%) rotate(6deg); }
+
+</style>
+</head>
+<body>
+
+  <div class="demo">
+    <h1>Displays</h1>
+    <ul class="menu">
+      <li><span class="label">Voilá</span></li>
+      <li><span class="label">Automático</span></li>
+      <li><span class="label">Easy Green</span></li>
+      <li><span class="label">Evolution</span></li>
+      <li><span class="label">Flash</span></li>
+      <li><span class="label">Easy Shelf</span></li>
+      <li><span class="label">Smart Clip</span></li>
+      <li><span class="label">Magic Pop Up</span></li>
+      <li><span class="label">Pórtico</span></li>
+    </ul>
+  </div>
+
+</body>
+</html>

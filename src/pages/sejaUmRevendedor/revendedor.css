@@ -1,0 +1,1407 @@
+/* ===================== BASE / TOKENS ===================== */
+body.revendedor {
+  zoom: 1;
+  background-color: #ffffff;
+  color: #131313;
+}
+body.revendedor :root {
+  --m2-pink: #ff005c;
+  --m2-ink: #131313;
+  --m2-yellow: #ffe600;
+  --design-w: 1440;
+  --design-h: 900;
+}
+
+/* ===================== ESTRUTURA GERAL ===================== */
+body.revendedor .section {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+}
+
+body.revendedor .container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(48px, 5vw, 72px) clamp(16px, 3vw, 24px);
+}
+
+body.revendedor .h1,
+body.revendedor .h2,
+body.revendedor .h3 {
+  color: var(--m2-ink);
+  margin: 0;
+}
+body.revendedor .h1 {
+  font-size: clamp(42px, 6.8vw, 88px);
+  line-height: 1.04;
+  font-weight: 900;
+}
+body.revendedor .h2 {
+  font-size: clamp(24px, 4.2vw, 40px);
+  line-height: 1.12;
+  font-weight: 900;
+}
+body.revendedor .h3 {
+  font-size: clamp(18px, 2.4vw, 24px);
+  line-height: 1.18;
+  font-weight: 800;
+}
+body.revendedor .p {
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.55;
+  color: #4b4848;
+}
+
+body.revendedor .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 16px 28px;
+  border-radius: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--m2-pink);
+  color: #ffffff;
+  box-shadow: 0 14px 32px rgba(255, 0, 92, 0.28);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+body.revendedor .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(255, 0, 92, 0.36);
+}
+
+body.revendedor .tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e7e9f2;
+  color: #4b4848;
+}
+
+/* ===================== HERO ===================== */
+.hero-section {
+  position: relative;
+  background: transparent; /* quem faz o fundo agora é o SVG */
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Fundo amarelo em SVG ocupando toda a área da section */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: url("https://flaviobrick.com.br/assets_externos/assets/SejaUmRevendedor/Subtract-amarelo.svg")
+    no-repeat center / cover;
+  z-index: 0;
+}
+
+/* Cabeçalho (fica por cima do fundo) */
+.hero-header {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3; /* garante estar acima do ::before */
+}
+
+.hero-logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* “tamanho” aproximado do bloco branco do canto */
+  width: clamp(260px, 22vw, 320px);
+  height: clamp(110px, 12vw, 150px);
+}
+
+.revendedor-logo {
+  width: clamp(110px, 10vw, 150px);
+  height: auto;
+  display: block;
+}
+
+.rede-sociais {
+  width: clamp(130px, 12vw, 180px);
+  height: auto;
+  /* transform removed for alignment */
+}
+
+/* Container principal: também por cima do fundo */
+.hero-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 5vw;
+}
+
+/* Layout interno */
+.hero-content {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  gap: 160px;
+}
+
+/* Texto */
+.hero-text h1 {
+  font-size: clamp(3.4rem, 6vw, 5.5rem);
+  font-weight: 900;
+  color: #131313;
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+.hero-text h1 span {
+  color: #ff005c;
+}
+
+/* Botão */
+.cta-btn {
+  margin-top: 50px;
+  margin-left: -10px;
+  background: #ff005c;
+  border: none;
+  padding: 24px 56px;
+  border-radius: 30px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 10px 0 #ff005c, 0 15px 25px rgba(255, 0, 92, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 92, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255, 0, 92, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 92, 0);
+  }
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 #ff005c, 0 20px 30px rgba(255, 0, 92, 0.5);
+  animation: none;
+}
+
+/* Vídeo */
+.hero-video .video-placeholder {
+  width: 80%;
+  aspect-ratio: 4 / 5; /* antes era 9/16, agora mais largo */
+  background: #131313;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-top: -20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.play-icon {
+  font-size: 2.2rem;
+  color: #ffffff;
+}
+
+/* Responsivo hero */
+@media (max-width: 980px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 60px;
+  }
+
+  .hero-video .video-placeholder {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.4rem, 7vw, 3.2rem);
+  }
+
+  .cta-btn {
+    margin-top: 25px;
+  }
+}
+
+/* ===================== DESTAQUES ===================== */
+body.revendedor .destaques {
+  padding: clamp(40px, 8vw, 80px) 0;
+  overflow: visible;
+}
+body.revendedor .destaques-banner {
+  width: 100%;
+  background-image: var(--dstk-img);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  aspect-ratio: 3 / 1;
+  border-radius: 22px;
+}
+
+/* ===================== FAIXA ROSA E PRODUTOS ===================== */
+body.revendedor .faixa-rosa {
+  position: relative;
+
+  /* full bleed real */
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+
+  overflow: transparent; /* PRECISO pra invadir */
+  background: transparent;
+
+  padding-top: 160px;
+  padding-bottom: 180px;
+
+  z-index: 3; /* fica acima do que deve */
+}
+
+/* Fundo rosa */
+body.revendedor .faixa-rosa::before {
+  content: "";
+  position: absolute;
+
+  /* Invadir para cima e para baixo */
+  top: -180px;
+  bottom: -180px;
+
+  left: 0;
+  width: 100vw; /* ENCOSTA NAS PAREDES */
+
+  background-image: url("https://flaviobrick.com.br/assets_externos/assets/SejaUmRevendedor/Subtract-rosa.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* PROPORÇÃO CORRETA, SEM ZOOM EXAGERADO */
+  background-position: center 40%; /* AJUSTA A CURVA, PONTO CHAVE */
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CONTEÚDO (título + cards) SEMPRE POR CIMA DO RAIO */
+body.revendedor .faixa-rosa__wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* GRID DE PRODUTOS */
+body.revendedor .prod-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.4fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 80px;
+}
+
+body.revendedor .prod-grid .col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* CARD QUADRADO COM IMAGEM CINZA NA ESQUERDA */
+body.revendedor .prod-card {
+  background: #ffffff;
+  border-radius: 0;
+  border: 1px solid #e7e9f2;
+  height: 300px;
+  display: flex;
+  overflow: hidden;
+}
+
+/* quadrado cinza da imagem */
+body.revendedor .prod-card .prod-img {
+  width: 50%;
+  height: 100%;
+  background: #e7e9f2;
+  background-size: cover;
+  background-position: center;
+}
+
+/* texto do card */
+body.revendedor .prod-card .prod-body {
+  width: 50%;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* título */
+body.revendedor .prod-card .prod-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #4b4848;
+}
+
+/* texto principal */
+body.revendedor .prod-card .prod-desc {
+  font-size: 14px;
+  color: #4b4848;
+  line-height: 1.4;
+}
+
+/* texto extra em itálico */
+body.revendedor .prod-card .prod-extra {
+  font-size: 13px;
+  font-style: italic;
+  color: #4b4848;
+  margin: 8px 0 0;
+}
+
+/* Saiba Mais no canto inferior direito */
+body.revendedor .prod-card .prod-link,
+body.revendedor .prod-btn {
+  margin-top: auto;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #ff005c;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body.revendedor .prod-card .prod-link:hover,
+body.revendedor .prod-btn:hover {
+  text-decoration: underline;
+}
+
+/* INTRO (NOSSOS PRODUTOS) */
+.faixa-produtos {
+  width: 789px; /* igual ao Figma */
+  margin: 0 auto 60px; /* centralizado + espaço abaixo */
+  padding: 0 16px;
+}
+
+.faixa-produtos__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ff005c;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+/* parágrafos */
+.faixa-produtos p {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 150%;
+  color: #000000;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+/* bloco "NOSSOS PRODUTOS" dentro do grid à esquerda */
+.faixa-produtos {
+  max-width: 789px;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 16px;
+}
+
+/* GRID DO TOPO: NOSSOS PRODUTOS (ESQ) + O QUE VOCÊ PODE REVENDER? (DIR) */
+body.revendedor .faixa-rosa__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 64px; /* espaço pra respiro antes dos cards */
+}
+
+/* GRID FULL WIDTH PARA ALINHAR UM BLOCO À ESQUERDA E OUTRO À DIREITA */
+.faixa-rosa__fullgrid {
+  width: 100vw;
+  left: 50%;
+  margin-left: -50vw;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+
+  align-items: flex-start;
+  position: relative;
+  z-index: 2; /* fica acima do rosa */
+}
+
+/* BLOCO DA ESQUERDA – SEM FUNDO, FICA NA ÁREA BRANCA */
+.faixa-produtos--left {
+  padding-left: 80px;
+  max-width: 700px;
+  margin-top: -200px; /* sobe o texto da esquerda */
+}
+
+/* BLOCO DA DIREITA – TEXTO BRANCO DENTRO DO ROSA */
+.faixa-rosa__heading,
+.faixa-rosa__heading--right {
+  display: grid;
+  row-gap: 12px;
+  justify-items: end;
+  text-align: right;
+  color: #fff;
+  margin-top: -120px;
+  padding-right: 80px;
+  max-width: 700px;
+  justify-self: end;
+}
+
+/* TÍTULO: "O QUE VOCÊ PODE REVENDER?" */
+body.revendedor .faixa-rosa__title {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 0.8685;
+  text-transform: uppercase;
+  max-width: 581px;
+}
+
+/* SUBTÍTULO + TEXTO LONGO */
+body.revendedor .faixa-rosa__subtitle,
+body.revendedor .faixa-rosa__desc {
+  font-family: "Poppins", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 775px;
+}
+
+/* "LINHAS QUE VOCÊ PODE TRABALHAR" */
+body.revendedor .faixa-rosa__tag {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 0.8685;
+  text-transform: uppercase;
+}
+
+/* Sobe levemente os cards, sem achatar nada */
+body.revendedor .faixa-rosa__cards {
+  max-width: 1120px;
+  margin: -24px auto 0;
+}
+
+/* ================= RESPONSIVO PRODUTOS DESKTOP ================= */
+@media (max-width: 900px) {
+  body.revendedor .faixa-rosa__wrap {
+    padding: 60px 16px 80px;
+  }
+
+  body.revendedor .prod-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.revendedor .prod-card {
+    height: 300px;
+  }
+}
+
+@media (max-width: 820px) {
+  .faixa-produtos {
+    width: 100%;
+    padding: 0 24px;
+  }
+
+  .faixa-produtos__title {
+    font-size: 26px;
+  }
+
+  .faixa-produtos p {
+    font-size: 18px;
+  }
+}
+
+/* ================== CADASTRO SECTION ================== */
+body.revendedor .cadastro-section {
+  position: relative;
+  z-index: 1;
+
+  margin-top: -140px;     /* antes -260px */
+  padding: 160px 0 60px;  /* antes 300 / 140 */
+}
+
+
+.cadastro-wrapper {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+/* GRID PRINCIPAL (VANTAGENS + COMO FUNCIONA) */
+.cadastro-grid-text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 96px;
+  position: relative;
+  align-items: flex-start;
+}
+
+/* Linha divisória vertical entre as colunas */
+.cadastro-grid-text::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 50%;
+  width: 1px;
+  background-color: #c7c7c7;
+}
+
+/* Colunas internas */
+.cadastro-grid-text .col {
+  padding: 0 24px;
+}
+
+/* Títulos das colunas (VANTAGENS / COMO FUNCIONA) */
+.cadastro-grid-text .col h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+/* “SUA REVENDA” em rosa */
+.cadastro-grid-text .highlight {
+  color: #ff005c;
+}
+
+/* Parágrafos das colunas */
+.cadastro-grid-text .col p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b4848;
+  margin-bottom: 16px;
+  max-width: 520px;
+}
+
+/* Negrito dentro do texto (O processo é simples:) */
+.cadastro-grid-text .col p strong {
+  color: #131313;
+  font-weight: 700;
+}
+
+/* (mantidos para compatibilidade caso use listas em outro lugar) */
+.cadastro-list,
+.cadastro-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* “PARA QUEM É” – FAIXA CINZA FULL WIDTH */
+.cadastro-target {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  background: #e7e9f2;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.cadastro-target h3 {
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: #4b4848;
+}
+
+/* texto corrido no centro */
+.cadastro-target p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b4848;
+}
+
+/* RESPONSIVO CADASTRO */
+@media (max-width: 960px) {
+  .cadastro-grid-text {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .cadastro-grid-text::before {
+    display: none;
+  }
+
+  .cadastro-grid-text .col {
+    padding: 0;
+  }
+
+  .cadastro-grid-text .col p {
+    max-width: none;
+  }
+
+  .cadastro-target {
+    left: 0;
+    margin-left: 0;
+    width: 100%;
+    padding: 32px 16px;
+  }
+
+  .cadastro-target p {
+    max-width: 100%;
+  }
+}
+
+/* ===================== SELO VERDE ===================== */
+body.revendedor .eco-strip {
+  padding: clamp(24px, 5vw, 44px) 0;
+  padding-bottom: 80px; /* Compensate for scale(1.25) */
+}
+body.revendedor .eco-wrap {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+body.revendedor .eco-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scale(1.25); /* aumenta 25% */
+  transform-origin: top center; /* cresce puxando pra cima */
+}
+/* ===================== WHATS CTA ===================== */
+body.revendedor .whats-cta {
+  padding: clamp(24px, 6vw, 48px) 0;
+}
+
+body.revendedor .whats-grid {
+  width: min(1200px, 92vw);
+  margin: 0 auto;
+}
+
+/* RETÂNGULO AMARELO DO CTA */
+body.revendedor .yellow-container {
+  position: relative;
+  border-radius: 21px;
+  overflow: hidden;
+}
+
+/* Fundo com a arte cta.png */
+body.revendedor .cta-bg {
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  min-height: 387px;
+  padding: 40px 72px 40px 80px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Brilho suave */
+.yellow-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 150, 0.45) 0%,
+    rgba(255, 255, 150, 0) 70%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Caixa de texto */
+.cta-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  padding-right: 140px; /* reserva espaço da menina */
+}
+
+/* Título – SEJA UM REVENDEDOR M2 */
+.cta-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+/* Subtítulo */
+.cta-subtitle {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Texto menor */
+.cta-description {
+  font-size: 16px;
+  line-height: 1.45;
+  margin-bottom: 26px;
+}
+
+/* BOTÕES */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+/* PADRÃO BASE PARA AMBOS */
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 62.35px;
+  padding: 12.5px;
+  font-size: 15px;
+  font-weight: 700;
+
+  border-radius: 15px;
+  text-decoration: none;
+  color: #fff;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+
+  white-space: nowrap;
+}
+
+/* BOTÃO ROSA */
+.btn-pink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 306.382px;
+  height: 62.356px;
+  padding: 12.5px;
+
+  background: #ff005c;
+  border-radius: 15px;
+
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+/* BOTÃO VERDE */
+.btn-green {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12.5px;
+
+  width: 306.382px;
+  height: 62.356px;
+
+  padding: 12.5px;
+  border-radius: 15px;
+
+  background: #94c94b;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+/* FOOTER */
+body.revendedor .footer-section {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+body.revendedor .footer-img {
+  width: 100%;
+  display: block;
+  margin: 0;
+}
+
+/* Redes sociais header */
+.rede-sociais {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rede-sociais a {
+  padding-top: 10px;
+  display: inline-flex;
+  font-size: 28px;
+  color: #ff005c;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.rede-sociais a:hover {
+  transform: translateY(-1px);
+  color: #ff005c;
+}
+
+/* força o botão verde a sobrepor estilos globais */
+body.revendedor .btn.btn-green {
+  background: #94c94b !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ========================= */
+/*  CENTRALIZAR VÍDEO MOBILE */
+/* ========================= */
+@media (max-width: 768px) {
+  /* força o container principal a alinhar tudo ao centro */
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* o vídeo fica centralizado e com largura máxima */
+  .hero-video {
+    margin: 20px auto 0 !important;
+    width: 100% !important;
+    max-width: 360px !important;
+  }
+}
+
+/* ========================================= */
+/*  WHATS CTA – AJUSTE MOBILE (TEXTOS + CARD) */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* deixa a seção mais compacta */
+  .whats-cta {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  /* diminui o título */
+  .whats-cta h2 {
+    font-size: 22px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* diminui os parágrafos */
+  .whats-cta p {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* encosta mais os textos no cartão amarelo */
+  .whats-cta .cta-text,
+  .whats-cta .cta-content {
+    margin-bottom: 12px !important;
+  }
+
+  .whats-cta .cta-bg {
+    margin-top: 8px !important;
+  }
+}
+
+/* ========================================= */
+/* WHATS CTA – MOBILE: CENTRALIZAR TUDO      */
+/* ========================================= */
+@media (max-width: 768px) {
+  .whats-cta .cta-bg {
+    background-image: none !important;
+    background-color: #ffd400 !important;
+    border-radius: 24px !important;
+    padding: 24px 16px 24px !important;
+    margin-top: 20px !important;
+  }
+
+  .whats-cta .cta-content {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    padding: 0 !important;
+  }
+
+  .whats-cta .cta-title,
+  .whats-cta .cta-subtitle,
+  .whats-cta .cta-description {
+    text-align: center !important;
+  }
+
+  /* BOTÕES LADO A LADO NO MOBILE */
+  .whats-cta .cta-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-top: 16px !important;
+    flex-wrap: wrap;
+  }
+
+  .whats-cta .cta-buttons .btn {
+    flex: 0 1 auto !important;
+    width: auto !important;
+  }
+}
+
+/* ========================================= */
+/*  AJUSTE MOBILE – REDUZIR ESPAÇO ENTRE SEÇÕES */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* bloco cinza "PARA QUEM É" */
+  .cadastro-target {
+    padding: 20px 0 !important; /* antes 40px */
+  }
+
+  .cadastro-target h3,
+  .cadastro-target p {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* seção de cadastro não empurra tanto o selo verde */
+  body.revendedor .cadastro-section {
+    padding-bottom: 40px !important; /* antes 140px */
+  }
+
+  /* selo verde cola mais no bloco cinza */
+  body.revendedor .eco-strip {
+    padding-top: 16px !important;
+  }
+}
+
+/* ============================================= */
+/*  MOBILE – CORRIGIR ALTURA E LARGURA DOS CARDS */
+/* ============================================= */
+@media (max-width: 768px) {
+  /* grid vira 1 coluna */
+  .faixa-rosa__cards .prod-grid {
+    display: block !important;
+  }
+
+  /* cada coluna vira 100% */
+  .faixa-rosa__cards .col {
+    width: 100% !important;
+  }
+
+  /* card ocupa 100% da largura, cresce conforme o texto */
+  .prod-card {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* imagem maior e proporcional */
+  .prod-card .prod-img {
+    height: 180px !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border-radius: 12px !important;
+  }
+
+  /* textos internos */
+  .prod-card .prod-title {
+    font-size: 18px !important;
+    margin: 12px 0 6px !important;
+    line-height: 1.2 !important;
+  }
+
+  .prod-card .prod-desc {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 12px !important;
+    white-space: normal !important;
+  }
+
+  .prod-card .prod-btn {
+    width: 100% !important;
+    margin-top: 8px !important;
+  }
+}
+
+/* ============================================= */
+/*  MOBILE – TEXTO "O QUE VOCÊ PODE REVENDER"    */
+/* ============================================= */
+@media (max-width: 768px) {
+  /* desliga o grid e joga tudo em coluna */
+  .faixa-rosa__fullgrid {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+  }
+
+  .faixa-rosa__heading,
+  .faixa-rosa__heading--right {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 85% !important;
+    margin: 24px auto 8px !important;
+    padding: 0 20px !important;
+
+    float: none !important;
+    display: block !important;
+    text-align: center !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+
+    color: #000 !important;
+    justify-items: center !important;
+    align-items: center !important;
+  }
+
+  .faixa-rosa__heading *,
+  .faixa-rosa__heading--right * {
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+
+  .faixa-rosa__title {
+    font-size: 22px !important;
+    margin-bottom: 8px !important;
+    color: #ff005c !important;
+    font-weight: 800 !important;
+  }
+
+  .faixa-rosa__subtitle {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+    color: #000 !important;
+  }
+
+  .faixa-rosa__desc {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    color: #000 !important;
+  }
+
+  .faixa-rosa__tag {
+    font-size: 16px !important;
+    margin-top: 8px !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+
+  /* fundo rosa nos cards no mobile */
+  .faixa-rosa__cards {
+    background: #ff005c !important;
+    padding: 24px 16px !important;
+    margin-top: 24px !important;
+  }
+
+  .prod-card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+/* ========================================= */
+/*  MOBILE – FAIXA ROSA COMO RETÂNGULO LISO  */
+/* ========================================= */
+@media (max-width: 768px) {
+
+  /* A SECTION em si: vira normal, sem full-bleed */
+  body.revendedor .faixa-rosa {
+    position: relative !important;
+    width: 100% !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    padding-top: 24px !important;
+    padding-bottom: 0 !important;
+    background-color: #ffffff !important; /* fundo branco na área dos textos */
+    overflow: visible !important;
+  }
+
+  /* some com o Subtract-rosa no mobile */
+  body.revendedor .faixa-rosa::before {
+    content: none !important;
+  }
+
+  /* GRID DOS TEXTOS – fica branco, só organizando conteúdo */
+  .faixa-rosa__fullgrid {
+    width: 100% !important;
+    left: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 16px 16px !important;
+    display: block !important;
+    background-color: #ffffff !important;
+  }
+
+  /* (se já estiver centralizando texto, mantém) */
+  .faixa-produtos,
+  .faixa-produtos--left {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 0 16px 0 !important;
+  }
+
+  /* BLOCO DOS CARDS – vira o RETÂNGULO ROSA */
+  .faixa-rosa__cards {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #ff005c !important; /* rosa sólido preenchendo tudo */
+  }
+
+  /* grid dos cards ocupa a largura toda dentro do retângulo rosa */
+  .faixa-rosa__cards .prod-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding: 16px 16px 24px !important;
+  }
+
+  .faixa-rosa__cards .col {
+    width: 100% !important;
+  }
+
+  /* cards "colados" no fundo rosa, sem borda branca estranha */
+  .faixa-rosa__cards .prod-card {
+    width: 100% !important;
+    min-height: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+}
+/* ========================================= */
+/*  MOBILE – AJUSTE DE ESPAÇAMENTO DO TEXTO  */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* bloco onde ficam os textos brancos */
+  .faixa-rosa__heading,
+  .faixa-rosa__heading--right {
+    margin-bottom: 20px !important; /* dá respiro antes dos cards */
+  }
+
+  /* título "O QUE VOCÊ PODE REVENDER?" */
+  .faixa-rosa__title {
+    margin-bottom: 12px !important;
+  }
+
+  /* subtítulo "Um portfólio completo…" */
+  .faixa-rosa__subtitle {
+    margin-bottom: 10px !important;
+  }
+
+  /* texto corrido */
+  .faixa-rosa__desc {
+    margin-bottom: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* linha final "LINHAS QUE VOCÊ PODE TRABALHAR" */
+  .faixa-rosa__tag {
+    margin-top: 12px !important;
+    margin-bottom: 16px !important;
+  }
+}
+/* ========================================= */
+/*  MOBILE – ESPAÇO ANTES DO "O QUE VOCÊ..." */
+/* ========================================= */
+@media (max-width: 768px) {
+
+  /* joga o bloco dos textos um pouco para baixo */
+  .faixa-rosa__fullgrid {
+    padding-top: 24px !important;   /* cria respiro em cima */
+  }
+
+  /* e abre um pouco o espaço acima do título rosa */
+  .faixa-rosa__heading,
+  .faixa-rosa__heading--right {
+    margin-top: 12px !important;
+  }
+}
+/* ========================================= */
+/*  MOBILE – AJUSTE FINAL DO BLOCO BRANCO     */
+/* ========================================= */
+@media (max-width: 768px) {
+
+  /* wrapper do bloco branco */
+  .revenda-texto-mobile {
+    padding-top: 24px !important;  /* cria respiro geral */
+  }
+
+  /* título rosa */
+  .faixa-rosa_title {
+    margin-top: 16px !important;   /* espaço extra antes do título */
+    margin-bottom: 10px !important;
+  }
+
+  /* subtítulo */
+  .faixa-rosa_subtitle {
+    margin-bottom: 12px !important;
+  }
+
+  /* texto corrido */
+  .faixa-rosa_desc {
+    margin-bottom: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* LINHAS QUE VOCÊ PODE TRABALHAR */
+  .faixa-rosa_tag {
+    margin-top: 12px !important;
+    margin-bottom: 20px !important;
+    display: block !important;  /* garante que cria espaço */
+  }
+}
+@media (max-width: 768px) {
+  .cadastro-target {
+    padding: 24px 16px !important;  /* antes era ~40px ou maior */
+  }
+
+  .cadastro-target h3 {
+    margin-bottom: 8px !important;
+    font-size: 20px !important;
+  }
+
+  .cadastro-target p {
+    font-size: 14px !important;
+    line-height: 1.42 !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
+  }
+}
+@media (max-width: 768px) {
+  .eco-strip,
+  .eco-wrap {
+    overflow: visible !important;
+  }
+
+  .eco-img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+@media (max-width: 768px) {
+  .eco-img {
+    transform: scale(1.05) !important;
+    transform-origin: top center !important;
+  }
+}
+/* ========================================= */
+/*  MOBILE – BLOCO CINZA FULL WIDTH          */
+/* ========================================= */
+@media (max-width: 768px) {
+
+  .cadastro-target {
+    width: 100vw !important;        /* ocupa a tela inteira */
+    left: 50% !important;           
+    margin-left: -50vw !important;  /* truque para colar na parede */
+    padding: 24px 16px !important;  /* padding interno bonito */
+    box-sizing: border-box !important;
+  }
+
+
+  /* ajusta o conteúdo interno */
+  .cadastro-target h3 {
+    font-size: 20px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .cadastro-target p {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* ================== FOOTER SOCIAL OVERLAY ================== */
+.footer-section {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.footer-social-overlay {
+  position: absolute;
+  bottom: 25%; /* Tentativa de posicionar mais acima na faixa escura se houver */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  z-index: 10;
+}
+
+.footer-social-overlay a {
+  color: #ffffff;
+  font-size: 38px; /* Increased from 28px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.footer-social-overlay a:hover {
+  transform: scale(1.15);
+  color: #ff005c; /* M2 Pink hover */
+}
+
+@media (max-width: 768px) {
+  .footer-social-overlay {
+    bottom: 20%;
+    gap: 16px;
+  }
+  .footer-social-overlay a {
+    font-size: 30px; /* Increased from 22px */
+  }
+}

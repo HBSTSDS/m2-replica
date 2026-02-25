@@ -1,0 +1,11 @@
+﻿node_modules
+dist
+.env
+.DS_Store
+
+# Local Netlify/Project config
+.netlify
+config_local.py
+php/api/db_credentials.php
+*.pyc
+__pycache__/

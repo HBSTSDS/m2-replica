@@ -1,0 +1,548 @@
+/* ========= MOBILE (≤768px) ========= */
+@media (max-width: 768px) {
+  /* ===== HERO VIDEO ===== */
+  .herovideo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    min-height: 170px;
+    height: auto;
+  }
+  .herovideo video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .herovideo h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin: 1rem 0;
+  }
+
+  /* ===== NAVBAR ===== */
+  .topbar .nav-list {
+    display: none !important;
+  }
+
+  .nav-toggle {
+    display: block;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    background: #E5258C;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .3s ease, transform .2s ease;
+  }
+  .nav-toggle:hover {
+    background: #d01f7b;
+    transform: scale(1.05);
+  }
+
+  .mobile-menu {
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .mobile-menu-section {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+  }
+  .mobile-menu-section button,
+  .mobile-menu-section a {
+    text-align: left;
+    padding-left: .75rem;
+  }
+  .mobile-menu-section button {
+    font-weight: 600;
+    color: #E5258C;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .mobile-menu-section a {
+    color: #000;
+    text-decoration: none;
+    font-size: .95rem;
+    padding-left: 1.25rem;
+  }
+  .mobile-menu-section a:hover {
+    color: #E5258C;
+  }
+
+  /* ===== HUB360 ===== */
+  .hub360 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+  }
+  .hub360 .col {
+    width: 100%;
+    text-align: center;
+  }
+  .hub360 *,
+  .hub360 *:hover {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: none !important;
+  }
+  .hub360 .content {
+    max-width: 90%;
+    text-align: center;
+  }
+  .hub360 img,
+  .hub360 video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ========= TABLETS ========= */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* ajustes intermediários */
+}
+
+/* ========= DESKTOP ========= */
+@media (min-width: 1025px) {
+  /* ajustes desktop específicos */
+}
+
+/* ========= GLOBAL ========= */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideDown {
+  animation: slideDown .3s ease forwards;
+}
+
+.nav-toggle {
+  transition: background .3s ease, transform .2s ease;
+}
+.nav-toggle:hover {
+  background: #d01f7b;
+  transform: scale(1.05);
+}
+
+.email-link {
+  color: #ff005c;         /* vermelho M2 */
+  font-weight: 600;
+  text-decoration: none;  /* sem underline */
+}
+
+.email-link:hover {
+  text-decoration: underline;
+  color: #e10452;         /* vermelho hover */
+}
+/* WRAPPER GERAL DA FAIXA ROSA */
+.faixa-rosa {
+  
+  background: #FF005C;
+  padding: 100px 0 120px;
+  position: relative;
+}
+
+/* CONTAINER DO TEXTO – AGORA TOTALMENTE SEPARADO DOS CARDS */
+.faixa-rosa__heading {
+  width: 580px; /* mesmo do Figma */
+  color: #FFF;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 80px; /* empurra para a direita sem chegar no limite */
+  margin-bottom: 60px; /* espaço entre texto e cards */
+}
+
+/* TÍTULO */
+.faixa-rosa__title {
+  color: #FFF;
+  font-family: "Bricolage Grotesque";
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 0.87;
+  text-transform: uppercase;
+}
+
+/* SUBTÍTULOS */
+.faixa-rosa__subtitle,
+.faixa-rosa__desc {
+  color: #FFF;
+  text-align: right;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 150%;
+  width: 770px; /* igual ao Figma */
+  margin-left: auto;
+}
+
+/* TAG FINAL */
+.faixa-rosa__tag {
+  display: block;
+  margin-top: 20px;
+  color: #FFF;
+  text-align: right;
+  font-family: "Bricolage Grotesque";
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 0.87;
+  text-transform: uppercase;
+}
+
+/* GRID DOS CARDS — APENAS CENTRALIZAÇÃO, NADA MAIS */
+.faixa-rosa__grid {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+/* ===========================================
+   BLOCO "O QUE VOCÊ PODE REVENDER?"
+   (somente conteúdo, sem mexer na faixa rosa)
+   =========================================== */
+
+/* Wrapper interno com mesma largura do site */
+body.revendedor .faixa-rosa__wrap {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Cabeçalho de texto encostado à direita */
+body.revendedor .faixa-rosa__heading {
+  max-width: 780px;      /* largura do bloco de texto */
+  margin-left: auto;     /* empurra para o lado direito */
+  padding: 40px 0 24px;  /* distância do topo da faixa rosa */
+  color: #ffffff;
+  text-align: right;
+}
+
+/* Título */
+body.revendedor .faixa-rosa__title {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 0.87;      /* ~86% */
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+/* Subtítulo e parágrafo principal */
+body.revendedor .faixa-rosa__subtitle,
+body.revendedor .faixa-rosa__desc {
+  font-family: "Poppins", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+/* Parágrafo longo – limita a largura mas mantém à direita */
+body.revendedor .faixa-rosa__desc {
+  max-width: 775px;
+  margin-left: auto;
+}
+
+/* LINHAS QUE VOCÊ PODE TRABALHAR */
+body.revendedor .faixa-rosa__tag {
+  display: block;
+  margin-top: 20px;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 0.87;
+  text-transform: uppercase;
+}
+
+/* ===========================================
+   GRID DE CARDS – CENTRALIZAR SEM MEXER NO ESTILO
+   =========================================== */
+
+/* Centraliza o grid dentro do mesmo container do site */
+body.revendedor .faixa-rosa .prod-grid {
+  width: min(1180px, 92vw);
+  margin: 40px auto 0;   /* espaço entre o texto e os cards */
+}
+
+/* Garante que cada card use a largura original, sem “achatar” */
+body.revendedor .faixa-rosa .prod-card {
+  width: auto;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  body.revendedor .faixa-rosa__heading,
+  body.revendedor .faixa-rosa__subtitle,
+  body.revendedor .faixa-rosa__desc,
+  body.revendedor .faixa-rosa__tag {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body.revendedor .faixa-rosa .prod-grid {
+    width: 92vw;
+    margin-top: 32px;
+  }
+}
+
+/* ==========================================================
+   ALINHAR TODO O TEXTO DO BLOCO "O QUE VOCÊ PODE REVENDER?"
+   PARA O LADO DIREITO — SEM MEXER NOS CARDS
+   ========================================================== */
+
+body.revendedor .faixa-rosa__wrap {
+  width: 100%;
+  position: relative;
+}
+
+/* Cabeçalho inteiro agora encostado à direita */
+body.revendedor .faixa-rosa__heading {
+  width: min(780px, 90vw);
+  margin-left: auto;     /* empurra tudo pro lado direito */
+  padding-right: clamp(40px, 8vw, 120px);
+  text-align: right;
+  color: #fff;
+}
+
+/* Título */
+body.revendedor .faixa-rosa__title {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.87;
+  margin-bottom: 16px;
+}
+
+/* Subtítulo */
+body.revendedor .faixa-rosa__subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+/* Parágrafo maior */
+body.revendedor .faixa-rosa__desc {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+/* Linha final (tag) */
+body.revendedor .faixa-rosa__tag {
+  display: block;
+  margin-top: 18px;
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* ===================== TEXTO DENTRO DA FAIXA ROSA (À DIREITA) ===================== */
+
+body.revendedor .faixa-rosa__text {
+  position: relative;
+  z-index: 1;
+
+  /* largura parecida com o Figma */
+  max-width: 780px;
+
+  /* cola no lado direito, acima dos cards */
+  margin: 0 120px 80px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* tudo encostado à direita */
+  gap: 12px;
+
+  text-align: right;
+  color: #ffffff;
+}
+
+/* Título: O QUE VOCÊ PODE REVENDER? */
+body.revendedor .faixa-rosa__title {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 0.8685; /* 86.85% */
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+/* Subtítulo: Um portfólio completo... */
+body.revendedor .faixa-rosa__subtitle {
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5; /* 150% */
+  margin: 0;
+}
+
+/* Parágrafo maior: A M2 oferece... */
+body.revendedor .faixa-rosa__desc {
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5; /* 150% */
+  margin: 8px 0 0;
+}
+
+/* Tag: LINHAS QUE VOCÊ PODE TRABALHAR */
+body.revendedor .faixa-rosa__tag {
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 0.8685; /* 86.85% */
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+/* Responsivo: texto ainda à direita, mas com respiro em telas menores */
+@media (max-width: 900px) {
+  body.revendedor .faixa-rosa__text {
+    max-width: 100%;
+    margin: 0 24px 60px auto;
+  }
+
+  body.revendedor .faixa-rosa__title {
+    font-size: 32px;
+  }
+
+  body.revendedor .faixa-rosa__subtitle,
+  body.revendedor .faixa-rosa__desc {
+    font-size: 18px;
+  }
+
+  body.revendedor .faixa-rosa__tag {
+    font-size: 24px;
+  }
+}
+/* ================== AJUSTES DE POSICIONAMENTO ================== */
+
+/* Subir o bloco de texto do lado direito */
+body.revendedor .faixa-rosa__text {
+  margin-top: -50px; /* ajuste fino */
+}
+
+/* Subir a grade de cards */
+body.revendedor .prod-grid {
+  margin-top: -140px; /* ajuste fino */
+}
+/* ===== FAIXA ROSA – LAYOUT INTERNO (TEXTO + CARDS) ===== */
+
+/* não mexe no fundo rosa, só no conteúdo */
+body.revendedor .faixa-rosa {
+  position: relative;
+  z-index: 2;
+}
+
+/* container interno alinhado ao mesmo grid do resto da página */
+body.revendedor .faixa-rosa__wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-top: 24px;   /* sobe tudo dentro da faixa rosa */
+  padding-bottom: 40px;
+}
+
+/* bloco de texto branco – todo à direita */
+body.revendedor .faixa-rosa__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* bloco inteiro encostado à direita */
+  text-align: right;
+  max-width: 780px;
+  margin-left: auto;       /* empurra para a direita */
+  margin-right: 0;
+  gap: 12px;
+  color: #ffffff;
+}
+
+/* Título: O QUE VOCÊ PODE REVENDER? */
+body.revendedor .faixa-rosa__title {
+  color: #ffffff;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 0.8685;     /* 86,85% */
+  text-transform: uppercase;
+}
+
+/* Subtítulo: Um portfólio completo... */
+body.revendedor .faixa-rosa__subtitle {
+  color: #ffffff;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;        /* 150% */
+}
+
+/* Parágrafo longo: A M2 oferece um dos catálogos... */
+body.revendedor .faixa-rosa__desc {
+  color: #ffffff;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 775px;        /* igual ao Figma */
+}
+
+/* LINHAS QUE VOCÊ PODE TRABALHAR */
+body.revendedor .faixa-rosa__tag {
+  margin-top: 12px;
+  color: #ffffff;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 0.8685;
+  text-transform: uppercase;
+}
+
+/* ===== GRID DE CARDS ===== */
+
+body.revendedor .prod-grid {
+  max-width: 1160px;
+  margin: 28px auto 0;   /* sobe os cards e centraliza no mesmo container */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 32px;
+}
+
+/* mantemos os cards como já estavam, só garantindo que não achatem */
+body.revendedor .prod-grid__item {
+  min-height: 230px;
+}
