@@ -18,14 +18,14 @@ const img2 = remoteAsset("sinalizacao/img-2.png");
 // carrega tudo que começa com "tag" dentro de /sinalizacao
 // Agora usamos nomes de arquivos fixos
 const tagImages = [
-  remoteAsset("sinalizacao/tag_1_sin.png"),
-  remoteAsset("sinalizacao/tag_2_sin.png"),
-  remoteAsset("sinalizacao/tag_3_sin.png"),
-  remoteAsset("sinalizacao/tag_4_sin.png"),
-  remoteAsset("sinalizacao/tag_5_sin.png"),
-  remoteAsset("sinalizacao/tag_6_sin.png"),
-  remoteAsset("sinalizacao/tag_7_sin.png"),
-  remoteAsset("sinalizacao/tag_8_sin.png"),
+  remoteAsset("sinalizacao/tag%201.JPG"),
+  remoteAsset("sinalizacao/tag%202.JPG"),
+  remoteAsset("sinalizacao/tag%203.JPG"),
+  remoteAsset("sinalizacao/tag%204.JPG"),
+  remoteAsset("sinalizacao/tag%205.JPG"),
+  remoteAsset("sinalizacao/tag%206.JPG"),
+  remoteAsset("sinalizacao/tag%207.JPG"),
+  remoteAsset("sinalizacao/tag%208.JPG"),
 ];
 
 export default function Sinalizacao() {
@@ -451,7 +451,7 @@ export default function Sinalizacao() {
               key={i}
               type="button"
               onClick={() => setLightboxImg(src)}
-              className="rounded-xl overflow-hidden bg-white shadow-sm cursor-pointer focus:outline-none"
+              className="aspect-[4/3] rounded-xl overflow-hidden bg-[#D8DCE7] cursor-pointer focus:outline-none"
               aria-label={`Abrir sinalização ${i + 1} em tela cheia`}
             >
               <img

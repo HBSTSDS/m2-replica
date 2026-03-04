@@ -67,4 +67,5 @@ RewriteCond %{REQUEST_URI} !^/cms/
 RewriteCond %{REQUEST_URI} !^/m2-cms/
 RewriteCond %{REQUEST_URI} !^/docs/
 RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{REQUEST_URI} !^/favicon
 RewriteRule ^ index.html [L]

@@ -1,15 +1,36 @@
 <?php
-$to = "marketing@m2flex.com.br";
+$to = "contato@m2flex.com.br";
 $subject = "Teste de E-mail PHP " . date('Y-m-d H:i:s');
 $message = "Este é um teste para verificar se a função mail() do servidor está funcionando.";
-$headers = "From: contato@m2flex.com.br\r\n"; // Usando um e-mail que provavelmente existe no domínio
+$from = "contato@m2flex.com.br";
+$fromName = "Teste M2 - Deliverability";
 
-echo "Tentando enviar e-mail para $to...<br>";
+$headers = [
+    'MIME-Version: 1.0',
+    'Content-type: text/html; charset=UTF-8',
+    'From: ' . $fromName . ' <' . $from . '>',
+    'Reply-To: ' . $from,
+    'X-Mailer: PHP/' . phpversion(),
+    'Return-Path: ' . $from
+];
 
-if (mail($to, $subject, $message, $headers)) {
-    echo "A função mail() retornou TRUE. O servidor DISPAROU o e-mail.<br>";
-    echo "Se não chegar, verifique a pasta de SPAM ou logs do servidor de e-mail.";
+$headersString = implode("\r\n", $headers);
+
+echo "Tentando enviar e-mail de teste para $to...<br>";
+echo "Configurações:<br>";
+echo "- From: $from<br>";
+echo "- Subject: $subject<br><br>";
+
+$mailSent = mail($to, $subject, $message, $headersString, "-f" . $from);
+
+// Log detalhado para depuração
+$logEntry = date('Y-m-d H:i:s') . " - TESTE SOLICITADO: TO[$to] SUBJECT[$subject] FROM[$from] RESULT[" . ($mailSent ? 'SUCCESS' : 'FAILURE') . "]\n";
+file_put_contents(__DIR__ . "/mail_log.txt", $logEntry, FILE_APPEND);
+
+if ($mailSent) {
+    echo "<b>SUCESSO:</b> O servidor disparou o e-mail para $to.<br>";
+    echo "Verifique sua Caixa de Entrada e SPAM.";
 } else {
-    echo "A função mail() retornou FALSE. O servidor FALHOU ao disparar o e-mail.";
+    echo "<b>ERRO:</b> O servidor falhou ao enviar.";
 }
 ?>

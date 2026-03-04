@@ -145,9 +145,9 @@ export default function Footer({ isEmbed = false }) {
               >
                 CÓDIGO DE ÉTICA
               </a>
-              <a href="#" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
+              <Link to="/canal-de-denuncias" className="underline decoration-[#4B4B48] underline-offset-4 font-medium decoration-1">
                 CANAL DE DENÚNCIAS
-              </a>
+              </Link>
             </nav>
 
             <p className="text-center leading-tight">

@@ -18,14 +18,14 @@ const img2 = remoteAsset("projetosEspeciais/img-2.png");
 // carrega tudo que começa com "tag" dentro de /projetosEspeciais
 // Agora usamos nomes de arquivos fixos
 const tagImages = [
-  remoteAsset("projetosEspeciais/tag_1_pe.png"),
-  remoteAsset("projetosEspeciais/tag_2_pe.png"),
-  remoteAsset("projetosEspeciais/tag_3_pe.png"),
-  remoteAsset("projetosEspeciais/tag_4_pe.png"),
-  remoteAsset("projetosEspeciais/tag_5_pe.png"),
-  remoteAsset("projetosEspeciais/tag_6_pe.png"),
-  remoteAsset("projetosEspeciais/tag_7_pe.png"),
-  remoteAsset("projetosEspeciais/tag_8_pe.png"),
+  remoteAsset("projetosEspeciais/tag%201.JPG"),
+  remoteAsset("projetosEspeciais/tag%202.jpg"),
+  remoteAsset("projetosEspeciais/tag%203.jpeg"),
+  remoteAsset("projetosEspeciais/tag%204.jpg"),
+  remoteAsset("projetosEspeciais/tag%205.jpg"),
+  remoteAsset("projetosEspeciais/tag%206.jpg"),
+  remoteAsset("projetosEspeciais/tag%207.JPG"),
+  remoteAsset("projetosEspeciais/tag%208.jpeg"),
 ];
 
 export default function ProjetosEspeciais() {
@@ -416,7 +416,7 @@ export default function ProjetosEspeciais() {
               key={i}
               type="button"
               onClick={() => setLightboxImg(src)}
-              className="rounded-xl overflow-hidden bg-white shadow-sm cursor-pointer focus:outline-none"
+              className="aspect-[4/3] rounded-xl overflow-hidden bg-[#D8DCE7] cursor-pointer focus:outline-none"
               aria-label={`Abrir projeto especial ${i + 1} em tela cheia`}
             >
               <img

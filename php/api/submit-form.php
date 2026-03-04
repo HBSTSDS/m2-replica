@@ -1,4 +1,8 @@
 <?php
+// Log de entrada para depuração
+$log_file = __DIR__ . "/mail_log.txt";
+$log_prefix = date('Y-m-d H:i:s') . " [" . ($_SERVER['HTTP_HOST'] ?? 'no-host') . "] ";
+file_put_contents($log_file, $log_prefix . "Script iniciado. Metodo: " . $_SERVER['REQUEST_METHOD'] . " - Type: " . ($_POST['formType'] ?? 'null') . "\n", FILE_APPEND);
 
 // RECAPTCHA GOOGLE
 
@@ -161,20 +165,15 @@ if (!empty($_FILES)) {
             $mime = finfo_file($finfo, $file['tmp_name']);
         }
 
-        // Aceitar PDF (MIME pode variar em alguns servers)
-        $isPdf = ($ext === 'pdf') && in_array($mime, [
-            'application/pdf',
-            'application/x-pdf',
-            'application/acrobat',
-            'applications/vnd.pdf',
-            'text/pdf'
-        ], true);
+        // Aceitar PDF, Imagens, Vídeos e Áudios
+        $allowedExts = ['pdf', 'png', 'jpg', 'jpeg', 'mp4', 'mp3'];
+        $isAllowed = in_array($ext, $allowedExts);
 
-        if (!$isPdf) {
-            json_fail('Apenas arquivos PDF são permitidos.', 400, ['file' => $key, 'mime' => $mime, 'ext' => $ext]);
+        if (!$isAllowed) {
+            json_fail('Apenas arquivos PDF, PNG, JPG, MP4 e MP3 são permitidos.', 400, ['file' => $key, 'mime' => $mime, 'ext' => $ext]);
         }
 
-        $newFileName = uniqid('cv_', true) . '_' . time() . '.pdf';
+        $newFileName = uniqid('file_', true) . '_' . time() . '.' . $ext;
         $destination = $uploadDir . $newFileName;
 
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
@@ -261,7 +260,11 @@ $labels = [
     'consent' => 'Consentimento',
     'consentimento' => 'Consentimento',
     'subject' => 'Assunto',
-    'g-recaptcha-response' => 'reCAPTCHA'
+    'g-recaptcha-response' => 'reCAPTCHA',
+    'tipo_ocorrencia' => 'Tipo de Ocorrência',
+    'data_ocorrido' => 'Data do Ocorrido',
+    'local_ocorrido' => 'Local do Ocorrido',
+    'descricao' => 'Descrição do Ocorrido'
 ];
 
 function getLabel($key, $labels)
@@ -306,56 +309,132 @@ try {
 // -------------------------
 // 2) ENVIAR E-MAIL
 // -------------------------
-$to = "marketing@m2flex.com.br, contato@m2flex.com.br";
+$to = "contato@m2flex.com.br, marketing@m2flex.com.br";
+if ($formType === 'canal_denuncia') {
+    $to = "rh@m2flex.com.br, marketing@m2flex.com.br";
+}
+
 $subject = "Novo Lead Site M2: " . ($name ?: 'Sem nome') . " [" . getLabel($formType, $labels) . "]";
 
-$messageBody = "<div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>";
-$messageBody .= "<h2 style='color: #E5258C;'>Novo contato pelo site</h2>";
-$messageBody .= "<p><strong>" . getLabel('formType', $labels) . ":</strong> " . htmlspecialchars((string) $formType) . "</p>";
-$messageBody .= "<hr style='border: 1px solid #eee; margin: 20px 0;'>";
+if ($formType === 'canal_denuncia') {
+    $subject = "NOVA DENÚNCIA INTERNA";
 
-foreach ($data as $key => $value) {
-    // ignora campos internos
-    if (strcasecmp($key, 'formType') === 0 || strcasecmp($key, 'form_type') === 0)
-        continue;
-    if (strcasecmp($key, 'g-recaptcha-response') === 0)
-        continue;
+    $messageBody = "
+    <div style='background-color: #F6F7FB; padding: 40px; font-family: sans-serif;'>
+        <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 2px solid #00B8F1; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);'>
+            <h1 style='color: #4B4B48; text-align: center; font-size: 24px; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 15px;'>NOVA DENÚNCIA</h1>
+            
+            <div style='margin-bottom: 20px;'>
+                <p style='margin: 0; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>NOME</p>
+                <p style='margin: 5px 0 0; color: #333; font-size: 16px;'>" . ($name ?: 'Anônimo') . "</p>
+            </div>
+            
+            <div style='margin-bottom: 20px;'>
+                <p style='margin: 0; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>TIPO DE OCORRÊNCIA</p>
+                <p style='margin: 5px 0 0; color: #333; font-size: 16px;'>" . htmlspecialchars($data['tipo_ocorrencia'] ?? 'Não informado') . "</p>
+            </div>
+            
+            <div style='margin-bottom: 20px;'>
+                <p style='margin: 0; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>DATA DO OCORRIDO</p>
+                <p style='margin: 5px 0 0; color: #333; font-size: 16px;'>" . htmlspecialchars($data['data_ocorrido'] ?? 'Não informada') . "</p>
+            </div>
+            
+            <div style='margin-bottom: 20px;'>
+                <p style='margin: 0; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>LOCAL DO OCORRIDO</p>
+                <p style='margin: 5px 0 0; color: #333; font-size: 16px;'>" . htmlspecialchars($data['local_ocorrido'] ?? 'Não informado') . "</p>
+            </div>
+            
+            <div style='margin-bottom: 30px;'>
+                <p style='margin: 0; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>DESCRIÇÃO DO OCORRIDO</p>
+                <p style='margin: 5px 0 0; color: #333; font-size: 16px; line-height: 1.5;'>" . nl2br(htmlspecialchars($data['descricao'] ?? 'Sem descrição')) . "</p>
+            </div>";
 
-    if ($key === 'curriculo_link') {
+    if (!empty($data['anexo_link'])) {
+        $messageBody .= "
+                <div style='border-top: 1px solid #eee; pt-20px;'>
+                    <p style='margin: 0 0 15px; color: #888; font-size: 12px; font-weight: bold; text-transform: uppercase;'>ANEXOS</p>
+                    <a href='" . htmlspecialchars($data['anexo_link']) . "' style='display: inline-block;'>
+                        <img src='" . htmlspecialchars($data['anexo_link']) . "' alt='Anexo' style='max-width: 100%; border-radius: 8px; border: 1px solid #ddd;' />
+                    </a>
+                </div>";
+    }
+
+    $messageBody .= "
+        </div>
+    </div>";
+} else {
+    $messageBody = "<div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>";
+    $messageBody .= "<h2 style='color: #E5258C;'>Novo contato pelo site</h2>";
+    $messageBody .= "<p><strong>" . getLabel('formType', $labels) . ":</strong> " . htmlspecialchars((string) $formType) . "</p>";
+    $messageBody .= "<hr style='border: 1px solid #eee; margin: 20px 0;'>";
+}
+
+if ($formType !== 'canal_denuncia') { // Layout padrão para outros formulários
+    foreach ($data as $key => $value) {
+        // ignora campos internos
+        if (strcasecmp($key, 'formType') === 0 || strcasecmp($key, 'form_type') === 0)
+            continue;
+        if (strcasecmp($key, 'g-recaptcha-response') === 0)
+            continue;
+
+        if ($key === 'curriculo_link') {
+            $label = getLabel($key, $labels);
+            $safeUrl = htmlspecialchars((string) $value);
+            $messageBody .= "<p style='margin: 10px 0;'><strong>{$label}:</strong><br/>"
+                . "<a href='{$safeUrl}' style='background:#E5258C; color:white; padding:10px 15px; text-decoration:none; border-radius:5px; display:inline-block; margin-top:5px;'>Baixar Currículo (PDF)</a>"
+                . "</p>";
+            continue;
+        }
+
+        if (is_array($value)) {
+            $value = implode(", ", $value);
+        }
+
+        if ((strcasecmp($key, 'consent') === 0 || strcasecmp($key, 'consentimento') === 0) && $value === 'on') {
+            $value = 'Sim';
+        }
+
         $label = getLabel($key, $labels);
-        $safeUrl = htmlspecialchars((string) $value);
-        $messageBody .= "<p style='margin: 10px 0;'><strong>{$label}:</strong><br/>"
-            . "<a href='{$safeUrl}' style='background:#E5258C; color:white; padding:10px 15px; text-decoration:none; border-radius:5px; display:inline-block; margin-top:5px;'>Baixar Currículo (PDF)</a>"
-            . "</p>";
-        continue;
+        $displayValue = htmlspecialchars((string) $value);
+
+        $messageBody .= "<p style='margin: 10px 0;'><strong>{$label}:</strong> {$displayValue}</p>";
     }
-
-    if (is_array($value)) {
-        $value = implode(", ", $value);
-    }
-
-    if ((strcasecmp($key, 'consent') === 0 || strcasecmp($key, 'consentimento') === 0) && $value === 'on') {
-        $value = 'Sim';
-    }
-
-    $label = getLabel($key, $labels);
-    $displayValue = htmlspecialchars((string) $value);
-
-    $messageBody .= "<p style='margin: 10px 0;'><strong>{$label}:</strong> {$displayValue}</p>";
 }
 
-$messageBody .= "</div>";
-
-$headers = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8\r\n";
-$headers .= "From: M2 Flex <contato@m2flex.com.br>\r\n";
-$headers .= "Return-Path: contato@m2flex.com.br\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-if (!empty($email)) {
-    $headers .= "Reply-To: {$email}\r\n";
+if ($formType !== 'canal_denuncia') {
+    $messageBody .= "</div>";
 }
 
-$mailSent = @mail($to, $subject, $messageBody, $headers);
+$from = "contato@m2flex.com.br";
+$fromName = "Canal de Denuncias - M2Flex";
+if ($formType !== 'canal_denuncia') {
+    $fromName = "M2Flex - Formulario " . getLabel($formType, $labels);
+}
+
+$headers = [
+    'MIME-Version: 1.0',
+    'Content-type: text/html; charset=UTF-8',
+    'From: ' . $fromName . ' <' . $from . '>',
+    'Reply-To: ' . (!empty($email) ? $email : $from),
+    'X-Mailer: PHP/' . phpversion(),
+    'Return-Path: ' . $from
+];
+
+$headersString = implode("\r\n", $headers);
+
+// Tenta enviar e loga o resultado da função mail()
+$mailSent = @mail($to, $subject, $messageBody, $headersString, "-f" . $from);
+
+// Log detalhado para depuração
+$logEntry = $log_prefix . "Envio solicitado: TO[$to] TYPE[$formType] SUBJECT[$subject] FROM[$from] RESULT[" . ($mailSent ? 'SUCCESS' : 'FAILURE') . "]\n";
+if (!$mailSent) {
+    $error = error_get_last();
+    $logEntry .= $log_prefix . "DEBUG INFO: Headers: " . str_replace("\r\n", " | ", $headersString) . "\n";
+    if ($error) {
+        $logEntry .= $log_prefix . "PHP MAIL ERROR: " . ($error['message'] ?? 'Unknown error') . "\n";
+    }
+}
+file_put_contents($log_file, $logEntry, FILE_APPEND);
 
 // -------------------------
 // RESPOSTA FINAL

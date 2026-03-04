@@ -12,7 +12,7 @@ import {
 } from "../../utils/validation";
 
 const headerImg = remoteAsset("supermercados/header.png");
-const img2 = remoteAsset("supermercados/img-2.png");
+const img2 = remoteAsset("supermercados/foto-site-mercado.png");
 
 export default function Supermercados() {
   const [status, setStatus] = useState("idle");
@@ -514,18 +514,22 @@ export default function Supermercados() {
 
         {/* GRID FINAL */}
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <div
-              key={num}
-              className="aspect-[4/3] rounded-xl bg-[#D8DCE7] overflow-hidden"
-            >
-              <img 
-                src={remoteAsset(`supermercados/${num}.png`)} 
-                alt={`Supermercado ${num}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => {
+            const ext = num === 4 ? "jpg" : "jpeg";
+            const filename = `${num}-mercado.${ext}`;
+            return (
+              <div
+                key={num}
+                className="aspect-[4/3] rounded-xl bg-[#D8DCE7] overflow-hidden"
+              >
+                <img 
+                  src={remoteAsset(`supermercados/${filename}`)} 
+                  alt={`Supermercado ${num}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            );
+          })}
         </div>
       </section>
     </main>

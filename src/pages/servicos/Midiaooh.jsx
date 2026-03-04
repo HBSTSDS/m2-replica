@@ -17,14 +17,14 @@ const img2 = remoteAsset("midiaooh/img-2.png");
 // Importa automaticamente TODAS as imagens da pasta midiaooh
 // Usando nomes de arquivos fixos para evitar o glob
 const gridImgs = [
-  remoteAsset("midiaooh/md-1.jpg"),
-  remoteAsset("midiaooh/md-2.jpg"),
-  remoteAsset("midiaooh/md-3.jpg"),
-  remoteAsset("midiaooh/md-4.jpg"),
-  remoteAsset("midiaooh/md-5.jpg"),
-  remoteAsset("midiaooh/md-6.jpg"),
-  remoteAsset("midiaooh/md-7.jpg"),
-  remoteAsset("midiaooh/md-8.jpg"),
+  remoteAsset("midiaooh/tag 1.webp"),
+  remoteAsset("midiaooh/tag 2.jpeg"),
+  remoteAsset("midiaooh/tag 3.jpeg"),
+  remoteAsset("midiaooh/tag 4.jpg"),
+  remoteAsset("midiaooh/tag 5.jpeg"),
+  remoteAsset("midiaooh/tag 6.jpg"),
+  remoteAsset("midiaooh/tag 7.jpeg"),
+  remoteAsset("midiaooh/tag 8.jpg"),
 ];
 
 export default function Midiaooh() {

@@ -18,14 +18,14 @@ const img2 = remoteAsset("envelopamento/EVELOPE_DIR.png");
 // e filtra para manter somente 1.png até 8.png (ou qualquer nome numérico).
 // Agora usamos nomes de arquivos fixos para evitar o glob pesado
 const gridImgs = [
-  remoteAsset("envelopamento/ev-1.jpg"),
-  remoteAsset("envelopamento/ev-2.jpg"),
-  remoteAsset("envelopamento/ev-3.jpg"),
-  remoteAsset("envelopamento/ev-4.jpg"),
-  remoteAsset("envelopamento/ev-5.jpg"),
-  remoteAsset("envelopamento/ev-6.jpg"),
-  remoteAsset("envelopamento/ev-7.jpg"),
-  remoteAsset("envelopamento/ev-8.jpg"),
+  remoteAsset("envelopamento/tag 1.jpeg"),
+  remoteAsset("envelopamento/tag 2.jpeg"),
+  remoteAsset("envelopamento/tag 3.jpeg"),
+  remoteAsset("envelopamento/tag 4.jpeg"),
+  remoteAsset("envelopamento/tag 5.jpeg"),
+  remoteAsset("envelopamento/tag 6.jpeg"),
+  remoteAsset("envelopamento/tag 7.jpeg"),
+  remoteAsset("envelopamento/tag 8.jpeg"),
 ];
 
 export default function Envelopamento() {

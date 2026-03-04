@@ -23,7 +23,7 @@ try:
 except ImportError:
     print("[AVISO] Arquivo config_local.py não encontrado. Usando valores padrão.")
 
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DIST_DIR = os.path.join(BASE_DIR, "dist")
 PHP_DIR = os.path.join(BASE_DIR, "php")
 

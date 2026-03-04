@@ -18,14 +18,14 @@ const img2 = remoteAsset("pontoDeVenda/img-2.png");
 // carrega qualquer arquivo que comece com "tag" dentro de /pontoDeVenda
 // Agora usamos nomes de arquivos fixos para evitar o glob pesado
 const tagImages = [
-  remoteAsset("pontoDeVenda/tag_1_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_2_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_3_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_4_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_5_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_6_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_7_pdv.png"),
-  remoteAsset("pontoDeVenda/tag_8_pdv.png"),
+  remoteAsset("pontoDeVenda/tag%201.png"),
+  remoteAsset("pontoDeVenda/tag%202.png"),
+  remoteAsset("pontoDeVenda/tag%203.jpg"), // Updated to .jpg as requested
+  remoteAsset("pontoDeVenda/tag%204.png"), // Note: Still missing/fixing on server
+  remoteAsset("pontoDeVenda/tag%205.png"),
+  remoteAsset("pontoDeVenda/tag%206.png"),
+  remoteAsset("pontoDeVenda/tag%207.png"),
+  remoteAsset("pontoDeVenda/tag%208.png"),
 ];
 
 export default function PontoDeVenda() {
@@ -458,7 +458,7 @@ export default function PontoDeVenda() {
               key={i}
               type="button"
               onClick={() => setLightboxImg(src)}
-              className="rounded-xl overflow-hidden bg-white shadow-sm cursor-pointer focus:outline-none"
+              className="aspect-[4/3] rounded-xl overflow-hidden bg-[#D8DCE7] cursor-pointer focus:outline-none"
               aria-label={`Abrir tag PDV ${i + 1} em tela cheia`}
             >
               <img

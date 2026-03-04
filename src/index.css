@@ -196,7 +196,18 @@ html, body {
 /* =============== RESPONSIVO LEVE =============== */
 @media (max-width: 960px) {
   .nav-list { gap: 18px; right: 0; }
-  .nav-dropdown { left: 0; transform: none; }
+  /* No celular, o dropdown desce em vez de aparecer "absoluto" flutuando acima da nav */
+  .mobile-dropdown { 
+    position: relative !important; 
+    left: 0 !important; 
+    transform: none !important; 
+    top: 0 !important; 
+    background: transparent !important; 
+    backdrop-filter: none !important;
+    border: none !important; 
+    box-shadow: none !important; 
+    min-width: 100% !important; 
+  }
 }
 
 /* ================== DISPLAY ================== */
@@ -336,6 +347,14 @@ html, body {
 }
 
 /* ========= GLOBAL ========= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fadeIn {
+  animation: fadeIn .3s ease forwards;
+}
+
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }

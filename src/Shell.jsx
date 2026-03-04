@@ -35,6 +35,7 @@ import Blog from "./pages/blog/Blog.jsx";
 import PostDetail from "./pages/blog/PostDetail.jsx";
 import SejaUmRevendedorPage from "./pages/sejaUmRevendedor";
 import RedBoxPage from "./pages/RedBoxPage";
+import CanalDeDenuncias from "./pages/contato/CanalDeDenuncias.jsx";
 
 function Home() {
   return (
@@ -82,6 +83,7 @@ export default function Shell() {
           <Route path="/blog/:slug" element={<PostDetail />} />
           <Route path="/seja-um-revendedor" element={<SejaUmRevendedorPage />} />
           <Route path="/redbox" element={<RedBoxPage />} />
+          <Route path="/canal-de-denuncias" element={<CanalDeDenuncias />} />
         </Routes>
       </main>
 

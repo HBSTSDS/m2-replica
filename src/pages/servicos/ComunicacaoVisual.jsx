@@ -18,13 +18,13 @@ const img2 = remoteAsset("comunicacaoVisual/img2.png");
 // Agora usamos nomes de arquivos fixos para evitar o glob pesado
 const gridImgs = [
   remoteAsset("comunicacaoVisual/img2.png"),
-  remoteAsset("comunicacaoVisual/Camarote Arpoador v2.jpg"),
-  remoteAsset("comunicacaoVisual/FLIM.jpg"),
-  remoteAsset("comunicacaoVisual/Formula 1.jpg"),
-  remoteAsset("comunicacaoVisual/Formula 1 v2.jpg"),
-  remoteAsset("comunicacaoVisual/Libertadores 2023.jpg"),
-  remoteAsset("comunicacaoVisual/The Town 2023.jpg"),
-  remoteAsset("comunicacaoVisual/camarote arpoador in stalação v3.jpg"),
+  remoteAsset("comunicacaoVisual/tag 2.jpg"),
+  remoteAsset("comunicacaoVisual/tag 3.jpg"),
+  remoteAsset("comunicacaoVisual/tag 4.jpg"),
+  remoteAsset("comunicacaoVisual/tag 5.jpeg"),
+  remoteAsset("comunicacaoVisual/tag 6.jpg"),
+  remoteAsset("comunicacaoVisual/tag 7.JPG"),
+  remoteAsset("comunicacaoVisual/tag 8.jpg"),
 ];
 
 export default function ComunicacaoVisual() {
@@ -276,7 +276,7 @@ export default function ComunicacaoVisual() {
               <img
                 src={img2}
                 alt="Projeto de comunicação visual"
-                className="w-full h-[450px] md:h-[520px] object-cover"
+                className="w-full h-[520px] object-cover"
               />
             </figure>
           </aside>
