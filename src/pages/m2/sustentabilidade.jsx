@@ -26,7 +26,7 @@ export default function Sustentabilidade() {
       <div className="w-full overflow-hidden">
         <img
           src={capaSustentabilidade}
-          alt="Equipe M2 trabalhando com práticas sustentáveis"
+          alt="Processo de produção sustentável na M2 Flex com tecnologia UV/LED de baixa emissão"
           className="w-full object-cover"
           onError={handleImgError}
         />
@@ -59,7 +59,7 @@ export default function Sustentabilidade() {
         <div className="flex-shrink-0 flex justify-center md:justify-end w-full md:w-[35%] md:self-center md:mt-8 lg:mt-12">
           <img
             src={selosVerdes}
-            alt="Selos ambientais (ex.: GREENGUARD e Indoor Air Quality)"
+            alt="Certificações ambientais GREENGUARD e Indoor Air Quality obtidas pela M2 Flex"
             className="w-72 md:w-80"
             onError={handleImgError}
           />
@@ -118,20 +118,20 @@ export default function Sustentabilidade() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 pb-10">
         <h2 className="text-lg font-semibold">Como operamos de forma mais sustentável</h2>
 
-        <h3 className="mt-5 text-[15px] font-semibold">1) Materiais e tintas</h3>
+        <h2 className="mt-5 text-[15px] font-semibold">1) Materiais e tintas</h2>
         <ul className="mt-2 list-disc pl-5 space-y-2 text-[15px] leading-relaxed max-w-[72ch]">
           <li>UV/LED e ecossolventes de menor emissão, aliados a controle de cor e produtividade.</li>
           <li>Compras responsáveis: insumos com laudos e certificações; rastreabilidade por lote.</li>
         </ul>
 
-        <h3 className="mt-5 text-[15px] font-semibold">2) Produção e eficiência</h3>
+        <h2 className="mt-5 text-[15px] font-semibold">2) Produção e eficiência</h2>
         <ul className="mt-2 list-disc pl-5 space-y-2 text-[15px] leading-relaxed max-w-[72ch]">
           <li>Padronização de setup para reduzir desperdícios.</li>
           <li>Planejamento de painéis e <em>nesting</em> para melhor aproveitamento de chapas e mídias flexíveis.</li>
           <li>Treinamento contínuo das equipes para manuseio e descarte corretos.</li>
         </ul>
 
-        <h3 className="mt-5 text-[15px] font-semibold">3) Resíduos: redução, reciclagem e reuso</h3>
+        <h2 className="mt-5 text-[15px] font-semibold">3) Resíduos: redução, reciclagem e reuso</h2>
         <ul className="mt-2 list-disc pl-5 space-y-2 text-[15px] leading-relaxed max-w-[72ch]">
           <li>Segregação na origem (papel, papelão, plásticos, lonas e metais).</li>
           <li>Parceria com a <strong>EcoRio</strong> para coleta, tratamento e comprovação de destinação.</li>

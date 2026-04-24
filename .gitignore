@@ -7,5 +7,6 @@ dist
 .netlify
 config_local.py
 php/api/db_credentials.php
+php/api/google-key.json
 *.pyc
 __pycache__/

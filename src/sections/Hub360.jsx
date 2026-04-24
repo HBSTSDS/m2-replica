@@ -35,7 +35,7 @@ const icons = ICON_NAMES.map((name) => (props) => (
     loading="lazy"
     draggable={false}
     onError={(e) => {
-      const lowerFallback = `${window.location.origin}/icons/${String(
+      const lowerFallback = `/icons/${String(
         name,
       ).toLowerCase()}.svg`;
       if (e.currentTarget.src !== lowerFallback) {
@@ -146,7 +146,7 @@ export default function Hub360() {
   }
 
   return (
-    <section className="w-full bg-[#EEF0F6] py-16">
+    <section className="w-full bg-[#EEF0F6] py-12 md:py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           {/* ESQUERDA */}

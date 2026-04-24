@@ -1,17 +1,25 @@
+import { useConfig } from "../Shell";
+
 export default function WhatsAppButton() {
-  const phone = "5521971050910";
+  const config = useConfig();
+  
+  // Limpar número para o link wa.me (remover +, espaços, hífen)
+  const rawPhone = config?.whatsappNumber || "5521971050910";
+  const cleanPhone = rawPhone.replace(/\D/g, "");
+  
   const msg = encodeURIComponent("Olá! Vim pelo site da M2 e gostaria de falar com o atendente.");
+  const finalLink = config?.whatsappLink || `https://wa.me/${cleanPhone}?text=${msg}`;
 
   return (
     <a
-      href={`https://wa.me/${phone}?text=${msg}`}
+      href={finalLink}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
-      className="fixed right-0 bottom-4 md:bottom-6 z-50"
+      className="fixed right-0 bottom-4 md:bottom-6 z-50 transition-transform hover:scale-105 active:scale-95"
     >
       {/* pill sem glow + saída reta à direita */}
-      <div className="wpp-pill wpp-reset flex items-center justify-center h-12 px-5 pr-6">
+      <div className="wpp-pill wpp-reset flex items-center justify-center h-12 px-5 pr-6 shadow-xl">
         <svg
           viewBox="0 0 32 32"
           className="w-6 h-6 text-white"

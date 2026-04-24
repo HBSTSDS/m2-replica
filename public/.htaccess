@@ -3,20 +3,33 @@
 # ======================================
 
 Options -MultiViews
-DirectoryIndex index.html
+DirectoryIndex index.html index.php
 
 RewriteEngine On
 
 # ======================================
-# NÃO REESCREVER CMS / API
+# REDIRECIONAMENTOS LEGADOS (MANTÉM COMPATIBILIDADE)
 # ======================================
 
-RewriteRule ^api/ - [L]
-RewriteRule ^cms/ - [L]
-RewriteRule ^m2-cms/ - [L]
-RewriteRule ^docs/ - [L]
-RewriteRule ^assets/ - [L]
-RewriteRule ^videos/ - [L]
+RewriteRule ^php/api/(.*)$ /api/$1 [R=301,L]
+RewriteRule ^php/cms/(.*)$ /cms/$1 [R=301,L]
+
+# Força o index.php se acessar a pasta /cms/ pura (evita 403)
+RewriteRule ^cms/$ /cms/index.php [L]
+RewriteRule ^cms$ /cms/index.php [L]
+
+# ======================================
+# FORÇAR HTTPS (SSL) E SEGURANÇA HSTS
+# ======================================
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# HSTS: Exige HTTPS sempre (1 ano de validade, útil para SEO)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
 
 # ======================================
 # REDIRECT WWW → SEM WWW (CANONICAL)
@@ -58,14 +71,69 @@ RewriteRule ^ - [F,L]
 </IfModule>
 
 # ======================================
-# REACT ROUTER → index.html (COM EXCLUSÕES)
+# CACHE DE ALTA PERFORMANCE (LCP/SEO)
 # ======================================
 
-RewriteCond %{REQUEST_URI} !^/api/blog-proxy.php
-RewriteCond %{REQUEST_URI} !^/api/
-RewriteCond %{REQUEST_URI} !^/cms/
-RewriteCond %{REQUEST_URI} !^/m2-cms/
-RewriteCond %{REQUEST_URI} !^/docs/
-RewriteCond %{REQUEST_URI} !^/assets/
-RewriteCond %{REQUEST_URI} !^/favicon
-RewriteRule ^ index.html [L]
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  
+  # Imagens (1 ano)
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # Vídeos e Áudio (1 ano)
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
+  
+  # Scripts & Estilos (1 ano - Seguro com Hash)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  
+  # Fontes (1 ano)
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Força Cache-Control para assets estáticos
+  <FilesMatch "\.(jpg|jpeg|png|gif|swf|svg|js|css|mp4|webm|woff|woff2|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+
+# ======================================
+# PÁGINA DE ERRO (STATUS 404 REAL)
+# ======================================
+ErrorDocument 404 /404.html
+
+# ======================================
+# REACT ROUTER & SSG → index.html (OTIMIZADO)
+# ======================================
+
+# 1. Se o arquivo ou diretório existir Fisicamente (assets, docs, etc), para aqui
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 2. Fallback especial para BLOG (Permite posts dinâmicos novos sem rebuild)
+RewriteRule ^blog(/.*)?$ index.html [L]
+
+# 3. Tenta encontrar arquivos gerados pelo react-snap (SSG)
+# Ex: /quem-somos servindo /quem-somos/index.html
+RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+RewriteRule ^(.*)$ $1/index.html [L]
+
+# Ex: /contato servindo /contato.html
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 4. Fallback final para a Home
+RewriteRule ^$ index.html [L]
+
+# SE CHEGAR AQUI E NÃO FOR NADA DISSO, O APACHE DARÁ 404 AUTOMATICO (REQUISITO SEO)

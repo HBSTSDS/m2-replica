@@ -26,7 +26,7 @@ function Img({ src, alt, className = "" }) {
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // ================================
   // CARREGAR POSTS DO CMS
@@ -34,7 +34,6 @@ export default function Blog() {
   useEffect(() => {
     async function load() {
       try {
-        // Usando proxy local para evitar erro 406 do servidor remoto
         const url = "/api/blog-proxy.php";
         const res = await fetch(url, { cache: "no-store" });
         if (!res.ok) throw new Error(`Erro ${res.status} ao carregar posts`);
@@ -43,29 +42,12 @@ export default function Blog() {
       } catch (err) {
         console.error("Erro carregando posts:", err);
         setPosts([]);
+      } finally {
+        setIsLoading(false);
       }
     }
     load();
   }, []);
-
-  // ================================
-  // FECHAR MODAL NO ESC
-  // ================================
-  useEffect(() => {
-    if (!selectedPost) return;
-    function handleKey(e) {
-      if (e.key === "Escape") setSelectedPost(null);
-    }
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedPost]);
-
-  function openPost(p) {
-    setSelectedPost(p);
-  }
-  function closePost() {
-    setSelectedPost(null);
-  }
 
   return (
     <main className="min-h-screen bg-[#E7E9F2] text-[#4B4B48]">
@@ -73,7 +55,7 @@ export default function Blog() {
       <section className="relative">
         <Img
           src={headerImg}
-          alt="Header Blog M2"
+          alt="Blog M2 Flex - Notícias, Tendências e Inovações em Comunicação Visual"
           className="w-full h-48 md:h-60 lg:h-64 object-cover"
         />
         <div className="absolute inset-0 bg-black/20" />
@@ -84,7 +66,7 @@ export default function Blog() {
 
       {/* LISTA */}
       <section className="max-w-6xl mx-auto px-6 py-10">
-        {posts.length === 0 ? (
+        {isLoading ? null : posts.length === 0 ? (
           <p className="text-sm text-[#4B4B48]/70">
             Nenhuma notícia cadastrada ainda.
           </p>
@@ -93,22 +75,21 @@ export default function Blog() {
             {posts.map((p) => (
               <article
                 key={p.id}
-                className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden"
+                className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden transition-all hover:shadow-lg active:scale-[0.98]"
               >
-                <button
+                <Link
+                  to={`/blog/${p.slug}`}
                   className="block w-full text-left group"
-                  type="button"
-                  onClick={() => openPost(p)}
                 >
                   <div className="overflow-hidden">
                     <Img
                       src={p.image}
                       alt={p.title}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-48 md:h-60 object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
 
-                  <div className="p-4">
+                  <div className="p-5 md:p-6">
                     <div className="flex items-center mb-4">
                       <span className="h-[6px] w-14 bg-[#E5258C] rounded-full" />
                       <span className="h-[6px] w-14 bg-[#00B8F1] rounded-full" />
@@ -116,21 +97,27 @@ export default function Blog() {
                       <span className="h-[6px] w-14 bg-[#1C1C1C] rounded-full" />
                     </div>
 
-                    <h2 className="text-[#1C1C1C] font-semibold text-base leading-tight">
+                    <h2 className="text-[#1C1C1C] font-semibold text-lg md:text-xl leading-tight group-hover:text-[#E5258C] transition-colors">
                       {p.title}
                     </h2>
 
-                    <p className="mt-2 text-sm text-[#4B4B48]/80 line-clamp-3">
-                      {p.excerpt}
-                    </p>
-
-                    {p.date && (
-                      <p className="mt-2 text-[11px] text-[#4B4B48]/60">
-                        {p.date}
-                      </p>
-                    )}
+                    <div className="mt-4 flex items-center justify-between border-t border-black/5 pt-4">
+                      <div className="flex items-center gap-2">
+                        {p.author?.image && (
+                          <div className="w-6 h-6 rounded-full overflow-hidden border border-black/10">
+                            <Img src={p.author.image} alt={p.author.name} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <span className="text-[10px] md:text-[11px] font-bold text-[#4B4B48]/50 uppercase tracking-widest leading-none">
+                          {p.author?.name || "M2 Flex"}
+                        </span>
+                      </div>
+                      <span className="text-[#E5258C] text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                        Ler artigo completo →
+                      </span>
+                    </div>
                   </div>
-                </button>
+                </Link>
               </article>
             ))}
           </div>
@@ -138,62 +125,6 @@ export default function Blog() {
 
         <div className="mt-10 h-px bg-[#D8DDE8]" />
       </section>
-
-      {/* MODAL */}
-      {selectedPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-          {/* Fundo escuro */}
-          <div className="absolute inset-0 bg-black/60" onClick={closePost} />
-
-          {/* CARD */}
-          <div className="relative bg-white max-w-3xl w-full rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
-            {/* FECHAR */}
-            <button
-              type="button"
-              onClick={closePost}
-              className="absolute top-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white text-sm"
-            >
-              ✕
-            </button>
-
-            {/* IMAGEM */}
-            <Img
-              src={selectedPost.image}
-              alt={selectedPost.title}
-              className="w-full h-56 md:h-64 object-cover"
-            />
-
-            {/* CONTEÚDO */}
-            <div className="p-6 md:p-8 overflow-y-auto">
-              <h2 className="text-xl md:text-2xl font-semibold text-[#1C1C1C]">
-                {selectedPost.title}
-              </h2>
-
-              {selectedPost.date && (
-                <p className="mt-1 text-xs md:text-sm text-[#4B4B48]/60">
-                  {selectedPost.date}
-                </p>
-              )}
-
-              <div className="mt-4 text-sm md:text-base text-[#4B4B48] leading-relaxed whitespace-pre-line">
-                {selectedPost.content?.trim()?.length
-                  ? selectedPost.content
-                  : selectedPost.excerpt}
-              </div>
-
-              {/* BOTÃO PARA A PÁGINA COMPLETA */}
-              <div className="mt-6">
-                <Link
-                  to={`/blog/${selectedPost.slug}`}
-                  className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold bg-[#E5258C] text-white hover:bg-[#c51f75] transition-colors"
-                >
-                  Ver página completa →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 }

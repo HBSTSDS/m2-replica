@@ -10,7 +10,9 @@ export default function Infraestrutura() {
       <div className="w-full overflow-hidden">
         <img
           src={capaInfra}
-          alt="Infraestrutura M2"
+          width="1920"
+          height="400"
+          alt="Visão panorâmica do parque gráfico e infraestrutura industrial da M2 Flex"
           className="w-full object-cover"
         />
       </div>

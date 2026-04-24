@@ -1,8 +1,12 @@
+import { remoteAsset } from "../../utils/remoteAssets";
 import "./revendedor.css";
 
-// ✅ caminhos das imagens (hospedados externamente para maior performance)
-const comunicacaoVisual = "https://flaviobrick.com.br/assets_externos/assets/comunicacao_visual.jpg";
-const graficaRapida = "https://flaviobrick.com.br/assets_externos/assets/grafica_rapida.jpg";
+// ✅ Novos caminhos das imagens (pasta revendedor no assets_externos)
+const imgComunicacao = remoteAsset("revendedor/ComunicaçãoVisual.png");
+const imgRedbox = remoteAsset("revendedor/Displaystag.png");
+const imgOffset = remoteAsset("revendedor/Offset.png");
+const imgGrafica = remoteAsset("revendedor/GráficaRápida.png");
+const imgLetra = remoteAsset("revendedor/LetraCaixa.png");
 
 export default function FaixaRosa() {
   return (
@@ -33,7 +37,6 @@ export default function FaixaRosa() {
         </div>
 
         {/* COLUNA DIREITA – O QUE VOCÊ PODE REVENDER */}
-        {/* ➕ adicionada classe "revenda-texto-mobile" para controlar o layout no mobile */}
         <div className="faixa-rosa__heading faixa-rosa__heading--right revenda-texto-mobile">
           <h2 className="faixa-rosa__title">O QUE VOCÊ PODE REVENDER?</h2>
 
@@ -55,65 +58,81 @@ export default function FaixaRosa() {
       {/* CARDS */}
       <div className="faixa-rosa__cards">
         <div className="prod-grid">
+          {/* COLUNA 1 */}
           <div className="col">
+            {/* 1- Comunicação Visual */}
             <article className="prod-card">
               <div
                 className="prod-img"
-                style={{ backgroundImage: `url(${comunicacaoVisual})` }}
+                style={{ backgroundImage: `url(${imgComunicacao})` }}
               />
               <div className="prod-body">
-                <h3 className="prod-title">COMUNICAÇÃO VISUAL</h3>
+                <h2 className="prod-title">Comunicação Visual</h2>
                 <p className="prod-desc">
-                  Adesivos, banners, painéis, backdrops, placas e muito mais.
+                  Materiais flexíveis e rígidos com produção e instalação completas.
                 </p>
                 <button className="prod-btn">Saiba mais</button>
               </div>
             </article>
 
+            {/* 2- Displays Redbox */}
             <article className="prod-card">
               <div
                 className="prod-img"
-                style={{ backgroundImage: `url(${graficaRapida})` }}
+                style={{ backgroundImage: `url(${imgRedbox})` }}
               />
               <div className="prod-body">
-                <h3 className="prod-title">GRÁFICA RÁPIDA</h3>
+                <h2 className="prod-title">Displays Redbox</h2>
                 <p className="prod-desc">
-                  Cartões, blocos, cadernos, agendas, folders e muito mais.
+                  Soluções modulares premium para PDV e varejo, com montagem rápida, Design Italiano e Exclusividade M2.
                 </p>
                 <button className="prod-btn">Saiba mais</button>
               </div>
             </article>
 
+            {/* 3- Offset */}
             <article className="prod-card">
-              <div className="prod-img" />
+              <div
+                className="prod-img"
+                style={{ backgroundImage: `url(${imgOffset})` }}
+              />
               <div className="prod-body">
-                <h3 className="prod-title">SUBLIMAÇÃO</h3>
+                <h2 className="prod-title">Offset</h2>
                 <p className="prod-desc">
-                  Canecas, camisetas, e uma linha completa para revenda.
+                  Impressão em alta escala com padronização de cor e acabamento profissional.
                 </p>
                 <button className="prod-btn">Saiba mais</button>
               </div>
             </article>
           </div>
 
+          {/* COLUNA 2 */}
           <div className="col">
+            {/* 4- Gráfica Rápida */}
             <article className="prod-card">
-              <div className="prod-img" />
+              <div
+                className="prod-img"
+                style={{ backgroundImage: `url(${imgGrafica})` }}
+              />
               <div className="prod-body">
-                <h3 className="prod-title">IMPRESSÃO DTF</h3>
+                <h2 className="prod-title">Gráfica Rápida</h2>
                 <p className="prod-desc">
-                  Tecnologia de ponta com alta durabilidade.
+                  Adesivos, rótulos, cadernos e materiais do dia a dia com agilidade e qualidade.
                 </p>
                 <button className="prod-btn">Saiba mais</button>
               </div>
             </article>
 
+            {/* 5- Letra Caixa */}
             <article className="prod-card">
-              <div className="prod-img" />
+              <div
+                className="prod-img"
+                style={{ backgroundImage: `url(${imgLetra})` }}
+              />
               <div className="prod-body">
-                <h3 className="prod-title">RÍGIDOS E DISPLAYS</h3>
+                <h2 className="prod-title">Letra Caixa</h2>
                 <p className="prod-desc">
-                  Displays, totens, acrílicos e soluções para PDV.
+                  Diversos tipo de letra caixa para ambientes internos e externos.
                 </p>
                 <button className="prod-btn">Saiba mais</button>
               </div>

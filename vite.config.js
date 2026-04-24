@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/', // Configurado para a raiz do domínio (m2flex.com.br/)
   build: {
+    target: 'es2015',
     cssCodeSplit: false, // Gera um único CSS
     rollupOptions: {
       output: {

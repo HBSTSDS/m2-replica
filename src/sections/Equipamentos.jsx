@@ -281,7 +281,7 @@ export default function Equipamentos() {
   if (!items.length) return null;
 
   return (
-    <section className="w-full bg-[#EEF0F6] py-16 overflow-hidden relative">
+    <section className="w-full bg-[#EEF0F6] py-12 md:py-20 overflow-hidden relative">
       <style>
         {`
           /* Scrollbar horizontal só desse carrossel */

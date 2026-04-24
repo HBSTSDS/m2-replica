@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-sitemap.js",
     "build": "vite build",
+    "postbuild": "(react-snap || echo react-snap finished with warnings) && node scripts/prerender-blog.js && node scripts/prerender-blog-list.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -27,8 +29,40 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "image-size": "^2.0.2",
     "postcss": "^8.5.6",
+    "react-snap": "^1.23.0",
     "tailwindcss": "^4.1.14",
     "vite": "^7.1.7"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "timeout": 120000,
+    "skipThirdPartyRequests": true,
+    "include": [
+      "/",
+      "/quem-somos",
+      "/nossa-historia",
+      "/infraestrutura",
+      "/sustentabilidade",
+      "/fale-conosco",
+      "/trabalhe-conosco",
+      "/servicos/comunicacao-visual",
+      "/servicos/envelopamento",
+      "/servicos/midia-ooh",
+      "/servicos/ponto-de-venda",
+      "/servicos/projetos-especiais",
+      "/servicos/sinalizacao",
+      "/solucoes/vitrinismos",
+      "/solucoes/supermercados",
+      "/solucoes/eventos",
+      "/seja-um-revendedor",
+      "/redbox",
+      "/404.html"
+    ],
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
   }
 }

@@ -121,8 +121,8 @@ export default function Envelopamento() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Envelopamento - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Serviços de Envelopamento de Frota e Ambientes M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -280,7 +280,7 @@ export default function Envelopamento() {
             <figure className="rounded-xl overflow-hidden shadow-sm bg-white">
               <img
                 src={img2}
-                alt="Projeto de envelopamento"
+                alt="Exemplo de envelopamento de veículo industrial pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

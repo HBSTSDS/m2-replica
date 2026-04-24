@@ -19,7 +19,7 @@ export default function Hero() {
         {/* NOVO WRAPPER DA LOGO */}
         <div className="hero-logo-box">
           <Link to="/">
-            <img src={Logo} alt="Logo M2" className="revendedor-logo" />
+            <img src={Logo} alt="M2 Flex - Maior Revenda UV da América Latina" className="revendedor-logo" />
           </Link>
         </div>
 

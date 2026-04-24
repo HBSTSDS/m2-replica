@@ -1,6 +1,6 @@
 // src/components/Footer.jsx
 import { useLocation, Link } from "react-router-dom";
-
+import { useConfig } from "../Shell";
 import { remoteAsset } from "../utils/remoteAssets";
 
 const bannerRevendedor = remoteAsset("bannerRevendedor.png");
@@ -8,6 +8,7 @@ const m2logo = remoteAsset("m2-logo.png");
 
 export default function Footer({ isEmbed = false }) {
   const location = useLocation();
+  const config = useConfig();
 
   const handleBannerClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -18,6 +19,13 @@ export default function Footer({ isEmbed = false }) {
     const cleanPath = path.startsWith("/") ? path.slice(1) : path;
     return `${base}/${cleanPath}`;
   };
+
+  // Fallbacks
+  const email = config?.footerEmail || "contato@m2flex.com.br";
+  const address = config?.footerAddress || "Av. Brasil, 12025 - Brás de Pina, Rio de Janeiro - RJ, 21012-351";
+  const copyright = config?.footerCopy || "© Copyright 2025 – M2 Flex · Todos os direitos reservados.";
+  const instagram = config?.instagramUrl || "#";
+  const linkedin = config?.linkedinUrl || "#";
 
   return (
     <>
@@ -69,24 +77,27 @@ export default function Footer({ isEmbed = false }) {
             />
 
             <div className="flex items-center gap-3 mb-5">
-              <a href="#" aria-label="Instagram">
-                <i className="fab fa-instagram text-[#4B4B48] hover:text-[#156BB8]" />
+              <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i className="fab fa-instagram text-[#4B4B48] hover:text-[#E5258C]" />
               </a>
-              <a href="#" aria-label="Facebook">
-                <i className="fab fa-facebook text-[#4B4B48] hover:text-[#156BB8]" />
+              <a href={config?.linkedinUrl || "#"} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i className="fab fa-linkedin text-[#4B4B48] hover:text-[#00B8F1]" />
               </a>
-              <a href="#" aria-label="LinkedIn">
-                <i className="fab fa-linkedin text-[#4B4B48] hover:text-[#156BB8]" />
-              </a>
+              {config?.tiktokUrl && (
+                <a href={config.tiktokUrl} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <i className="fab fa-tiktok text-[#4B4B48] hover:text-[#000]" />
+                </a>
+              )}
+              {config?.youtubeUrl && (
+                <a href={config.youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <i className="fab fa-youtube text-[#4B4B48] hover:text-[#FF0000]" />
+                </a>
+              )}
             </div>
 
-            <p className="font-semibold tracking-wide">ENDEREÇOS</p>
-            <p className="mt-1 flex items-start gap-2">
-              <span>📍</span> Av. Brasil 12,025 – Penha, Rio de Janeiro
-            </p>
-            <p className="flex items-start gap-2">
-              <span>📍</span> Av. das Nações Unidas, 17007 – 8º andar – Torre Sigma<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;Várzea de Baixo – São Paulo – SP
+            <p className="font-semibold tracking-wide uppercase">Endereço</p>
+            <p className="mt-1 flex items-start gap-2 whitespace-pre-line">
+              <span>📍</span> {address}
             </p>
           </div>
 
@@ -94,21 +105,21 @@ export default function Footer({ isEmbed = false }) {
           <div className="md:text-right">
             <p className="font-semibold tracking-wide">PRECISA DE AJUDA?</p>
             <p className="mt-1">
-              Entre em contato com nosso SAC.<br />
+              Entre em contato conosco.<br />
               Estamos prontos para atender você.
             </p>
             <p className="mt-3">Segunda a sexta, das 09h às 18h</p>
 
             <p className="mt-2 flex items-center justify-start md:justify-end gap-2 font-semibold">
-              <span>📞</span> (21) 97105-0910
+              <span>📞</span> {config?.whatsappNumber || "(21) 97105-0910"}
             </p>
             <p className="mt-1 flex items-center justify-start md:justify-end gap-2">
               <span>✉️</span>
               <a
-                href="mailto:contato@m2flex.com.br"
+                href={`mailto:${email}`}
                 className="font-semibold underline decoration-[#4B4B48] underline-offset-4"
               >
-                contato@m2flex.com.br
+                {email}
               </a>
             </p>
           </div>
@@ -151,7 +162,7 @@ export default function Footer({ isEmbed = false }) {
             </nav>
 
             <p className="text-center leading-tight">
-              © Copyright 2025 – M2 Flex · Todos os direitos reservados.<br />
+              {copyright}<br />
               Desenvolvido por M2 Flex.
             </p>
           </div>

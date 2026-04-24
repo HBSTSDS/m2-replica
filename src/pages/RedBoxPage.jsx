@@ -340,9 +340,8 @@ export default function RedBoxPage() {
         <div className="flex flex-col items-center mb-8">
             <h1 className="text-4xl md:text-[5.5rem] uppercase tracking-tighter text-[#4B4B48] font-bricolage leading-[0.9]">
               <span className="font-bold">M2</span> <span className="font-normal">AGORA É</span>
-            </h1>
-            <h1 className="text-4xl md:text-[5.5rem] font-bold uppercase tracking-tighter text-[#4B4B48] font-bricolage leading-[0.9]">
-              REDBOX BRASIL.
+              <br />
+              <span className="font-bold">REDBOX BRASIL.</span>
             </h1>
         </div>
 

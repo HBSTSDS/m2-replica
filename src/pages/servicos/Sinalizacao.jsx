@@ -120,8 +120,8 @@ export default function Sinalizacao() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Sinalização - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Sinalização Corporativa, Industrial e de Segurança M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -290,7 +290,7 @@ export default function Sinalizacao() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto de sinalização"
+                alt="Exemplo de sinalização direcional e placas de identificação M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

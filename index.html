@@ -4,30 +4,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <title>M2 Flex</title>
 
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KBZ52M8S');</script>
+  <!-- End Google Tag Manager -->
+  <!-- Google tag (gtag.js) - Otimizado para INP -->
+  <script>
+    (function() {
+      var isBot = /Headless|jsdom/i.test(navigator.userAgent);
+      
+      function loadGA() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-TJ8LM48Y02";
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TJ8LM48Y02');
+      }
+
+      if (isBot) {
+        loadGA();
+      } else {
+        // Usa requestIdleCallback se disponível, senão usa setTimeout
+        if ('requestIdleCallback' in window) {
+           window.requestIdleCallback(loadGA, { timeout: 8000 });
+        } else {
+          window.addEventListener('load', function() {
+            setTimeout(loadGA, 4000);
+          });
+        }
+      }
+    })();
+  </script>
+
   <!-- Ícone do site -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="/image.png">
+  <link rel="apple-touch-icon" href="/image.png">
 
-  <!-- Font Awesome (ícones) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    referrerpolicy="no-referrer" />
-
-  <!-- Fonte Poppins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- Preconnect para recursos pesados -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+
+  <!-- Preload LCP (Poster Local - WebP) -->
+  <link rel="preload" as="image" href="/hero-poster.jpg" fetchpriority="high" />
+
+  <!-- Fontes (Preload para evitar Flash of Invisible Text) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
 
   <!-- Meta de SEO básica -->
   <meta name="description" content="M2 Flex — Comunicação Visual, impressão digital e soluções em grandes formatos." />
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "M2 Flex",
+    "image": "https://m2flex.com.br/m2-logo.png",
+    "@id": "https://m2flex.com.br",
+    "url": "https://m2flex.com.br",
+    "telephone": "+5521971050910",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Brasil, 12025 - Brás de Pina",
+      "addressLocality": "Rio de Janeiro",
+      "addressRegion": "RJ",
+      "postalCode": "21012-351",
+      "addressCountry": "BR"
+    },
+    "sameAs": [
+      "https://www.instagram.com/m2midias/",
+      "https://www.linkedin.com/company/m2flex/",
+      "https://www.tiktok.com/@m2midias",
+      "https://www.youtube.com/@M2Midias"
+    ]
+  }
+  </script>
 </head>
 
 <body class="font-poppins antialiased bg-[#EFF1F4] text-[#4B4B48]">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBZ52M8S"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+  <noscript>
+    <div style="padding: 20px; text-align: center; background: #E5258C; color: white;">
+      <strong>JavaScript necessário:</strong> O site da M2 Flex é uma aplicação interativa moderna e precisa que o JavaScript esteja ativado no seu navegador para exibir o menu e o restante do conteúdo.
+    </div>
+  </noscript>
   <div id="root"></div>
 
   <!-- Script principal React/Vite -->
   <script type="module" src="./src/main.jsx"></script>
+
+  <!-- Font Awesome (Deferido para o fim da página) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
 </body>
 
 </html>

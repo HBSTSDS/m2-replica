@@ -74,49 +74,160 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8" />
-    <title>Nova notícia - Blog M2</title>
+    <title>Nova notícia - Painel M2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        *{box-sizing:border-box;}
-        body{
-            font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-            background:#f5f5f5;
-            margin:0;
+        :root {
+            --primary: #ff005c;
+            --bg: #0a0a0b;
+            --card: #141417;
+            --text: #e0e0e6;
+            --text-muted: #a0a0ab;
+            --border: #27272a;
+            --input: #1f1f23;
         }
-        .wrap{
-            max-width:900px;
-            margin:24px auto 40px;
-            background:#fff;
-            padding:24px;
-            border-radius:12px;
-            box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.5;
         }
-        h1{margin-top:0;font-size:22px;}
-        label{display:block;margin-top:12px;font-size:14px;font-weight:600;}
-        input[type="text"], textarea{
-            width:100%;padding:8px 10px;border-radius:6px;border:1px solid #ccc;
-            font-size:14px;font-family:inherit;margin-top:4px;
+
+        header {
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        textarea{min-height:80px;resize:vertical;}
-        .botoes{margin-top:20px;display:flex;gap:10px;}
-        button, a.btn{
-            padding:10px 18px;border-radius:6px;border:none;
-            font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;
+
+        header strong {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
         }
-        button.salvar{background:#ff005c;color:#fff;}
-        a.btn-voltar{background:#eee;color:#333;}
-        .erro{
-            margin-bottom:12px;padding:10px 12px;border-radius:6px;
-            background:#ffeaea;color:#b71c1c;font-size:14px;
+
+        .wrap {
+            max-width: 900px;
+            margin: 40px auto 100px;
+            background: var(--card);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .4);
         }
-        small{display:block;font-size:12px;color:#777;margin-top:2px;}
-        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-        @media(max-width:768px){.grid-2{grid-template-columns:1fr;}}
+
+        h1 {
+            margin-top: 0;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        input[type=text],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--input);
+            color: var(--text);
+            margin-top: 8px;
+            font-size: 15px;
+            transition: all 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 0, 92, 0.1);
+        }
+
+        .botoes {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button.salvar, a.btn-voltar {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, opacity 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        button.salvar { background: var(--primary); color: #fff; }
+        a.btn-voltar { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+
+        button:hover, a.btn-voltar:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .erro {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            font-size: 14px;
+        }
+
+        small {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media(max-width:768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .wrap { padding: 24px; margin: 20px; }
+        }
     </style>
 </head>
 <body>
+
+<header>
+    <div><strong>Painel M2</strong> – Blog</div>
+    <a href="index.php?tab=blog" class="btn-voltar" style="padding: 8px 16px; font-size: 13px; margin: 0;">Voltar ao Início</a>
+</header>
+
 <div class="wrap">
-    <h1>Nova notícia</h1>
+    <h1>Adicionar nova notícia</h1>
 
     <?php if ($erro): ?>
         <div class="erro"><?= htmlspecialchars($erro) ?></div>

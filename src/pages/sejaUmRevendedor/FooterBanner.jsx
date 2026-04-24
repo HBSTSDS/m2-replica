@@ -14,7 +14,7 @@ export default function FooterBanner() {
     <footer className="footer-section">
       <img
         src={footerImg}
-        alt="Rodapé M2"
+        alt="Rodapé informativo M2 Flex - Seja um Revendedor e parceiro"
         className="footer-img"
         draggable="false"
       />

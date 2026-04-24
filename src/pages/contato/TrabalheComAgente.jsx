@@ -123,9 +123,8 @@ export default function TrabalheComAgente() {
       <div className="w-full h-[340px] overflow-hidden">
         <img
           src={headerImg}
-          alt="Trabalhe com a gente - Header"
+          alt="Equipe M2 Flex - Oportunidades de carreira e banco de talentos"
           className="w-full h-full object-cover object-right"
-          onError={(e) => (e.currentTarget.src = headerImg)}
         />
       </div>
 

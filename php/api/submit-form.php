@@ -311,7 +311,7 @@ try {
 // -------------------------
 $to = "contato@m2flex.com.br, marketing@m2flex.com.br";
 if ($formType === 'canal_denuncia') {
-    $to = "rh@m2flex.com.br, marketing@m2flex.com.br";
+    $to = "beth.mossa@redesg.com";
 }
 
 $subject = "Novo Lead Site M2: " . ($name ?: 'Sem nome') . " [" . getLabel($formType, $labels) . "]";

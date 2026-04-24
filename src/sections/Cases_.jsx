@@ -49,7 +49,7 @@ export default function Cases() {
 
   return (
     <>
-      <section className="bg-[#EEF0F6] py-16 md:py-20">
+      <section className="bg-[#EEF0F6] py-12 md:py-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-[#4B4B48] text-3xl md:text-[32px] font-semibold tracking-tight mb-6">
             CASES

@@ -1,5 +1,4 @@
-/* --- FONTES & TAILWIND --- */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+/* --- TAILWIND --- */
 @import "tailwindcss";
 
 /* fonte padrão */
@@ -35,11 +34,34 @@ html, body {
 }
 
 /* ================= NAVBAR ================= */
+.herovideo {
+  content-visibility: auto;
+  contain-intrinsic-size: 100vw 700px;
+}
+@media (max-width: 768px) {
+  .herovideo {
+     aspect-ratio: 16/9;
+  }
+}
+@media (min-width: 769px) {
+  .herovideo {
+     height: 700px;
+  }
+}
+
 .topbar {
   background:#EEF0F6;
   border-bottom: none;
   position: relative;
   z-index: 40;
+}
+
+/* No mobile, o topbar fica transparente — só a mobile-topbar é visível */
+@media (max-width: 768px) {
+  .topbar {
+    background: transparent !important;
+    padding: 0 !important;
+  }
 }
 
 .nav-pill {
@@ -50,6 +72,7 @@ html, body {
   padding-bottom: 0;
   overflow: visible;
   z-index: 30; /* acima do trilho e do header */
+  min-height: 44px; /* Evita CLS na Nav */
 }
 
 .nav-list {
@@ -195,18 +218,197 @@ html, body {
 
 /* =============== RESPONSIVO LEVE =============== */
 @media (max-width: 960px) {
-  .nav-list { gap: 18px; right: 0; }
-  /* No celular, o dropdown desce em vez de aparecer "absoluto" flutuando acima da nav */
-  .mobile-dropdown { 
-    position: relative !important; 
-    left: 0 !important; 
-    transform: none !important; 
-    top: 0 !important; 
-    background: transparent !important; 
-    backdrop-filter: none !important;
-    border: none !important; 
-    box-shadow: none !important; 
-    min-width: 100% !important; 
+  .nav-list { 
+    gap: 14px; 
+    right: 0; 
+    font-size: 14px;
+  }
+}
+
+/* =============== MOBILE TOPBAR =============== */
+.mobile-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Desktop: esconde a topbar mobile */
+@media (min-width: 769px) {
+  .mobile-topbar {
+    display: none !important;
+  }
+  .mobile-nav-drawer {
+    display: none !important;
+  }
+  .mobile-menu-overlay {
+    display: none !important;
+  }
+}
+
+/* Mobile: esconde a navbar desktop */
+@media (max-width: 768px) {
+  .desktop-nav-wrapper {
+    display: none !important;
+  }
+}
+
+/* Desktop wrapper */
+.desktop-nav-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.hamburger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #1f2937;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.hamburger-btn:hover {
+  background: #f3f4f6;
+  color: var(--m2-pink);
+}
+
+/* =============== MOBILE MENU OVERLAY =============== */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 55;
+}
+
+/* =============== MOBILE NAV DRAWER =============== */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  z-index: 60;
+  overflow-y: auto;
+  max-height: calc(100dvh - 64px);
+  transform: translateY(-105%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+.mobile-nav-drawer--open {
+  transform: translateY(0);
+}
+
+/* Lista principal do menu mobile */
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 12px 0 24px;
+}
+.mobile-nav-list > li {
+  border-bottom: 1px solid #f1f3f7;
+}
+.mobile-nav-list > li:last-child {
+  border-bottom: none;
+}
+
+/* Links principais */
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-family: var(--font-poppins);
+}
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible {
+  background: #fdf0f6;
+  color: var(--m2-pink);
+  outline: none;
+}
+.mobile-nav-link--highlight {
+  color: var(--m2-pink);
+  font-weight: 600;
+}
+.mobile-nav-link--highlight:hover {
+  background: #fdf0f6;
+}
+
+/* Seta do dropdown (rotação animada) */
+.mobile-nav-arrow {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+  color: #9ca3af;
+}
+.mobile-nav-arrow.rotated {
+  transform: rotate(180deg);
+  color: var(--m2-pink);
+}
+
+/* Sublista */
+.mobile-nav-sub {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px;
+  background: #fafafa;
+}
+.mobile-nav-sub-link {
+  display: block;
+  padding: 11px 24px 11px 40px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #4b5563;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-family: var(--font-poppins);
+}
+.mobile-nav-sub-link:hover {
+  background: #fdf0f6;
+  color: var(--m2-pink);
+}
+
+/* =============== SECTIONS – ESPAÇO PADRÃO MOBILE =============== */
+@media (max-width: 768px) {
+  /* Padding horizontal e vertical padrão para todas as sections */
+  section,
+  .section,
+  [data-section] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Regulamos via classes (ex: py-12) em cada componente no mobile */
+
+  /* Ajuste da topbar para compensar a nova navbar mobile */
+  .topbar {
+    padding: 0;
+    background: transparent;
+  }
+
+  /* Garante que o conteúdo não fique atrás da navbar fixa */
+  main {
+    padding-top: 64px;
   }
 }
 
@@ -378,6 +580,13 @@ html, body, #root { overflow-x: hidden; }
   position: relative;
   overflow: visible !important;
   isolation: isolate;
+  min-height: 100vh;
+}
+
+@media (min-width: 769px) {
+  #scroll-video {
+    min-height: 5740px; /* SCROLL_SPAN_PX estimado para evitar CLS */
+  }
 }
 
 #scroll-video > .sticky {

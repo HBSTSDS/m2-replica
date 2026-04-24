@@ -108,9 +108,8 @@ export default function AvalieM2() {
       <div className="w-full h-[340px] overflow-hidden">
         <img
           src={headerImg}
-          alt="Avalie a M2 - Header"
+          alt="Pesquisa de Satisfação e Feedback de Clientes M2 Flex"
           className="w-full h-full object-cover object-right"
-          onError={(e) => (e.currentTarget.src = headerImg)}
         />
       </div>
 

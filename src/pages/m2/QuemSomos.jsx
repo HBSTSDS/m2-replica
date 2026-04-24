@@ -12,8 +12,8 @@ export default function QuemSomos() {
       <div className="w-full">
         <img
           src={imgPrincipal}
-          alt="Fachada M2"
-          className="w-full h-44 md:h-60 object-cover"
+          alt="Fachada da sede da M2 Flex no Rio de Janeiro"
+          className="w-full h-44 md:h-60 object-cover" width="1920" height="400"
         />
       </div>
 

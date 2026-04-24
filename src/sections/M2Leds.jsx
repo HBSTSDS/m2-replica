@@ -5,7 +5,7 @@ const m2logo = remoteAsset("m2 leds.svg");
 
 export default function M2Leds() {
   return (
-    <section className="bg-[#F6F7FB] text-[#1C1C1C] py-16 md:py-24">
+    <section className="bg-[#F6F7FB] text-[#1C1C1C] py-12 md:py-24">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
         {/* Título */}
         <h2 className="text-[22px] md:text-3xl font-bold tracking-tight mb-4 text-center md:text-left">
@@ -64,6 +64,7 @@ export default function M2Leds() {
               className="w-[100px] md:w-[120px] h-auto select-none mt-8 mx-auto"
               draggable={false}
               loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -73,8 +74,9 @@ export default function M2Leds() {
               <iframe
                 src="https://www.instagram.com/p/DN4OUvZDIri/embed"
                 title="Instagram video"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 className="w-full h-full border-none rounded-2xl"
+                loading="lazy"
               ></iframe>
             </div>
           </div>

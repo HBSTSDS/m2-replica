@@ -119,8 +119,8 @@ export default function ComunicacaoVisual() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Comunicação Visual - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Serviços de Comunicação Visual M2 Flex - Impressão Digital"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -275,7 +275,7 @@ export default function ComunicacaoVisual() {
             <figure className="rounded-xl overflow-hidden shadow-sm bg-white">
               <img
                 src={img2}
-                alt="Projeto de comunicação visual"
+                alt="Exemplo de projeto de comunicação visual industrial da M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

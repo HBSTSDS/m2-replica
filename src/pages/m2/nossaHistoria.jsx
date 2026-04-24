@@ -10,9 +10,8 @@ export default function NossaHistoria() {
       <div className="w-full overflow-hidden">
         <img
           src={capaImg}
-          alt="Capa - Nossa História M2"
+          alt="Roberto Santos, CEO da M2 Flex, e a trajetória de sucesso da empresa na comunicação visual"
           className="w-full object-cover"
-          onError={(e) => (e.currentTarget.src = capaImg)}
         />
       </div>
 
@@ -27,9 +26,9 @@ export default function NossaHistoria() {
         </div>
 
         {/* TÍTULO IGUAL AO PRINT */}
-        <h2 className="text-3xl md:text-4xl font-semibold mb-6 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-semibold mb-6 tracking-tight">
           NOSSA HISTÓRIA
-        </h2>
+        </h1>
 
         {/* TEXTO DO PRINT */}
         <div className="space-y-5 text-[16px] md:text-[17px] leading-7 max-w-[75ch]">

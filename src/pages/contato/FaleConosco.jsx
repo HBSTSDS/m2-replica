@@ -114,9 +114,8 @@ export default function FaleConosco() {
       <div className="w-full h-[340px] overflow-hidden">
         <img
           src={headerImg}
-          alt="Fale Conosco - Header"
+          alt="Atendimento e Canais de Contato M2 Flex - Rio de Janeiro e São Paulo"
           className="w-full h-full object-cover object-right"
-          onError={(e) => { e.currentTarget.src = headerImg; }}
         />
       </div>
 
@@ -145,20 +144,20 @@ export default function FaleConosco() {
                 retornará o contato o quanto antes.
               </p>
               <br />
-              <h3>📞 Telefones</h3>
+              <h2>📞 Telefones</h2>
               <ul>
                 <li><a href="https://wa.me/5521971050910" target="_blank">(21) 97105-0910</a></li>
               </ul>
               <br />
-              <h3>📧 E-mail</h3>
+              <h2>📧 E-mail</h2>
               <ul>
                 <li><a href="mailto:contato@m2flex.com.br">contato@m2flex.com.br</a></li>
                 <li><a href="mailto:comercial@m2flex.com.br">comercial@m2flex.com.br</a></li>
               </ul>
               <br />
-              <h3>📍 Unidades</h3>
+              <h2>📍 Unidades</h2>
               <ul>
-                <li><a href="https://www.google.com/maps?q=Av.+Brasil,+12025,+Penha,+Rio+de+Janeiro" target="_blank">RJ – Av. Brasil, 12.025 – Penha</a></li>
+                <li><a href="https://www.google.com/maps?q=Av.+Brasil,+12025,+Br%C3%A1s+de+Pina,+Rio+de+Janeiro" target="_blank">RJ – Av. Brasil, 12025 – Brás de Pina</a></li>
                 <li><a href="https://www.google.com/maps?q=Rua+Augusto+Corrêa,+6,+Capela+do+Socorro,+São+Paulo" target="_blank">SP – Rua Augusto Corrêa, 6 – Capela do Socorro</a></li>
               </ul>
             </div>

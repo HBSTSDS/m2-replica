@@ -72,57 +72,68 @@ export default function NavBar({ isEmbed }) {
       className="topbar fixed top-0 left-0 w-full z-50"
       data-base={baseUrl}
     >
-      <div className="mx-auto max-w-6xl px-6">
+      {/* ===== TOPO: LOGO + HAMBURGUER (visível apenas no mobile) ===== */}
+      <div 
+        className="mobile-topbar" 
+        style={{
+          display: isEmbed ? 'none' : 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 20px',
+          height: '72px',
+          backgroundColor: '#ffffff',
+          borderBottom: '1px solid #e5e7eb',
+          width: '100%',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: 9991
+        }}
+      >
+        {!isEmbed && (
+          <Link to="/" className="block" onClick={handleSimpleLinkClick} style={{ display: 'flex', alignItems: 'center' }}>
+            <img src={logo} alt="M2 Flex Logo" style={{ height: '44px', width: 'auto', display: 'block' }} />
+          </Link>
+        )}
+        <button
+          className="mobile-menu-btn hamburger-btn"
+          onClick={toggleMobileMenu}
+          aria-label={isMobileOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={isMobileOpen}
+          style={{
+            background: 'none', border: 'none', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+          }}
+        >
+          {isMobileOpen ? (
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E5258C" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          ) : (
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* ===== DESKTOP: layout original ===== */}
+      <div className="desktop-nav-wrapper">
         <div className="flex items-center justify-between py-8">
-          {/* LOGO (Apenas se NÃO for embed) */}
           {!isEmbed && (
             <Link to="/" className="block logo-shift relative z-40" onClick={handleSimpleLinkClick}>
-              <img src={logo} alt="M2" className="h-12 w-auto" />
+            <img src={logo} alt="M2" className="h-12 w-auto" width="180" height="48" decoding="async" fetchpriority="high" />
             </Link>
           )}
 
-          {/* HAMBURGER BTN (Móbile) */}
-          <button
-            className={`mobile-menu-btn md:hidden relative z-60 p-2 text-gray-800 ml-auto`}
-            onClick={toggleMobileMenu}
-            aria-label="Abrir menu"
-          >
-            {isMobileOpen ? (
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            ) : (
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            )}
-          </button>
-
-          {/* BACKDROP (Mobile) */}
-          {isMobileOpen && (
-            <div 
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 md:hidden animate-fadeIn" 
-              onClick={() => setIsMobileOpen(false)}
-              aria-hidden="true"
-            />
-          )}
-
-          {/* NAV ENCAPSULADA / DRAWER NO MOBILE */}
+          {/* NAV ENCAPSULADA (Desktop) */}
           <nav 
-            className={`nav-pill ${isEmbed ? "w-full" : ""} 
-              md:block fixed top-0 right-0 h-full w-[280px] bg-white z-50 
-              transition-transform duration-300 ease-in-out transform 
-              ${isMobileOpen ? "translate-x-0" : "translate-x-full"}
-              md:relative md:inset-auto md:h-auto md:w-auto md:bg-[#EEF0F6] 
-              md:translate-x-0 m-0 !rounded-none md:!rounded-full 
-              flex flex-col md:flex-row pt-24 md:pt-0 pb-8 md:pb-0 
-              overflow-y-auto md:overflow-visible`} 
+            className={`nav-pill ${isEmbed ? "w-full" : ""}`}
             ref={navRef}
           >
-            <ul className={`nav-list flex items-center ${isEmbed ? "justify-between w-full gap-6" : "gap-6"} flex-col md:flex-row w-full md:w-auto`}>
+            <ul className={`nav-list flex items-center ${isEmbed ? "justify-between w-full gap-6" : "gap-6"}`}>
               {/* HOME: usa goToSection para não simplificar seu código */}
               <li>
                 <button
@@ -148,24 +159,22 @@ export default function NavBar({ isEmbed }) {
                   m2
                 </button>
 
-                {open === "m2" && (
-                  <div className="nav-dropdown mobile-dropdown">
-                    <div className="inner py-2">
-                      <NavLink to="/quem-somos" className="nav-item" onClick={handleSimpleLinkClick}>
-                        quem somos
-                      </NavLink>
-                      <NavLink to="/nossa-historia" className="nav-item" onClick={handleSimpleLinkClick}>
-                        nossa história
-                      </NavLink>
-                      <NavLink to="/infraestrutura" className="nav-item" onClick={handleSimpleLinkClick}>
-                        infraestrutura
-                      </NavLink>
-                      <NavLink to="/sustentabilidade" className="nav-item" onClick={handleSimpleLinkClick}>
-                        sustentabilidade
-                      </NavLink>
-                    </div>
+                <div className={`nav-dropdown mobile-dropdown transition-all duration-200 ${open === "m2" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+                  <div className="inner py-2">
+                    <NavLink to="/quem-somos" className="nav-item" onClick={handleSimpleLinkClick}>
+                      quem somos
+                    </NavLink>
+                    <NavLink to="/nossa-historia" className="nav-item" onClick={handleSimpleLinkClick}>
+                      nossa história
+                    </NavLink>
+                    <NavLink to="/infraestrutura" className="nav-item" onClick={handleSimpleLinkClick}>
+                      infraestrutura
+                    </NavLink>
+                    <NavLink to="/sustentabilidade" className="nav-item" onClick={handleSimpleLinkClick}>
+                      sustentabilidade
+                    </NavLink>
                   </div>
-                )}
+                </div>
               </li>
 
               {/* SERVIÇOS */}
@@ -179,30 +188,28 @@ export default function NavBar({ isEmbed }) {
                   serviços
                 </button>
 
-                {open === "servicos" && (
-                  <div className="nav-dropdown mobile-dropdown">
-                    <div className="inner py-2">
-                      <NavLink to="/servicos/comunicacao-visual" className="nav-item" onClick={handleSimpleLinkClick}>
-                        comunicação visual
-                      </NavLink>
-                      <NavLink to="/servicos/envelopamento" className="nav-item" onClick={handleSimpleLinkClick}>
-                        envelopamento
-                      </NavLink>
-                      <NavLink to="/servicos/midia-ooh" className="nav-item" onClick={handleSimpleLinkClick}>
-                        mídia OOH
-                      </NavLink>
-                      <NavLink to="/servicos/ponto-de-venda" className="nav-item" onClick={handleSimpleLinkClick}>
-                        ponto de venda
-                      </NavLink>
-                      <NavLink to="/servicos/projetos-especiais" className="nav-item" onClick={handleSimpleLinkClick}>
-                        projetos especiais
-                      </NavLink>
-                      <NavLink to="/servicos/sinalizacao" className="nav-item" onClick={handleSimpleLinkClick}>
-                        sinalização
-                      </NavLink>
-                    </div>
+                <div className={`nav-dropdown mobile-dropdown transition-all duration-200 ${open === "servicos" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+                  <div className="inner py-2">
+                    <NavLink to="/servicos/comunicacao-visual" className="nav-item" onClick={handleSimpleLinkClick}>
+                      comunicação visual
+                    </NavLink>
+                    <NavLink to="/servicos/envelopamento" className="nav-item" onClick={handleSimpleLinkClick}>
+                      envelopamento
+                    </NavLink>
+                    <NavLink to="/servicos/midia-ooh" className="nav-item" onClick={handleSimpleLinkClick}>
+                      mídia OOH
+                    </NavLink>
+                    <NavLink to="/servicos/ponto-de-venda" className="nav-item" onClick={handleSimpleLinkClick}>
+                      ponto de venda
+                    </NavLink>
+                    <NavLink to="/servicos/projetos-especiais" className="nav-item" onClick={handleSimpleLinkClick}>
+                      projetos especiais
+                    </NavLink>
+                    <NavLink to="/servicos/sinalizacao" className="nav-item" onClick={handleSimpleLinkClick}>
+                      sinalização
+                    </NavLink>
                   </div>
-                )}
+                </div>
               </li>
 
               {/* SOLUÇÕES */}
@@ -216,21 +223,19 @@ export default function NavBar({ isEmbed }) {
                   soluções
                 </button>
 
-                {open === "solucoes" && (
-                  <div className="nav-dropdown mobile-dropdown">
-                    <div className="inner py-2">
-                      <NavLink to="/solucoes/vitrinismos" className="nav-item" onClick={handleSimpleLinkClick}>
-                        vitrinismos
-                      </NavLink>
-                      <NavLink to="/solucoes/supermercados" className="nav-item" onClick={handleSimpleLinkClick}>
-                        supermercados
-                      </NavLink>
-                      <NavLink to="/solucoes/eventos" className="nav-item" onClick={handleSimpleLinkClick}>
-                        eventos
-                      </NavLink>
-                    </div>
+                <div className={`nav-dropdown mobile-dropdown transition-all duration-200 ${open === "solucoes" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+                  <div className="inner py-2">
+                    <NavLink to="/solucoes/vitrinismos" className="nav-item" onClick={handleSimpleLinkClick}>
+                      vitrinismos
+                    </NavLink>
+                    <NavLink to="/solucoes/supermercados" className="nav-item" onClick={handleSimpleLinkClick}>
+                      supermercados
+                    </NavLink>
+                    <NavLink to="/solucoes/eventos" className="nav-item" onClick={handleSimpleLinkClick}>
+                      eventos
+                    </NavLink>
                   </div>
-                )}
+                </div>
               </li>
 
               {/* BLOG */}
@@ -251,21 +256,19 @@ export default function NavBar({ isEmbed }) {
                   contato
                 </button>
 
-                {open === "contato" && (
-                  <div className="nav-dropdown mobile-dropdown">
-                    <div className="inner py-2">
-                      <NavLink to="/fale-conosco" className="nav-item" onClick={handleSimpleLinkClick}>
-                        fale conosco
-                      </NavLink>
-                      <NavLink to="/trabalhe-conosco" className="nav-item" onClick={handleSimpleLinkClick}>
-                        trabalhe com a gente
-                      </NavLink>
-                      <NavLink to="/avalie-a-m2" className="nav-item" onClick={handleSimpleLinkClick}>
-                        avalie a M2
-                      </NavLink>
-                    </div>
+                <div className={`nav-dropdown mobile-dropdown transition-all duration-200 ${open === "contato" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+                  <div className="inner py-2">
+                    <NavLink to="/fale-conosco" className="nav-item" onClick={handleSimpleLinkClick}>
+                      fale conosco
+                    </NavLink>
+                    <NavLink to="/trabalhe-conosco" className="nav-item" onClick={handleSimpleLinkClick}>
+                      trabalhe com a gente
+                    </NavLink>
+                    <NavLink to="/avalie-a-m2" className="nav-item" onClick={handleSimpleLinkClick}>
+                      avalie a M2
+                    </NavLink>
                   </div>
-                )}
+                </div>
               </li>
 
               {/* REVENDEDOR */}
@@ -286,11 +289,81 @@ export default function NavBar({ isEmbed }) {
               </li>
             </ul>
 
-            {/* Trilho decorativo (apenas no desktop) */}
-            <div className="nav-rail hidden md:block" aria-hidden />
+            {/* Trilho decorativo */}
+            <div className="nav-rail" aria-hidden />
           </nav>
         </div>
       </div>
+
+      {/* ===== MENU MOBILE OVERLAY ===== */}
+      {isMobileOpen && (
+        <div
+          className="mobile-menu-overlay animate-fadeIn"
+          onClick={() => setIsMobileOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <nav
+        className={`mobile-nav-drawer ${isMobileOpen ? "mobile-nav-drawer--open" : ""}`}
+        ref={isMobileOpen ? navRef : undefined}
+        aria-label="Menu mobile"
+      >
+        <ul className="mobile-nav-list">
+          <li>
+            <button className="mobile-nav-link" onClick={(e) => { e.preventDefault(); goToSection("#home"); }}>home</button>
+          </li>
+          <li>
+            <button className="mobile-nav-link mobile-nav-link--has-sub" onClick={toggle("m2-mob")}>
+              m2
+              <svg className={`mobile-nav-arrow ${open === "m2-mob" ? "rotated" : ""}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <ul className={`mobile-nav-sub ${open === "m2-mob" ? "block" : "hidden"}`}>
+              <li><NavLink to="/quem-somos" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>quem somos</NavLink></li>
+              <li><NavLink to="/nossa-historia" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>nossa história</NavLink></li>
+              <li><NavLink to="/infraestrutura" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>infraestrutura</NavLink></li>
+              <li><NavLink to="/sustentabilidade" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>sustentabilidade</NavLink></li>
+            </ul>
+          </li>
+          <li>
+            <button className="mobile-nav-link mobile-nav-link--has-sub" onClick={toggle("servicos-mob")}>
+              serviços
+              <svg className={`mobile-nav-arrow ${open === "servicos-mob" ? "rotated" : ""}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <ul className={`mobile-nav-sub ${open === "servicos-mob" ? "block" : "hidden"}`}>
+              <li><NavLink to="/servicos/comunicacao-visual" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>comunicação visual</NavLink></li>
+              <li><NavLink to="/servicos/envelopamento" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>envelopamento</NavLink></li>
+              <li><NavLink to="/servicos/midia-ooh" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>mídia OOH</NavLink></li>
+              <li><NavLink to="/servicos/ponto-de-venda" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>ponto de venda</NavLink></li>
+              <li><NavLink to="/servicos/projetos-especiais" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>projetos especiais</NavLink></li>
+              <li><NavLink to="/servicos/sinalizacao" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>sinalização</NavLink></li>
+            </ul>
+          </li>
+          <li>
+            <button className="mobile-nav-link mobile-nav-link--has-sub" onClick={toggle("solucoes-mob")}>
+              soluções
+              <svg className={`mobile-nav-arrow ${open === "solucoes-mob" ? "rotated" : ""}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <ul className={`mobile-nav-sub ${open === "solucoes-mob" ? "block" : "hidden"}`}>
+              <li><NavLink to="/solucoes/vitrinismos" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>vitrinismos</NavLink></li>
+              <li><NavLink to="/solucoes/supermercados" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>supermercados</NavLink></li>
+              <li><NavLink to="/solucoes/eventos" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>eventos</NavLink></li>
+            </ul>
+          </li>
+          <li><NavLink to="/blog" className="mobile-nav-link" onClick={handleSimpleLinkClick}>blog</NavLink></li>
+          <li>
+            <button className="mobile-nav-link mobile-nav-link--has-sub" onClick={toggle("contato-mob")}>
+              contato
+              <svg className={`mobile-nav-arrow ${open === "contato-mob" ? "rotated" : ""}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <ul className={`mobile-nav-sub ${open === "contato-mob" ? "block" : "hidden"}`}>
+              <li><NavLink to="/fale-conosco" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>fale conosco</NavLink></li>
+              <li><NavLink to="/trabalhe-conosco" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>trabalhe com a gente</NavLink></li>
+              <li><NavLink to="/avalie-a-m2" className="mobile-nav-sub-link" onClick={handleSimpleLinkClick}>avalie a M2</NavLink></li>
+            </ul>
+          </li>
+          <li><NavLink to="/seja-um-revendedor" className="mobile-nav-link mobile-nav-link--highlight" onClick={handleSimpleLinkClick}>seja um revendedor</NavLink></li>
+        </ul>
+      </nav>
     </header>
   );
 }

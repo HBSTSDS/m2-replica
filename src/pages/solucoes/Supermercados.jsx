@@ -105,8 +105,8 @@ export default function Supermercados() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Supermercados - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Comunicação Visual e Sinalização para Supermercados e Varejo Alimentício M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -358,7 +358,7 @@ export default function Supermercados() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Loja de supermercado atendida pela M2"
+                alt="Exemplo de ambientação e sinalização de setor em supermercado pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>
@@ -524,7 +524,7 @@ export default function Supermercados() {
               >
                 <img 
                   src={remoteAsset(`supermercados/${filename}`)} 
-                  alt={`Supermercado ${num}`}
+                  alt={`Exemplo de comunicação visual em supermercado M2 Flex - ${num}`}
                   className="w-full h-full object-cover"
                 />
               </div>

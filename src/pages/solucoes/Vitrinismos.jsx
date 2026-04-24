@@ -111,8 +111,8 @@ export default function Vitrinismos() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Vitrinismos - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Soluções de Vitrinismo e Cenografia para Varejo M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -282,7 +282,7 @@ export default function Vitrinismos() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto de vitrinismo"
+                alt="Exemplo de vitrine conceitual e montagem cenográfica pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>
@@ -454,7 +454,7 @@ export default function Vitrinismos() {
             >
               <img 
                 src={remoteAsset(`vitrinismos/${file}`)} 
-                alt={`Vitrinismo`}
+                alt={`Exemplo de vitrinismo e comunicação visual em loja M2 Flex`}
                 className="w-full h-full object-cover"
               />
             </div>

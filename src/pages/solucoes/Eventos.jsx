@@ -106,8 +106,8 @@ export default function Eventos() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Eventos - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Cenografia e Comunicação Visual para Eventos, Feiras e Festivais M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -271,7 +271,7 @@ export default function Eventos() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto de comunicação visual para eventos"
+                alt="Exemplo de montagem cenográfica e ativação de marca em evento pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>
@@ -434,7 +434,7 @@ export default function Eventos() {
             >
               <img 
                 src={remoteAsset(`eventos/${num}.png`)} 
-                alt={`Evento ${num}`}
+                alt={`Exemplo de comunicação visual em evento M2 Flex - ${num}`}
                 className="w-full h-full object-cover"
               />
             </div>

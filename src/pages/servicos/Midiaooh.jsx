@@ -119,8 +119,8 @@ export default function Midiaooh() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Mídia OOH - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Soluções em Mídia OOH (Out of Home) e Impressão Digital M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -285,7 +285,7 @@ export default function Midiaooh() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto OOH"
+                alt="Exemplo de painel publicitário OOH produzido pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

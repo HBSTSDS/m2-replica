@@ -90,7 +90,7 @@ export default function Displays() {
   );
 
   return (
-    <section className="w-full bg-[#E7E9F2] py-16">
+    <section className="w-full bg-[#E7E9F2] py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* INTRO */}
         <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -124,40 +124,43 @@ export default function Displays() {
             grid-cols-2
             md:grid-cols-2
             lg:grid-cols-[220px_520px_1fr]
-            gap-8
+            gap-4 md:gap-8
             items-start
+            mt-6 md:mt-0
           "
         >
           {/* COLUNA 1 – LISTA */}
           <div className="relative w-full md:w-[220px] col-span-1">
-            <ul className="list-rail w-full select-none">
+            <ul className="list-rail w-full select-none text-sm md:text-base">
               {items.map((it, i) => (
-                <li key={it.slug}>
+                <li key={it.slug} className={i === active ? "font-bold text-gray-900" : "font-normal text-gray-600"}>
                   <button
                     type="button"
                     onClick={() => setActive(i)}
-                    className="appearance-none bg-transparent p-0 m-0 cursor-pointer"
+                    className="appearance-none bg-transparent p-0 m-0 cursor-pointer text-left w-full py-2 hover:text-gray-900 transition-colors"
                   >
-                    <span className="text-base leading-none">{it.title}</span>
+                    <span className="leading-none">{it.title}</span>
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* COLUNA 2 – IMAGEM + TEXTO (MOBILE/TABLET) */}
-          <div className="col-span-1 space-y-4">
-            <div className="w-full bg-[#E7E9F2] overflow-hidden rounded-lg">
+          {/* COLUNA 2 – IMAGEM */}
+          <div className="col-span-1 flex items-center justify-center">
+            <div className="w-full max-w-[280px] bg-[#E7E9F2] overflow-hidden rounded-lg">
               <Img
                 key={activeItem.slug}
                 src={activeImg}
                 alt={`Display ${activeItem.title}`}
-                className="w-full h-auto object-contain max-h-[220px] md:max-h-none opacity-0 animate-[fadeIn_250ms_ease-out_forwards]"
+                className="w-full h-auto object-contain max-h-[160px] md:max-h-[220px] lg:max-h-none opacity-0 animate-[fadeIn_250ms_ease-out_forwards] mx-auto"
               />
             </div>
+          </div>
 
-            {/* texto logo EMBAIXO da imagem no mobile */}
-            <div className="block lg:hidden">{renderTextBlock("")}</div>
+          {/* COLUNA 3 – TEXTO MOBILE FULL WIDTH (Lg:hidden) */}
+          <div className="col-span-2 md:col-span-2 lg:hidden mt-2">
+            {renderTextBlock()}
           </div>
 
           {/* TEXTO EM COLUNA SEPARADA NO DESKTOP */}

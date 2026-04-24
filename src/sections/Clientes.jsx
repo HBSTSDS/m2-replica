@@ -13,8 +13,6 @@ export default function Clients() {
     remoteAsset("Clientes/jcdecaux.svg"),
     remoteAsset("Clientes/lolla.svg"),
     remoteAsset("Clientes/NETFLIX.svg"),
-    remoteAsset("Clientes/primo.svg"),
-    remoteAsset("Clientes/RiR.svg"),
     remoteAsset("Clientes/samsung.svg"),
     remoteAsset("Clientes/sesc.svg"),
     remoteAsset("Clientes/SHELL.svg"),
@@ -25,7 +23,7 @@ export default function Clients() {
   const loop = [...logos, ...logos];
 
   return (
-    <section className="w-full bg-[#EEF0F6] py-14">
+    <section className="w-full bg-[#EEF0F6] py-12 md:py-20">
       <style>{`
         @keyframes marquee {
           0%   { transform: translate3d(0, 0, 0); }

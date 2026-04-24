@@ -143,10 +143,9 @@ export default function ScrollVideo() {
       ? import.meta.env.BASE_URL.replace(/\/+$/, "")
       : "";
 
-  // ---------------- MOBILE ----------------
   if (isMobile) {
     return (
-      <section className="w-full bg-[#F6F7FB] py-10 px-4">
+      <section className="w-full bg-[#F6F7FB] py-12 md:py-16 px-4">
         <div className="max-w-md mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
           <div className="px-6 pt-5 pb-3">
             <h2 className="text-lg font-semibold text-[#1C1C1C]">
@@ -196,7 +195,7 @@ export default function ScrollVideo() {
           ref={videoRef}
           src={videoSrc}
           playsInline
-          preload="auto"
+          preload="metadata"
           muted
           style={{
             width: "100%",

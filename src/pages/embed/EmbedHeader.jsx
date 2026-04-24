@@ -9,6 +9,10 @@ export default function EmbedHeader() {
     document.documentElement.style.background = "transparent";
     document.body.style.background = "transparent";
 
+    // Block indexing on embed
+    const metaRobotsInfo = document.querySelector('meta[name="robots"]');
+    if (metaRobotsInfo) metaRobotsInfo.setAttribute("content", "noindex");
+
     const sendHeight = () => {
       if (!ref.current) return;
       

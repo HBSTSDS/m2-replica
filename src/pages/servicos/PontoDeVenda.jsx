@@ -21,7 +21,7 @@ const tagImages = [
   remoteAsset("pontoDeVenda/tag%201.png"),
   remoteAsset("pontoDeVenda/tag%202.png"),
   remoteAsset("pontoDeVenda/tag%203.jpg"), // Updated to .jpg as requested
-  remoteAsset("pontoDeVenda/tag%204.png"), // Note: Still missing/fixing on server
+  "https://flaviobrick.com.br/assets_externos/assets/pontoDeVenda/tag%204.jpg",
   remoteAsset("pontoDeVenda/tag%205.png"),
   remoteAsset("pontoDeVenda/tag%206.png"),
   remoteAsset("pontoDeVenda/tag%207.png"),
@@ -120,8 +120,8 @@ export default function PontoDeVenda() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Ponto de Venda - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Soluções de Merchandising e PDV (Ponto de Venda) M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -299,7 +299,7 @@ export default function PontoDeVenda() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto de PDV"
+                alt="Exemplo de mobiliário de PDV e expositores industriais M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

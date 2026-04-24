@@ -120,8 +120,8 @@ export default function ProjetosEspeciais() {
       <section className="w-full">
         <img
           src={headerImg}
-          alt="Projetos Especiais - header"
-          className="w-full h-40 md:h-56 object-cover"
+          alt="Projetos Corporativos Especiais e Ativações de Marca M2 Flex"
+          className="w-full h-40 md:h-56 object-cover" width="1920" height="400"
         />
       </section>
 
@@ -255,7 +255,7 @@ export default function ProjetosEspeciais() {
             <figure className="rounded-xl overflow-hidden bg-white shadow-sm">
               <img
                 src={img2}
-                alt="Projeto Especial"
+                alt="Exemplo de projeto especial cenográfico produzido pela M2 Flex"
                 className="w-full h-[520px] object-cover"
               />
             </figure>

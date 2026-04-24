@@ -9,10 +9,10 @@ export default function Cadastro() {
           
           {/* ESQUERDA – VANTAGENS */}
           <div className="col vantagens">
-            <h3 className="h2">
+            <h2 className="h2">
               VANTAGENS PARA <br />
               <span className="highlight">SUA REVENDA</span>
-            </h3>
+            </h2>
 
             <p>
               Ao se tornar revendedor M2, você passa a contar com produção
@@ -31,7 +31,7 @@ export default function Cadastro() {
 
           {/* DIREITA – COMO FUNCIONA */}
           <div className="col funcionamento">
-            <h3 className="h2">COMO FUNCIONA</h3>
+            <h2 className="h2">COMO FUNCIONA</h2>
 
             <p>
               <strong>O processo é simples:</strong> você realiza o cadastro, recebe acesso
@@ -48,7 +48,7 @@ export default function Cadastro() {
 
         {/* Segunda linha: para quem é */}
         <div className="cadastro-target">
-          <h3 className="h2">PARA QUEM É</h3>
+          <h2 className="h2">PARA QUEM É</h2>
 
           <p>
             A parceria de revenda da M2 é ideal para gráficas rápidas, lojas de
